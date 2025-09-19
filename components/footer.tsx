@@ -11,7 +11,7 @@ export function Footer() {
               <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
                 <ShoppingCart className="h-5 w-5 text-primary-foreground" />
               </div>
-              <span className="font-bold text-xl">MarketPlace</span>
+              <span className="font-bold text-xl">MOMM Market</span>
             </div>
             <p className="text-muted-foreground">
               Your trusted marketplace connecting customers with verified vendors worldwide.
@@ -61,7 +61,7 @@ export function Footer() {
           </div>
         </div>
         <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 MarketPlace. All rights reserved.</p>
+          <p>&copy; 2024 MOMM Market. All rights reserved.</p>
         </div>
       </div>
     </footer>

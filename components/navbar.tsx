@@ -35,98 +35,70 @@ export function Navbar() {
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 
-  console.log("[v0] Navbar rendering - Loading:", loading, "User:", user ? "authenticated" : "not authenticated")
-
   useEffect(() => {
     let mounted = true
     const supabase = createClient()
 
-    const getUser = async () => {
+    const checkAuth = async () => {
       try {
-        console.log("[v0] Getting user from Supabase...")
         const {
           data: { user: authUser },
-          error: authError,
         } = await supabase.auth.getUser()
-
-        console.log("[v0] Auth user result:", authUser ? "found" : "not found", authError)
 
         if (!mounted) return
 
         if (authUser) {
-          const { data: profile, error: profileError } = await supabase
+          // Try to get profile, but don't fail if it doesn't exist
+          const { data: profile } = await supabase
             .from("profiles")
             .select("first_name, last_name, role")
             .eq("id", authUser.id)
             .single()
 
-          console.log("[v0] Profile result:", profile, profileError)
-
           if (!mounted) return
 
-          if (profile && !profileError) {
-            const userProfile = {
-              id: authUser.id,
-              email: authUser.email!,
-              profiles: profile,
-            }
-            console.log("[v0] Setting user profile:", userProfile)
-            setUser(userProfile)
+          const userProfile = {
+            id: authUser.id,
+            email: authUser.email!,
+            profiles: profile || {
+              first_name: "User",
+              last_name: "",
+              role: "customer",
+            },
+          }
+          setUser(userProfile)
 
-            // Get cart count
-            try {
-              const { count, error: cartError } = await supabase
-                .from("cart_items")
-                .select("*", { count: "exact" })
-                .eq("user_id", authUser.id)
+          // Get cart count
+          const { count } = await supabase.from("cart_items").select("*", { count: "exact" }).eq("user_id", authUser.id)
 
-              if (mounted) {
-                setCartCount(count || 0)
-              }
-            } catch (cartError) {
-              if (mounted) {
-                setCartCount(0)
-              }
-            }
-          } else {
-            // If profile doesn't exist, still set basic user info
-            const basicUser = {
-              id: authUser.id,
-              email: authUser.email!,
-              profiles: {
-                first_name: "User",
-                last_name: "",
-                role: "customer",
-              },
-            }
-            console.log("[v0] Setting basic user:", basicUser)
-            setUser(basicUser)
+          if (mounted) {
+            setCartCount(count || 0)
           }
         } else {
-          console.log("[v0] No auth user, setting user to null")
           setUser(null)
         }
       } catch (error) {
-        console.log("[v0] Error getting user:", error)
+        console.error("Auth check error:", error)
         if (mounted) {
           setUser(null)
         }
       } finally {
         if (mounted) {
-          console.log("[v0] Setting loading to false")
           setLoading(false)
         }
       }
     }
 
-    getUser()
+    checkAuth()
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log("[v0] Auth state changed:", event)
-      if (event === "SIGNED_IN" || event === "SIGNED_OUT") {
-        getUser()
+      if (event === "SIGNED_IN" && session) {
+        checkAuth()
+      } else if (event === "SIGNED_OUT") {
+        setUser(null)
+        setCartCount(0)
       }
     })
 
@@ -139,8 +111,9 @@ export function Navbar() {
   const handleSignOut = async () => {
     try {
       const supabase = createClient()
-      const { error } = await supabase.auth.signOut()
+      await supabase.auth.signOut()
       setUser(null)
+      setCartCount(0)
       router.push("/")
       router.refresh()
     } catch (error) {
@@ -156,7 +129,6 @@ export function Navbar() {
   }
 
   if (loading) {
-    console.log("[v0] Navbar showing loading state")
     return (
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
@@ -165,7 +137,7 @@ export function Navbar() {
               <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
                 <ShoppingCart className="h-5 w-5 text-primary-foreground" />
               </div>
-              <span className="font-bold text-xl">MarketPlace</span>
+              <span className="font-bold text-xl">MOMM Market</span>
             </Link>
           </div>
           <div className="flex items-center space-x-4">
@@ -176,8 +148,6 @@ export function Navbar() {
       </header>
     )
   }
-
-  console.log("[v0] Navbar showing main content - User authenticated:", !!user)
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -257,14 +227,12 @@ export function Navbar() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
                 <div className="px-2 py-1.5">
-                  <p className="text-sm font-medium">
-                    Hi {user.profiles.first_name}
-                  </p>
+                  <p className="text-sm font-medium">Hi {user.profiles.first_name}</p>
                   <p className="text-xs text-muted-foreground">{user.email}</p>
                 </div>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link href="/profile" onClick={() => console.log("[v0] Profile link clicked")}>
+                  <Link href="/profile">
                     <User className="mr-2 h-4 w-4" />
                     Profile
                   </Link>
