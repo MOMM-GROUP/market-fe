@@ -47,6 +47,18 @@ interface Certification {
   category: string
 }
 
+interface FilterOptionCounts {
+  brands: Record<string, number>
+  colors: Record<string, number>
+  materials: Record<string, number>
+  styles: Record<string, number>
+  sizes: Record<string, number>
+  features: Record<string, number>
+  ingredients: Record<string, number>
+  subcategories: Record<string, number>
+  certifications: Record<string, number>
+}
+
 export function AmazonStyleFilters({
   selectedCategory,
   filters,
@@ -64,6 +76,17 @@ export function AmazonStyleFilters({
   })
   const [subcategories, setSubcategories] = useState<Category[]>([])
   const [certifications, setCertifications] = useState<Certification[]>([])
+  const [filterCounts, setFilterCounts] = useState<FilterOptionCounts>({
+    brands: {},
+    colors: {},
+    materials: {},
+    styles: {},
+    sizes: {},
+    features: {},
+    ingredients: {},
+    subcategories: {},
+    certifications: {},
+  })
   const [openSections, setOpenSections] = useState({
     price: true,
     subcategories: true,
@@ -86,6 +109,12 @@ export function AmazonStyleFilters({
     fetchSubcategories()
     fetchCertifications()
   }, [selectedCategory])
+
+  useEffect(() => {
+    if (!loading) {
+      fetchFilterCounts()
+    }
+  }, [filters, selectedCategory, loading])
 
   const fetchFilterOptions = async () => {
     setLoading(true)
@@ -154,50 +183,123 @@ export function AmazonStyleFilters({
     }
   }
 
-  const fetchSubcategories = async () => {
-    if (selectedCategory === "all") {
-      setSubcategories([])
-      return
-    }
-
+  const fetchFilterCounts = async () => {
     try {
-      // First get the parent category
-      const { data: parentCategory } = await supabase
-        .from("categories")
-        .select("id")
-        .eq("slug", selectedCategory)
-        .single()
-
-      if (parentCategory) {
-        // Then get subcategories
-        const { data: subcats } = await supabase
-          .from("categories")
-          .select("id, name, slug, parent_id")
-          .eq("parent_id", parentCategory.id)
-          .order("name")
-
-        setSubcategories(subcats || [])
+      const counts: FilterOptionCounts = {
+        brands: {},
+        colors: {},
+        materials: {},
+        styles: {},
+        sizes: {},
+        features: {},
+        ingredients: {},
+        subcategories: {},
+        certifications: {},
       }
-    } catch (error) {
-      console.error("Error fetching subcategories:", error)
-    }
-  }
 
-  const fetchCertifications = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("certifications")
-        .select("id, name, description, category")
-        .order("category")
-        .order("name")
+      // Build base query with current filters (excluding the field we're counting)
+      const buildBaseQuery = (excludeField?: string) => {
+        let query = supabase
+          .from("products")
+          .select(
+            "id, brand, color, material, style, size, features, ingredients, categories!inner(slug, name), entity_certifications!inner(certification_id)",
+          )
+          .eq("is_active", true)
 
-      if (error) {
-        console.error("Error fetching certifications:", error)
-      } else {
-        setCertifications(data || [])
+        if (selectedCategory !== "all") {
+          query = query.eq("categories.slug", selectedCategory)
+        }
+
+        // Apply existing filters except the one we're counting
+        if (excludeField !== "brand" && filters.selectedBrands.length > 0) {
+          query = query.in("brand", filters.selectedBrands)
+        }
+        if (excludeField !== "color" && filters.selectedColors.length > 0) {
+          query = query.in("color", filters.selectedColors)
+        }
+        if (excludeField !== "material" && filters.selectedMaterials.length > 0) {
+          query = query.in("material", filters.selectedMaterials)
+        }
+        if (excludeField !== "style" && filters.selectedStyles.length > 0) {
+          query = query.in("style", filters.selectedStyles)
+        }
+        if (excludeField !== "size" && filters.selectedSizes.length > 0) {
+          query = query.in("size", filters.selectedSizes)
+        }
+
+        if (filters.priceRange.min) {
+          query = query.gte("price", Number.parseFloat(filters.priceRange.min))
+        }
+        if (filters.priceRange.max) {
+          query = query.lte("price", Number.parseFloat(filters.priceRange.max))
+        }
+
+        if (filters.verifiedOnly) {
+          query = query.eq("vendors.is_verified", true)
+        }
+
+        return query
       }
+
+      // Count for each filter type
+      const { data: products } = await buildBaseQuery()
+
+      if (products) {
+        // Count brands
+        availableOptions.brands.forEach((brand) => {
+          counts.brands[brand] = products.filter((p) => p.brand === brand).length
+        })
+
+        // Count colors
+        availableOptions.colors.forEach((color) => {
+          counts.colors[color] = products.filter((p) => p.color === color).length
+        })
+
+        // Count materials
+        availableOptions.materials.forEach((material) => {
+          counts.materials[material] = products.filter((p) => p.material === material).length
+        })
+
+        // Count styles
+        availableOptions.styles.forEach((style) => {
+          counts.styles[style] = products.filter((p) => p.style === style).length
+        })
+
+        // Count sizes
+        availableOptions.sizes.forEach((size) => {
+          counts.sizes[size] = products.filter((p) => p.size === size).length
+        })
+
+        // Count features
+        availableOptions.features.forEach((feature) => {
+          counts.features[feature] = products.filter(
+            (p) => p.features && p.features.split(/[,;|\n]/).some((f: string) => f.trim() === feature),
+          ).length
+        })
+
+        // Count ingredients
+        availableOptions.ingredients.forEach((ingredient) => {
+          counts.ingredients[ingredient] = products.filter(
+            (p) => p.ingredients && p.ingredients.split(/[,;|\n]/).some((i: string) => i.trim() === ingredient),
+          ).length
+        })
+
+        // Count subcategories
+        subcategories.forEach((subcat) => {
+          counts.subcategories[subcat.name] = products.filter((p) => p.categories.name === subcat.name).length
+        })
+
+        // Count certifications
+        certifications.forEach((cert) => {
+          counts.certifications[cert.id] = products.filter((p) =>
+            p.entity_certifications.some((ec: any) => ec.certification_id === cert.id),
+          ).length
+        })
+      }
+
+      setFilterCounts(counts)
     } catch (error) {
-      console.error("Error fetching certifications:", error)
+      console.error("Error fetching filter counts:", error)
     }
   }
 
@@ -264,26 +366,67 @@ export function AmazonStyleFilters({
     options,
     selectedValues,
     field,
+    counts = {},
   }: {
     options: string[]
     selectedValues: string[]
     field: keyof FilterState
+    counts?: Record<string, number>
   }) => (
     <div className="space-y-2 max-h-48 overflow-y-auto">
       {options.map((option) => (
-        <div key={option} className="flex items-center space-x-2">
-          <Checkbox
-            id={`${field}-${option}`}
-            checked={selectedValues.includes(option)}
-            onCheckedChange={(checked) => handleMultiSelectChange(field, option, checked as boolean)}
-          />
-          <Label htmlFor={`${field}-${option}`} className="text-sm cursor-pointer flex-1">
-            {option}
-          </Label>
+        <div key={option} className="flex items-center justify-between space-x-2">
+          <div className="flex items-center space-x-2 flex-1">
+            <Checkbox
+              id={`${field}-${option}`}
+              checked={selectedValues.includes(option)}
+              onCheckedChange={(checked) => handleMultiSelectChange(field, option, checked as boolean)}
+            />
+            <Label htmlFor={`${field}-${option}`} className="text-sm cursor-pointer flex-1">
+              {option}
+            </Label>
+          </div>
+          {counts[option] !== undefined && <span className="text-xs text-muted-foreground">({counts[option]})</span>}
         </div>
       ))}
     </div>
   )
+
+  const fetchSubcategories = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("categories")
+        .select("*")
+        .eq("parent_id", selectedCategory)
+        .order("name", { ascending: true })
+
+      if (error) {
+        console.error("Error fetching subcategories:", error)
+      } else {
+        setSubcategories(data || [])
+      }
+    } catch (error) {
+      console.error("Error fetching subcategories:", error)
+    }
+  }
+
+  const fetchCertifications = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("certifications")
+        .select("*")
+        .eq("category", selectedCategory)
+        .order("name", { ascending: true })
+
+      if (error) {
+        console.error("Error fetching certifications:", error)
+      } else {
+        setCertifications(data || [])
+      }
+    } catch (error) {
+      console.error("Error fetching certifications:", error)
+    }
+  }
 
   return (
     <Card>
@@ -335,6 +478,7 @@ export function AmazonStyleFilters({
                 options={subcategories.map((sub) => sub.name)}
                 selectedValues={filters.selectedSubcategories}
                 field="selectedSubcategories"
+                counts={filterCounts.subcategories}
               />
             </FilterSection>
           )}
@@ -352,17 +496,24 @@ export function AmazonStyleFilters({
                     <h5 className="font-medium text-sm capitalize text-muted-foreground">{category}</h5>
                     <div className="space-y-2 pl-2">
                       {certs.map((cert) => (
-                        <div key={cert.id} className="flex items-center space-x-2">
-                          <Checkbox
-                            id={cert.id}
-                            checked={filters.selectedCertifications.includes(cert.id)}
-                            onCheckedChange={(checked) =>
-                              handleMultiSelectChange("selectedCertifications", cert.id, checked as boolean)
-                            }
-                          />
-                          <Label htmlFor={cert.id} className="text-sm cursor-pointer flex-1" title={cert.description}>
-                            {cert.name}
-                          </Label>
+                        <div key={cert.id} className="flex items-center justify-between space-x-2">
+                          <div className="flex items-center space-x-2 flex-1">
+                            <Checkbox
+                              id={cert.id}
+                              checked={filters.selectedCertifications.includes(cert.id)}
+                              onCheckedChange={(checked) =>
+                                handleMultiSelectChange("selectedCertifications", cert.id, checked as boolean)
+                              }
+                            />
+                            <Label htmlFor={cert.id} className="text-sm cursor-pointer flex-1" title={cert.description}>
+                              {cert.name}
+                            </Label>
+                          </div>
+                          {filterCounts.certifications[cert.id] !== undefined && (
+                            <span className="text-xs text-muted-foreground">
+                              ({filterCounts.certifications[cert.id]})
+                            </span>
+                          )}
                         </div>
                       ))}
                     </div>
@@ -379,6 +530,7 @@ export function AmazonStyleFilters({
                 options={availableOptions.brands}
                 selectedValues={filters.selectedBrands}
                 field="selectedBrands"
+                counts={filterCounts.brands}
               />
             </FilterSection>
           )}
@@ -390,6 +542,7 @@ export function AmazonStyleFilters({
                 options={availableOptions.colors}
                 selectedValues={filters.selectedColors}
                 field="selectedColors"
+                counts={filterCounts.colors}
               />
             </FilterSection>
           )}
@@ -401,6 +554,7 @@ export function AmazonStyleFilters({
                 options={availableOptions.sizes}
                 selectedValues={filters.selectedSizes}
                 field="selectedSizes"
+                counts={filterCounts.sizes}
               />
             </FilterSection>
           )}
@@ -412,6 +566,7 @@ export function AmazonStyleFilters({
                 options={availableOptions.materials}
                 selectedValues={filters.selectedMaterials}
                 field="selectedMaterials"
+                counts={filterCounts.materials}
               />
             </FilterSection>
           )}
@@ -423,6 +578,7 @@ export function AmazonStyleFilters({
                 options={availableOptions.styles}
                 selectedValues={filters.selectedStyles}
                 field="selectedStyles"
+                counts={filterCounts.styles}
               />
             </FilterSection>
           )}
@@ -434,6 +590,7 @@ export function AmazonStyleFilters({
                 options={availableOptions.features}
                 selectedValues={filters.selectedFeatures}
                 field="selectedFeatures"
+                counts={filterCounts.features}
               />
             </FilterSection>
           )}
@@ -445,6 +602,7 @@ export function AmazonStyleFilters({
                 options={availableOptions.ingredients}
                 selectedValues={filters.selectedIngredients}
                 field="selectedIngredients"
+                counts={filterCounts.ingredients}
               />
             </FilterSection>
           )}
