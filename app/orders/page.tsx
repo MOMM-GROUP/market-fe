@@ -9,7 +9,6 @@ import { Package, Eye, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { Navbar } from "@/components/navbar"
 
 interface Order {
   id: string
@@ -106,7 +105,6 @@ export default function OrdersPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
-        <Navbar />
         <div className="container py-8">
           <div className="text-center">Loading...</div>
         </div>
@@ -116,7 +114,6 @@ export default function OrdersPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
       <div className="container py-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
