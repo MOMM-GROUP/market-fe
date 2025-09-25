@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { Navbar } from "@/components/navbar"
 import { Suspense } from "react"
 import { Footer } from "@/components/footer"
+import { CategoryNav } from "@/components/category-nav"
 import "./globals.css"
 
 const inter = Inter({
@@ -34,6 +35,7 @@ export default function RootLayout({
         <div className="min-h-screen flex flex-col">
           <Suspense fallback={<div>Loading...</div>}>
             <Navbar />
+            <CategoryNav />
             <main className="flex-1">{children}</main>
             <Footer />
           </Suspense>
