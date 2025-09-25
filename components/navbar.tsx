@@ -160,12 +160,6 @@ export function Navbar() {
             <span className="font-bold text-xl">MOMM Market</span>
           </Link>
           <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
-            <Link href="/categories" className="text-foreground/60 hover:text-foreground transition-colors">
-              Categories
-            </Link>
-            <Link href="/products" className="text-foreground/60 hover:text-foreground transition-colors">
-              Products
-            </Link>
             <Link href="/vendors" className="text-foreground/60 hover:text-foreground transition-colors">
               Vendors
             </Link>
