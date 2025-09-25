@@ -69,89 +69,6 @@ export default function ProductsPage() {
   const fetchData = async () => {
     setLoading(true)
 
-    const exampleProducts: Product[] = [
-      {
-        id: "1",
-        name: "Premium Wireless Headphones",
-        description: "High-quality wireless headphones with noise cancellation and 30-hour battery life",
-        price: 199.99,
-        compare_at_price: 249.99,
-        featured_image_url: "/wireless-headphones.png",
-        vendor_id: "vendor1",
-        category_id: "electronics",
-        is_active: true,
-        inventory_quantity: 50,
-        vendors: {
-          business_name: "TechGear Pro",
-          is_verified: true,
-        },
-        categories: {
-          name: "Electronics",
-          slug: "electronics",
-        },
-      },
-      {
-        id: "2",
-        name: "Organic Cotton T-Shirt",
-        description: "Comfortable and sustainable organic cotton t-shirt in various colors",
-        price: 29.99,
-        compare_at_price: null,
-        featured_image_url: "/organic-cotton-tshirt.png",
-        vendor_id: "vendor2",
-        category_id: "clothing",
-        is_active: true,
-        inventory_quantity: 100,
-        vendors: {
-          business_name: "EcoWear",
-          is_verified: true,
-        },
-        categories: {
-          name: "Clothing",
-          slug: "clothing",
-        },
-      },
-      {
-        id: "3",
-        name: "Smart Fitness Watch",
-        description: "Advanced fitness tracking with heart rate monitor and GPS",
-        price: 299.99,
-        compare_at_price: 399.99,
-        featured_image_url: "/smart-fitness-watch.png",
-        vendor_id: "vendor3",
-        category_id: "electronics",
-        is_active: true,
-        inventory_quantity: 25,
-        vendors: {
-          business_name: "FitTech Solutions",
-          is_verified: false,
-        },
-        categories: {
-          name: "Electronics",
-          slug: "electronics",
-        },
-      },
-      {
-        id: "4",
-        name: "Artisan Coffee Beans",
-        description: "Single-origin coffee beans roasted to perfection",
-        price: 24.99,
-        compare_at_price: null,
-        featured_image_url: "/artisan-coffee-beans.jpg",
-        vendor_id: "vendor4",
-        category_id: "food",
-        is_active: true,
-        inventory_quantity: 75,
-        vendors: {
-          business_name: "Mountain Roasters",
-          is_verified: true,
-        },
-        categories: {
-          name: "Food & Beverage",
-          slug: "food",
-        },
-      },
-    ]
-
     let query = supabase
       .from("products")
       .select(`
@@ -198,53 +115,28 @@ export default function ProductsPage() {
         query = query.order("created_at", { ascending: false })
     }
 
-    const { data: productsData } = await query
+    const { data: productsData, error } = await query
 
-    let filteredProducts = productsData && productsData.length > 0 ? productsData : exampleProducts
-
-    if (productsData?.length === 0 || !productsData) {
-      if (searchQuery) {
-        filteredProducts = exampleProducts.filter(
-          (product) =>
-            product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            product.description.toLowerCase().includes(searchQuery.toLowerCase()),
-        )
-      }
-
-      if (selectedCategory !== "all") {
-        filteredProducts = filteredProducts.filter((product) => product.categories.slug === selectedCategory)
-      }
-
-      if (verifiedOnly) {
-        filteredProducts = filteredProducts.filter((product) => product.vendors.is_verified)
-      }
-
-      if (priceRange.min) {
-        filteredProducts = filteredProducts.filter((product) => product.price >= Number.parseFloat(priceRange.min))
-      }
-
-      if (priceRange.max) {
-        filteredProducts = filteredProducts.filter((product) => product.price <= Number.parseFloat(priceRange.max))
-      }
+    if (error) {
+      console.error("Error fetching products:", error)
+      setProducts([])
+    } else {
+      setProducts(productsData || [])
     }
 
-    setProducts(filteredProducts || [])
     setLoading(false)
   }
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const exampleCategories: Category[] = [
-        { id: "1", name: "Electronics", slug: "electronics" },
-        { id: "2", name: "Clothing", slug: "clothing" },
-        { id: "3", name: "Food & Beverage", slug: "food" },
-        { id: "4", name: "Home & Garden", slug: "home" },
-        { id: "5", name: "Sports", slug: "sports" },
-        { id: "6", name: "Books", slug: "books" },
-      ]
+      const { data, error } = await supabase.from("categories").select("*").order("name")
 
-      const { data } = await supabase.from("categories").select("*").order("name")
-      setCategories(data && data.length > 0 ? data : exampleCategories)
+      if (error) {
+        console.error("Error fetching categories:", error)
+        setCategories([])
+      } else {
+        setCategories(data || [])
+      }
     }
     fetchCategories()
   }, [])
