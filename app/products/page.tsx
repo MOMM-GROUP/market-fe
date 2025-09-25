@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -9,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Search, Grid, List, Heart, Star, X } from "lucide-react"
 import Image from "next/image"
 import { useState, useEffect } from "react"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
 
 interface Product {
   id: string
@@ -51,6 +53,7 @@ export default function ProductsPage() {
 
   const supabase = createClient()
   const searchParams = useSearchParams()
+  const router = useRouter()
 
   useEffect(() => {
     const categoryParam = searchParams.get("category")
@@ -409,14 +412,122 @@ export default function ProductsPage() {
 }
 
 function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMode?: "grid" | "list" }) {
+  const [isAddingToCart, setIsAddingToCart] = useState(false)
+  const [isFavorited, setIsFavorited] = useState(false)
+  const [isTogglingFavorite, setIsTogglingFavorite] = useState(false)
+  const [user, setUser] = useState<any>(null)
+  const router = useRouter()
+  const supabase = createClient()
+
   const hasDiscount = product.compare_at_price && product.compare_at_price > product.price
   const discountPercent = hasDiscount
     ? Math.round(((product.compare_at_price - product.price) / product.compare_at_price) * 100)
     : 0
 
+  useEffect(() => {
+    const checkUser = async () => {
+      const {
+        data: { user: authUser },
+      } = await supabase.auth.getUser()
+      setUser(authUser)
+
+      if (authUser) {
+        // Check if product is favorited
+        const { data } = await supabase
+          .from("favorites")
+          .select("id")
+          .eq("user_id", authUser.id)
+          .eq("product_id", product.id)
+          .single()
+
+        setIsFavorited(!!data)
+      }
+    }
+    checkUser()
+  }, [supabase, product.id])
+
+  const handleProductClick = () => {
+    router.push(`/products/${product.id}`)
+  }
+
+  const handleAddToCart = async (e: React.MouseEvent) => {
+    e.stopPropagation() // Prevent navigation when clicking add to cart
+
+    if (!user) {
+      router.push("/auth/login")
+      return
+    }
+
+    setIsAddingToCart(true)
+
+    try {
+      // Check if item already exists in cart
+      const { data: existingItem } = await supabase
+        .from("cart_items")
+        .select("id, quantity")
+        .eq("user_id", user.id)
+        .eq("product_id", product.id)
+        .single()
+
+      if (existingItem) {
+        // Update quantity if item exists
+        await supabase
+          .from("cart_items")
+          .update({ quantity: existingItem.quantity + 1 })
+          .eq("id", existingItem.id)
+      } else {
+        // Add new item to cart
+        await supabase.from("cart_items").insert({
+          user_id: user.id,
+          product_id: product.id,
+          quantity: 1,
+        })
+      }
+
+      // Refresh the page to update cart count in navbar
+      window.location.reload()
+    } catch (error) {
+      console.error("Error adding to cart:", error)
+    } finally {
+      setIsAddingToCart(false)
+    }
+  }
+
+  const handleToggleFavorite = async (e: React.MouseEvent) => {
+    e.stopPropagation() // Prevent navigation when clicking favorite
+
+    if (!user) {
+      router.push("/auth/login")
+      return
+    }
+
+    setIsTogglingFavorite(true)
+
+    try {
+      if (isFavorited) {
+        // Remove from favorites
+        await supabase.from("favorites").delete().eq("user_id", user.id).eq("product_id", product.id)
+
+        setIsFavorited(false)
+      } else {
+        // Add to favorites
+        await supabase.from("favorites").insert({
+          user_id: user.id,
+          product_id: product.id,
+        })
+
+        setIsFavorited(true)
+      }
+    } catch (error) {
+      console.error("Error toggling favorite:", error)
+    } finally {
+      setIsTogglingFavorite(false)
+    }
+  }
+
   if (viewMode === "list") {
     return (
-      <Card className="group hover:shadow-lg transition-shadow">
+      <Card className="group hover:shadow-lg transition-shadow cursor-pointer" onClick={handleProductClick}>
         <CardContent className="p-0">
           <div className="flex gap-4 p-4">
             <div className="relative w-24 h-24 flex-shrink-0 overflow-hidden rounded-lg">
@@ -427,7 +538,7 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
                 className="object-cover"
               />
               {hasDiscount && (
-                <Badge className="absolute top-1 left-1 bg-destructive text-destructive-foreground text-xs">
+                <Badge className="absolute top-1 left-1 bg-accent text-accent-foreground text-xs">
                   -{discountPercent}%
                 </Badge>
               )}
@@ -450,7 +561,9 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
                     <span className="text-sm text-muted-foreground line-through">${product.compare_at_price}</span>
                   )}
                 </div>
-                <Button size="sm">Add to Cart</Button>
+                <Button size="sm" onClick={handleAddToCart} disabled={isAddingToCart}>
+                  {isAddingToCart ? "Adding..." : "Add to Cart"}
+                </Button>
               </div>
             </div>
           </div>
@@ -460,7 +573,10 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
   }
 
   return (
-    <Card className="group hover:shadow-lg transition-all duration-200 hover:scale-105 w-full max-w-sm">
+    <Card
+      className="group hover:shadow-lg transition-all duration-200 hover:scale-105 w-full max-w-sm cursor-pointer"
+      onClick={handleProductClick}
+    >
       <CardContent className="p-0">
         <div className="relative aspect-square overflow-hidden rounded-t-lg">
           <Image
@@ -470,16 +586,18 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
             className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
           {hasDiscount && (
-            <Badge className="absolute top-2 left-2 bg-destructive text-destructive-foreground">
-              -{discountPercent}%
-            </Badge>
+            <Badge className="absolute top-2 left-2 bg-accent text-accent-foreground">-{discountPercent}%</Badge>
           )}
           <Button
             size="icon"
             variant="secondary"
-            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+            className={`absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity ${
+              isFavorited ? "opacity-100" : ""
+            }`}
+            onClick={handleToggleFavorite}
+            disabled={isTogglingFavorite}
           >
-            <Heart className="h-4 w-4" />
+            <Heart className={`h-4 w-4 ${isFavorited ? "fill-red-500 text-red-500" : ""}`} />
           </Button>
         </div>
         <div className="p-4 space-y-2">
@@ -506,8 +624,8 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
             </div>
             <span className="text-xs text-muted-foreground">(4.8)</span>
           </div>
-          <Button className="w-full" size="sm">
-            Add to Cart
+          <Button className="w-full" size="sm" onClick={handleAddToCart} disabled={isAddingToCart}>
+            {isAddingToCart ? "Adding..." : "Add to Cart"}
           </Button>
         </div>
       </CardContent>

@@ -3,10 +3,12 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { Star, Heart, Shield, CheckCircle, Truck, RotateCcw, Award } from "lucide-react"
+import { Star, Shield, CheckCircle, Truck, RotateCcw, Award } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { AddToCartButton } from "@/components/add-to-cart-button"
+import { FavoriteButton } from "@/components/favorite-button"
 
 interface Product {
   id: string
@@ -70,9 +72,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                 className="object-cover"
               />
               {hasDiscount && (
-                <Badge className="absolute top-4 left-4 bg-destructive text-destructive-foreground">
-                  -{discountPercent}%
-                </Badge>
+                <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground">-{discountPercent}%</Badge>
               )}
             </div>
           </div>
@@ -142,12 +142,8 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
               </div>
 
               <div className="flex gap-3 mb-6">
-                <Button size="lg" className="flex-1">
-                  Add to Cart
-                </Button>
-                <Button size="lg" variant="outline">
-                  <Heart className="h-4 w-4" />
-                </Button>
+                <AddToCartButton productId={product.id} className="flex-1" size="lg" />
+                <FavoriteButton productId={product.id} size="lg" />
               </div>
 
               <div className="space-y-3 text-sm">
