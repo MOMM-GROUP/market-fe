@@ -9,19 +9,20 @@ import { Heart, ShoppingCart, Star } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
+
 interface Product {
   id: string
   name: string
   description: string
   price: number
-  image_url: string
-  category: string
-  vendor_id: string
-  rating: number
-  vendor: {
+  featured_image_url: string | null
+  vendors: {
     business_name: string
-    verified: boolean
-  }
+    is_verified: boolean
+  } | null
+  categories: {
+    name: string
+  } | null
 }
 
 export default function FavoritesPage() {
@@ -31,55 +32,88 @@ export default function FavoritesPage() {
   const supabase = createClient()
 
   useEffect(() => {
-    const getUser = async () => {
+    let isMounted = true;
+
+    const getUserAndFavorites = async () => {
       const {
         data: { user: authUser },
       } = await supabase.auth.getUser()
+      
+      if (!isMounted) return;
       setUser(authUser)
 
       if (authUser) {
-        const { data: favoriteProducts } = await supabase
-          .from("favorites")
-          .select(`
-            product_id,
-            products (
-              id,
-              name,
-              description,
-              price,
-              image_url,
-              category,
-              vendor_id,
-              rating,
-              vendors (
-                business_name,
-                verified
-              )
-            )
-          `)
-          .eq("user_id", authUser.id)
+        // REVISED FETCH LOGIC: This robust two-step query ensures data is fetched correctly.
 
-        if (favoriteProducts) {
-          setFavorites(
-            favoriteProducts.map((fav) => ({
-              ...fav.products,
-              vendor: fav.products.vendors,
-            })),
-          )
+        // 1. Get the list of favorite product IDs for the current user.
+        const { data: favoriteIdsData, error: idsError } = await supabase
+          .from("favorites")
+          .select("product_id")
+          .eq("user_id", authUser.id);
+
+        if (idsError) {
+            console.error("Error fetching favorite IDs:", idsError);
+            if (isMounted) setLoading(false);
+            return;
+        }
+
+        const productIds = favoriteIdsData.map(fav => fav.product_id);
+
+        if (productIds.length > 0) {
+            // 2. Fetch all product details for the retrieved IDs using the correct schema.
+            const { data: productsData, error: productsError } = await supabase
+              .from("products")
+              .select(`
+                id,
+                name,
+                description,
+                price,
+                featured_image_url,
+                vendors (
+                  business_name,
+                  is_verified
+                ),
+                categories (
+                  name
+                )
+              `)
+              .in("id", productIds);
+
+            if (productsError) {
+                console.error("Error fetching favorited products:", productsError);
+            } else if (isMounted) {
+                setFavorites(productsData || []);
+            }
+        } else {
+            // If there are no favorite IDs, the list is empty.
+            if (isMounted) {
+                setFavorites([]);
+            }
         }
       }
-      setLoading(false)
+      if (isMounted) {
+        setLoading(false)
+      }
     }
 
-    getUser()
+    getUserAndFavorites()
+
+    // Cleanup function to prevent state updates on unmounted component
+    return () => {
+        isMounted = false;
+    };
   }, [supabase])
 
   const removeFavorite = async (productId: string) => {
     if (!user) return
 
-    await supabase.from("favorites").delete().eq("user_id", user.id).eq("product_id", productId)
+    const { error } = await supabase.from("favorites").delete().eq("user_id", user.id).eq("product_id", productId)
 
-    setFavorites(favorites.filter((product) => product.id !== productId))
+    if (error) {
+        console.error("Error removing favorite:", error);
+    } else {
+        setFavorites(favorites.filter((product) => product.id !== productId))
+    }
   }
 
   if (loading) {
@@ -94,9 +128,9 @@ export default function FavoritesPage() {
     return (
       <div className="container mx-auto px-4 py-8 text-center">
         <h1 className="text-2xl font-bold mb-4">Please sign in to view your favorites</h1>
-        <Link href="/auth/login">
+        <a href="/auth/login">
           <Button>Sign In</Button>
-        </Link>
+        </a>
       </div>
     )
   }
@@ -113,9 +147,9 @@ export default function FavoritesPage() {
           <Heart className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
           <h2 className="text-xl font-semibold mb-2">No favorites yet</h2>
           <p className="text-muted-foreground mb-4">Start browsing products and add them to your favorites!</p>
-          <Link href="/products">
+          <a href="/products">
             <Button>Browse Products</Button>
-          </Link>
+          </a>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -123,49 +157,44 @@ export default function FavoritesPage() {
             <Card key={product.id} className="group hover:shadow-lg transition-shadow">
               <CardHeader className="p-0">
                 <div className="relative aspect-square overflow-hidden rounded-t-lg">
-                  <Image
-                    src={product.image_url || "/placeholder.svg?height=300&width=300"}
+                  {/* CORRECTED: Using `featured_image_url` */}
+                  <img
+                    src={product.featured_image_url || "/placeholder.svg?height=300&width=300"}
                     alt={product.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
                   />
                   <Button
                     variant="ghost"
                     size="icon"
                     className="absolute top-2 right-2 bg-white/80 hover:bg-white"
-                    onClick={() => removeFavorite(product.id)}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        removeFavorite(product.id);
+                    }}
                   >
                     <Heart className="h-4 w-4 fill-red-500 text-red-500" />
                   </Button>
                 </div>
               </CardHeader>
               <CardContent className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Badge variant="secondary" className="text-xs">
-                    {product.category}
-                  </Badge>
-                  {product.vendor?.verified && (
-                    <Badge variant="default" className="text-xs bg-green-100 text-green-800">
+                {/* CORRECTED: Safely accessing nested data */}
+                {product.categories?.name && (
+                    <Badge variant="secondary" className="text-xs mb-2">
+                        {product.categories.name}
+                    </Badge>
+                )}
+                {product.vendors?.is_verified && (
+                    <Badge variant="default" className="text-xs bg-green-100 text-green-800 ml-2">
                       Verified
                     </Badge>
-                  )}
-                </div>
-                <CardTitle className="text-lg mb-2 line-clamp-2">{product.name}</CardTitle>
+                )}
+                <a href={`/products/${product.id}`}>
+                  <CardTitle className="text-lg mb-2 line-clamp-2 cursor-pointer hover:underline">{product.name}</CardTitle>
+                </a>
                 <p className="text-sm text-muted-foreground mb-2 line-clamp-2">{product.description}</p>
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="flex items-center">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`h-4 w-4 ${
-                          i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  <span className="text-sm text-muted-foreground">({product.rating})</span>
-                </div>
-                <p className="text-sm text-muted-foreground">by {product.vendor?.business_name}</p>
+                {/* CORRECTED: Using safe access for vendor name */}
+                <p className="text-sm text-muted-foreground">by {product.vendors?.business_name}</p>
               </CardContent>
               <CardFooter className="p-4 pt-0 flex items-center justify-between">
                 <span className="text-2xl font-bold text-primary">${product.price}</span>
@@ -181,3 +210,4 @@ export default function FavoritesPage() {
     </div>
   )
 }
+

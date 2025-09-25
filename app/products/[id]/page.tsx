@@ -47,7 +47,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
       `)
       .eq("id", params.id)
       .eq("is_active", true)
-      .single()
+      // .single()
 
     console.log("[v0] ProductDetailPage: Product query result:", { product: product?.name, error })
 
