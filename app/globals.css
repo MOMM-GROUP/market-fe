@@ -13,7 +13,8 @@
   --popover-foreground: #1f2937;
   --primary: #0d9488;
   --primary-foreground: #ffffff;
-  --secondary: #f97316;
+  /* Updated secondary to be the warm coral accent color */
+  --secondary: #ff6b6b;
   --secondary-foreground: #ffffff;
   --muted: #f8fafc;
   --muted-foreground: #64748b;
@@ -25,7 +26,8 @@
   --input: #f8fafc;
   --ring: #0d9488;
   --chart-1: #0d9488;
-  --chart-2: #f97316;
+  /* Updated chart-2 to match new secondary coral */
+  --chart-2: #ff6b6b;
   --chart-3: #06b6d4;
   --chart-4: #8b5cf6;
   --chart-5: #ef4444;
@@ -34,7 +36,8 @@
   --sidebar-foreground: #1f2937;
   --sidebar-primary: #f8fafc;
   --sidebar-primary-foreground: #1f2937;
-  --sidebar-accent: #f97316;
+  /* Updated sidebar accent to match new secondary coral */
+  --sidebar-accent: #ff6b6b;
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: #e2e8f0;
   --sidebar-ring: #0d9488;
@@ -51,7 +54,8 @@
   --popover-foreground: #f1f5f9;
   --primary: #14b8a6;
   --primary-foreground: #ffffff;
-  --secondary: #f97316;
+  /* Updated dark mode secondary to slightly darker coral */
+  --secondary: #ff5252;
   --secondary-foreground: #ffffff;
   --muted: #334155;
   --muted-foreground: #94a3b8;
@@ -63,15 +67,18 @@
   --input: #334155;
   --ring: #14b8a6;
   --chart-1: #14b8a6;
-  --chart-2: #f97316;
+  /* Updated dark mode chart-2 to match new secondary coral */
+  --chart-2: #ff5252;
   --chart-3: #06b6d4;
   --chart-4: #8b5cf6;
   --chart-5: #ef4444;
+  --radius: 0.75rem;
   --sidebar: #1e293b;
   --sidebar-foreground: #f1f5f9;
   --sidebar-primary: #334155;
   --sidebar-primary-foreground: #f1f5f9;
-  --sidebar-accent: #f97316;
+  /* Updated dark mode sidebar accent to match new secondary coral */
+  --sidebar-accent: #ff5252;
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: #334155;
   --sidebar-ring: #14b8a6;

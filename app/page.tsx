@@ -71,7 +71,11 @@ export default async function HomePage() {
             <Button size="lg" className="text-lg px-8 bg-primary hover:bg-primary/90">
               Start Exploring
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 bg-transparent">
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-lg px-8 border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground bg-transparent"
+            >
               How It Works
             </Button>
           </div>
@@ -293,9 +297,7 @@ function ProductCard({ product }: { product: Product }) {
             className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
           {hasDiscount && (
-            <Badge className="absolute top-2 left-2 bg-destructive text-destructive-foreground">
-              -{discountPercent}%
-            </Badge>
+            <Badge className="absolute top-2 left-2 bg-secondary text-secondary-foreground">-{discountPercent}%</Badge>
           )}
           <Button
             size="icon"
