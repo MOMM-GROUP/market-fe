@@ -42,7 +42,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
       .from("products")
       .select(`
         *,
-        vendors (business_name, is_verified, description),
+        vendors (business_name, is_verified, business_description),
         categories (name, slug)
       `)
       .eq("id", params.id)
