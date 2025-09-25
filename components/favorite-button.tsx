@@ -24,21 +24,32 @@ export function FavoriteButton({ productId, className = "", size = "icon", varia
 
   useEffect(() => {
     const checkUser = async () => {
-      const {
-        data: { user: authUser },
-      } = await supabase.auth.getUser()
-      setUser(authUser)
+      console.log("[v0] FavoriteButton: Checking user authentication for product:", productId)
 
-      if (authUser) {
-        // Check if product is favorited
-        const { data } = await supabase
-          .from("favorites")
-          .select("id")
-          .eq("user_id", authUser.id)
-          .eq("product_id", productId)
-          .single()
+      try {
+        const {
+          data: { user: authUser },
+          error: userError,
+        } = await supabase.auth.getUser()
 
-        setIsFavorited(!!data)
+        console.log("[v0] FavoriteButton: User check result:", { user: authUser?.id, error: userError })
+        setUser(authUser)
+
+        if (authUser) {
+          console.log("[v0] FavoriteButton: Checking if product is favorited")
+          // Check if product is favorited
+          const { data, error } = await supabase
+            .from("favorites")
+            .select("id")
+            .eq("user_id", authUser.id)
+            .eq("product_id", productId)
+            .single()
+
+          console.log("[v0] FavoriteButton: Favorite check result:", { data, error })
+          setIsFavorited(!!data)
+        }
+      } catch (error) {
+        console.error("[v0] FavoriteButton: Error in checkUser:", error)
       }
     }
     checkUser()
@@ -46,8 +57,10 @@ export function FavoriteButton({ productId, className = "", size = "icon", varia
 
   const handleToggleFavorite = async (e: React.MouseEvent) => {
     e.stopPropagation()
+    console.log("[v0] FavoriteButton: Toggle favorite clicked", { user: user?.id, productId, isFavorited })
 
     if (!user) {
+      console.log("[v0] FavoriteButton: No user, redirecting to login")
       router.push("/auth/login")
       return
     }
@@ -56,21 +69,33 @@ export function FavoriteButton({ productId, className = "", size = "icon", varia
 
     try {
       if (isFavorited) {
+        console.log("[v0] FavoriteButton: Removing from favorites")
         // Remove from favorites
-        await supabase.from("favorites").delete().eq("user_id", user.id).eq("product_id", productId)
+        const { error } = await supabase.from("favorites").delete().eq("user_id", user.id).eq("product_id", productId)
 
-        setIsFavorited(false)
+        if (error) {
+          console.error("[v0] FavoriteButton: Error removing favorite:", error)
+        } else {
+          console.log("[v0] FavoriteButton: Successfully removed from favorites")
+          setIsFavorited(false)
+        }
       } else {
+        console.log("[v0] FavoriteButton: Adding to favorites")
         // Add to favorites
-        await supabase.from("favorites").insert({
+        const { error } = await supabase.from("favorites").insert({
           user_id: user.id,
           product_id: productId,
         })
 
-        setIsFavorited(true)
+        if (error) {
+          console.error("[v0] FavoriteButton: Error adding favorite:", error)
+        } else {
+          console.log("[v0] FavoriteButton: Successfully added to favorites")
+          setIsFavorited(true)
+        }
       }
     } catch (error) {
-      console.error("Error toggling favorite:", error)
+      console.error("[v0] FavoriteButton: Error toggling favorite:", error)
     } finally {
       setIsTogglingFavorite(false)
     }

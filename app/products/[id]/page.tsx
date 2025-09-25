@@ -33,300 +33,312 @@ interface Product {
 }
 
 export default async function ProductDetailPage({ params }: { params: { id: string } }) {
+  console.log("[v0] ProductDetailPage: Loading product with ID:", params.id)
+
   const supabase = await createClient()
 
-  const { data: product } = await supabase
-    .from("products")
-    .select(`
-      *,
-      vendors (business_name, is_verified, description),
-      categories (name, slug)
-    `)
-    .eq("id", params.id)
-    .eq("is_active", true)
-    .single()
+  try {
+    const { data: product, error } = await supabase
+      .from("products")
+      .select(`
+        *,
+        vendors (business_name, is_verified, description),
+        categories (name, slug)
+      `)
+      .eq("id", params.id)
+      .eq("is_active", true)
+      .single()
 
-  if (!product) {
-    notFound()
-  }
+    console.log("[v0] ProductDetailPage: Product query result:", { product: product?.name, error })
 
-  const hasDiscount = product.compare_at_price && product.compare_at_price > product.price
-  const discountPercent = hasDiscount
-    ? Math.round(((product.compare_at_price - product.price) / product.compare_at_price) * 100)
-    : 0
+    if (error || !product) {
+      console.log("[v0] ProductDetailPage: Product not found, showing 404")
+      notFound()
+    }
 
-  // Mock values match score
-  const valuesMatchScore = Math.floor(Math.random() * 15) + 85
+    const hasDiscount = product.compare_at_price && product.compare_at_price > product.price
+    const discountPercent = hasDiscount
+      ? Math.round(((product.compare_at_price - product.price) / product.compare_at_price) * 100)
+      : 0
 
-  return (
-    <div className="min-h-screen bg-background">
-      <div className="center-content py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          {/* Product Images */}
-          <div className="space-y-4">
-            <div className="relative aspect-square overflow-hidden rounded-lg border">
-              <Image
-                src={product.featured_image_url || "/placeholder.svg?height=600&width=600&query=product"}
-                alt={product.name}
-                fill
-                className="object-cover"
-              />
-              {hasDiscount && (
-                <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground">-{discountPercent}%</Badge>
-              )}
-            </div>
-          </div>
+    // Mock values match score
+    const valuesMatchScore = Math.floor(Math.random() * 15) + 85
 
-          {/* Product Info */}
-          <div className="space-y-6">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <Link
-                  href={`/vendors/${product.vendor_id}`}
-                  className="text-sm text-muted-foreground hover:text-primary"
-                >
-                  {product.vendors.business_name}
-                </Link>
-                {product.vendors.is_verified && (
-                  <Badge variant="secondary" className="text-xs">
-                    Verified
-                  </Badge>
-                )}
-              </div>
-              <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-
-              {/* Values Match Score */}
-              <div className="mb-4">
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="text-sm font-medium">Your Values Match:</span>
-                  <span className="text-lg font-bold text-primary">{valuesMatchScore}%</span>
-                </div>
-                <div className="flex-1 bg-muted rounded-full h-3 mb-2">
-                  <div
-                    className="bg-primary h-3 rounded-full transition-all duration-500"
-                    style={{ width: `${valuesMatchScore}%` }}
-                  />
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  Based on your preferences for Eco-Friendly, Fair Trade, and Organic materials.
-                </p>
-              </div>
-
-              {/* Ownership & Attributes */}
-              <div className="flex gap-2 flex-wrap mb-4">
-                <Badge variant="outline" className="text-xs">
-                  Women-Owned
-                </Badge>
-                <Badge variant="outline" className="text-xs">
-                  Minority-Owned
-                </Badge>
-                <Badge variant="outline" className="text-xs">
-                  B Corp Certified
-                </Badge>
-              </div>
-
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-3xl font-bold">${product.price}</span>
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="center-content py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            {/* Product Images */}
+            <div className="space-y-4">
+              <div className="relative aspect-square overflow-hidden rounded-lg border">
+                <Image
+                  src={product.featured_image_url || "/placeholder.svg?height=600&width=600&query=product"}
+                  alt={product.name}
+                  fill
+                  className="object-cover"
+                />
                 {hasDiscount && (
-                  <span className="text-xl text-muted-foreground line-through">${product.compare_at_price}</span>
+                  <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground">-{discountPercent}%</Badge>
                 )}
               </div>
+            </div>
 
-              <div className="flex items-center gap-1 mb-6">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-                  ))}
+            {/* Product Info */}
+            <div className="space-y-6">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <Link
+                    href={`/vendors/${product.vendor_id}`}
+                    className="text-sm text-muted-foreground hover:text-primary"
+                  >
+                    {product.vendors.business_name}
+                  </Link>
+                  {product.vendors.is_verified && (
+                    <Badge variant="secondary" className="text-xs">
+                      Verified
+                    </Badge>
+                  )}
                 </div>
-                <span className="text-sm text-muted-foreground ml-2">(4.8) • 127 reviews</span>
-              </div>
+                <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
 
-              <div className="flex gap-3 mb-6">
-                <AddToCartButton productId={product.id} className="flex-1" size="lg" />
-                <FavoriteButton productId={product.id} size="lg" />
-              </div>
+                {/* Values Match Score */}
+                <div className="mb-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-sm font-medium">Your Values Match:</span>
+                    <span className="text-lg font-bold text-primary">{valuesMatchScore}%</span>
+                  </div>
+                  <div className="flex-1 bg-muted rounded-full h-3 mb-2">
+                    <div
+                      className="bg-primary h-3 rounded-full transition-all duration-500"
+                      style={{ width: `${valuesMatchScore}%` }}
+                    />
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Based on your preferences for Eco-Friendly, Fair Trade, and Organic materials.
+                  </p>
+                </div>
 
-              <div className="space-y-3 text-sm">
-                <div className="flex items-center gap-2">
-                  <Truck className="h-4 w-4 text-muted-foreground" />
-                  <span>Free shipping on orders over $75</span>
+                {/* Ownership & Attributes */}
+                <div className="flex gap-2 flex-wrap mb-4">
+                  <Badge variant="outline" className="text-xs">
+                    Women-Owned
+                  </Badge>
+                  <Badge variant="outline" className="text-xs">
+                    Minority-Owned
+                  </Badge>
+                  <Badge variant="outline" className="text-xs">
+                    B Corp Certified
+                  </Badge>
                 </div>
-                <div className="flex items-center gap-2">
-                  <RotateCcw className="h-4 w-4 text-muted-foreground" />
-                  <span>30-day return policy</span>
+
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-3xl font-bold">${product.price}</span>
+                  {hasDiscount && (
+                    <span className="text-xl text-muted-foreground line-through">${product.compare_at_price}</span>
+                  )}
                 </div>
-                <div className="flex items-center gap-2">
-                  <Shield className="h-4 w-4 text-muted-foreground" />
-                  <span>Secure checkout</span>
+
+                <div className="flex items-center gap-1 mb-6">
+                  <div className="flex">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+                    ))}
+                  </div>
+                  <span className="text-sm text-muted-foreground ml-2">(4.8) • 127 reviews</span>
+                </div>
+
+                <div className="flex gap-3 mb-6">
+                  <AddToCartButton productId={product.id} className="flex-1" size="lg" />
+                  <FavoriteButton productId={product.id} size="lg" />
+                </div>
+
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-center gap-2">
+                    <Truck className="h-4 w-4 text-muted-foreground" />
+                    <span>Free shipping on orders over $75</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <RotateCcw className="h-4 w-4 text-muted-foreground" />
+                    <span>30-day return policy</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Shield className="h-4 w-4 text-muted-foreground" />
+                    <span>Secure checkout</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Product Description */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Product Details</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">{product.description}</p>
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Main Content */}
+            <div className="lg:col-span-2 space-y-8">
+              {/* Product Description */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Product Details</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{product.description}</p>
+                </CardContent>
+              </Card>
 
-            {/* Verified Certifications */}
-            <Card>
-              <CardHeader>
-                <CardTitle>The Ethical Breakdown</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-600" />
-                  <div>
-                    <span className="font-medium">GOTS Organic:</span>
-                    <span className="text-muted-foreground ml-2">Verified for materials used.</span>
+              {/* Verified Certifications */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>The Ethical Breakdown</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-600" />
+                    <div>
+                      <span className="font-medium">GOTS Organic:</span>
+                      <span className="text-muted-foreground ml-2">Verified for materials used.</span>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-600" />
-                  <div>
-                    <span className="font-medium">Fair Trade Certified:</span>
-                    <span className="text-muted-foreground ml-2">Verified for factory labor practices.</span>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-600" />
+                    <div>
+                      <span className="font-medium">Fair Trade Certified:</span>
+                      <span className="text-muted-foreground ml-2">Verified for factory labor practices.</span>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-600" />
-                  <div>
-                    <span className="font-medium">B Corp Certified:</span>
-                    <span className="text-muted-foreground ml-2">Verified for overall company impact (Score: 94).</span>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-600" />
+                    <div>
+                      <span className="font-medium">B Corp Certified:</span>
+                      <span className="text-muted-foreground ml-2">
+                        Verified for overall company impact (Score: 94).
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-green-600" />
-                  <div>
-                    <span className="font-medium">Living Wage:</span>
-                    <span className="text-muted-foreground ml-2">Verified for worker compensation.</span>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-600" />
+                    <div>
+                      <span className="font-medium">Living Wage:</span>
+                      <span className="text-muted-foreground ml-2">Verified for worker compensation.</span>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
 
-            {/* The Journey of This Product */}
-            <Card>
-              <CardHeader>
-                <CardTitle>From Farm to Your Doorstep</CardTitle>
-                <p className="text-sm text-muted-foreground">Simplified TRUST Protocol</p>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  <div className="flex gap-4">
-                    <div className="flex flex-col items-center">
-                      <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-bold">
-                        1
+              {/* The Journey of This Product */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>From Farm to Your Doorstep</CardTitle>
+                  <p className="text-sm text-muted-foreground">Simplified TRUST Protocol</p>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-6">
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-bold">
+                          1
+                        </div>
+                        <div className="w-px h-12 bg-border mt-2"></div>
                       </div>
-                      <div className="w-px h-12 bg-border mt-2"></div>
-                    </div>
-                    <div>
-                      <h4 className="font-medium">Raw Materials (India)</h4>
-                      <p className="text-sm text-muted-foreground">Verified: GOTS Organic, Fair Trade</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <div className="flex flex-col items-center">
-                      <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-bold">
-                        2
-                      </div>
-                      <div className="w-px h-12 bg-border mt-2"></div>
-                    </div>
-                    <div>
-                      <h4 className="font-medium">Manufacturing (Portugal)</h4>
-                      <p className="text-sm text-muted-foreground">Verified: OEKO-TEX</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <div className="flex flex-col items-center">
-                      <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-bold">
-                        3
-                      </div>
-                      <div className="w-px h-12 bg-border mt-2"></div>
-                    </div>
-                    <div>
-                      <h4 className="font-medium">Assembly (Vietnam)</h4>
-                      <p className="text-sm text-muted-foreground">Verified: B Corp Factory</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <div className="flex flex-col items-center">
-                      <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-bold">
-                        4
+                      <div>
+                        <h4 className="font-medium">Raw Materials (India)</h4>
+                        <p className="text-sm text-muted-foreground">Verified: GOTS Organic, Fair Trade</p>
                       </div>
                     </div>
-                    <div>
-                      <h4 className="font-medium">Distribution (California)</h4>
-                      <p className="text-sm text-muted-foreground">Verified: Carbon Neutral, FSC Packaging</p>
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-bold">
+                          2
+                        </div>
+                        <div className="w-px h-12 bg-border mt-2"></div>
+                      </div>
+                      <div>
+                        <h4 className="font-medium">Manufacturing (Portugal)</h4>
+                        <p className="text-sm text-muted-foreground">Verified: OEKO-TEX</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-bold">
+                          3
+                        </div>
+                        <div className="w-px h-12 bg-border mt-2"></div>
+                      </div>
+                      <div>
+                        <h4 className="font-medium">Assembly (Vietnam)</h4>
+                        <p className="text-sm text-muted-foreground">Verified: B Corp Factory</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-bold">
+                          4
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="font-medium">Distribution (California)</h4>
+                        <p className="text-sm text-muted-foreground">Verified: Carbon Neutral, FSC Packaging</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <Separator className="my-6" />
-                <Link href="/trust-verification" className="text-sm text-primary hover:underline">
-                  Learn more about our TRUST verification →
-                </Link>
-              </CardContent>
-            </Card>
-          </div>
+                  <Separator className="my-6" />
+                  <Link href="/trust-verification" className="text-sm text-primary hover:underline">
+                    Learn more about our TRUST verification →
+                  </Link>
+                </CardContent>
+              </Card>
+            </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Vendor Info */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Award className="h-5 w-5" />
-                  About {product.vendors.business_name}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  {product.vendors.description || "A verified vendor committed to ethical and sustainable practices."}
-                </p>
-                <Link href={`/vendors/${product.vendor_id}`}>
-                  <Button variant="outline" size="sm" className="w-full bg-transparent">
-                    View Vendor Profile
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+            {/* Sidebar */}
+            <div className="space-y-6">
+              {/* Vendor Info */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Award className="h-5 w-5" />
+                    About {product.vendors.business_name}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    {product.vendors.description || "A verified vendor committed to ethical and sustainable practices."}
+                  </p>
+                  <Link href={`/vendors/${product.vendor_id}`}>
+                    <Button variant="outline" size="sm" className="w-full bg-transparent">
+                      View Vendor Profile
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
 
-            {/* Trust Indicators */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Why Trust This Product?</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-600" />
-                  <span>All claims verified by TRUST protocol</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-600" />
-                  <span>Supply chain transparency</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-600" />
-                  <span>Third-party certifications</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="h-4 w-4 text-green-600" />
-                  <span>Regular compliance audits</span>
-                </div>
-              </CardContent>
-            </Card>
+              {/* Trust Indicators */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Why Trust This Product?</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center gap-2 text-sm">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <span>All claims verified by TRUST protocol</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <span>Supply chain transparency</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <span>Third-party certifications</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <span>Regular compliance audits</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  } catch (error) {
+    console.error("[v0] ProductDetailPage: Unexpected error:", error)
+    notFound()
+  }
 }
