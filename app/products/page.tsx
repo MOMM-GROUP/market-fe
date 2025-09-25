@@ -12,7 +12,7 @@ import Image from "next/image"
 import { useState, useEffect } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 
-import { DynamicProductFilters } from "@/components/dynamic-product-filters"
+import { AmazonStyleFilters } from "@/components/amazon-style-filters"
 
 interface Product {
   id: string
@@ -47,15 +47,21 @@ export default function ProductsPage() {
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
+
   const [filters, setFilters] = useState({
     priceRange: { min: "", max: "" },
     selectedCertifications: [] as string[],
-    dimensions: "",
-    weightRange: { min: "", max: "" },
-    features: [] as string[],
-    ingredients: [] as string[],
+    selectedBrands: [] as string[],
+    selectedColors: [] as string[],
+    selectedMaterials: [] as string[],
+    selectedStyles: [] as string[],
+    selectedSizes: [] as string[],
+    selectedFeatures: [] as string[],
+    selectedIngredients: [] as string[],
+    selectedSubcategories: [] as string[],
     verifiedOnly: false,
   })
+
   const [sortBy, setSortBy] = useState("newest")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
 
@@ -109,24 +115,33 @@ export default function ProductsPage() {
       query = query.lte("price", Number.parseFloat(filters.priceRange.max))
     }
 
-    if (filters.dimensions) {
-      query = query.ilike("dimensions", `%${filters.dimensions}%`)
+    if (filters.selectedBrands.length > 0) {
+      query = query.in("brand", filters.selectedBrands)
     }
 
-    if (filters.weightRange.min) {
-      query = query.gte("weight", Number.parseFloat(filters.weightRange.min))
-    }
-    if (filters.weightRange.max) {
-      query = query.lte("weight", Number.parseFloat(filters.weightRange.max))
+    if (filters.selectedColors.length > 0) {
+      query = query.in("color", filters.selectedColors)
     }
 
-    if (filters.features.length > 0) {
-      const featureConditions = filters.features.map((feature) => `features.ilike.%${feature}%`).join(",")
+    if (filters.selectedMaterials.length > 0) {
+      query = query.in("material", filters.selectedMaterials)
+    }
+
+    if (filters.selectedStyles.length > 0) {
+      query = query.in("style", filters.selectedStyles)
+    }
+
+    if (filters.selectedSizes.length > 0) {
+      query = query.in("size", filters.selectedSizes)
+    }
+
+    if (filters.selectedFeatures.length > 0) {
+      const featureConditions = filters.selectedFeatures.map((feature) => `features.ilike.%${feature}%`).join(",")
       query = query.or(featureConditions)
     }
 
-    if (filters.ingredients.length > 0) {
-      const ingredientConditions = filters.ingredients
+    if (filters.selectedIngredients.length > 0) {
+      const ingredientConditions = filters.selectedIngredients
         .map((ingredient) => `ingredients.ilike.%${ingredient}%`)
         .join(",")
       query = query.or(ingredientConditions)
@@ -151,6 +166,19 @@ export default function ProductsPage() {
         setProducts([])
         setLoading(false)
         return
+      }
+    }
+
+    // Handle subcategory filtering
+    if (filters.selectedSubcategories.length > 0) {
+      const { data: subcategoryData } = await supabase
+        .from("categories")
+        .select("id")
+        .in("name", filters.selectedSubcategories)
+
+      if (subcategoryData && subcategoryData.length > 0) {
+        const subcategoryIds = subcategoryData.map((sub) => sub.id)
+        query = query.in("category_id", subcategoryIds)
       }
     }
 
@@ -200,10 +228,14 @@ export default function ProductsPage() {
     setFilters({
       priceRange: { min: "", max: "" },
       selectedCertifications: [],
-      dimensions: "",
-      weightRange: { min: "", max: "" },
-      features: [],
-      ingredients: [],
+      selectedBrands: [],
+      selectedColors: [],
+      selectedMaterials: [],
+      selectedStyles: [],
+      selectedSizes: [],
+      selectedFeatures: [],
+      selectedIngredients: [],
+      selectedSubcategories: [],
       verifiedOnly: false,
     })
     setSortBy("newest")
@@ -235,7 +267,7 @@ export default function ProductsPage() {
               </CardContent>
             </Card>
 
-            <DynamicProductFilters
+            <AmazonStyleFilters
               selectedCategory={selectedCategory}
               filters={filters}
               onFiltersChange={setFilters}
