@@ -5,13 +5,14 @@ import type React from "react"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Search, Grid, List, Heart, Star, X } from "lucide-react"
+import { Search, Grid, List, Heart, Star } from "lucide-react"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
+
+import { DynamicProductFilters } from "@/components/dynamic-product-filters"
 
 interface Product {
   id: string
@@ -46,8 +47,15 @@ export default function ProductsPage() {
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
-  const [priceRange, setPriceRange] = useState({ min: "", max: "" })
-  const [verifiedOnly, setVerifiedOnly] = useState(false)
+  const [filters, setFilters] = useState({
+    priceRange: { min: "", max: "" },
+    selectedCertifications: [] as string[],
+    dimensions: "",
+    weightRange: { min: "", max: "" },
+    features: [] as string[],
+    ingredients: [] as string[],
+    verifiedOnly: false,
+  })
   const [sortBy, setSortBy] = useState("newest")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
 
@@ -68,7 +76,7 @@ export default function ProductsPage() {
 
   useEffect(() => {
     fetchData()
-  }, [searchQuery, selectedCategory, priceRange, verifiedOnly, sortBy])
+  }, [searchQuery, selectedCategory, filters, sortBy])
 
   const fetchData = async () => {
     setLoading(true)
@@ -94,15 +102,56 @@ export default function ProductsPage() {
       }
     }
 
-    if (priceRange.min) {
-      query = query.gte("price", Number.parseFloat(priceRange.min))
+    if (filters.priceRange.min) {
+      query = query.gte("price", Number.parseFloat(filters.priceRange.min))
     }
-    if (priceRange.max) {
-      query = query.lte("price", Number.parseFloat(priceRange.max))
+    if (filters.priceRange.max) {
+      query = query.lte("price", Number.parseFloat(filters.priceRange.max))
     }
 
-    if (verifiedOnly) {
+    if (filters.dimensions) {
+      query = query.ilike("dimensions", `%${filters.dimensions}%`)
+    }
+
+    if (filters.weightRange.min) {
+      query = query.gte("weight", Number.parseFloat(filters.weightRange.min))
+    }
+    if (filters.weightRange.max) {
+      query = query.lte("weight", Number.parseFloat(filters.weightRange.max))
+    }
+
+    if (filters.features.length > 0) {
+      const featureConditions = filters.features.map((feature) => `features.ilike.%${feature}%`).join(",")
+      query = query.or(featureConditions)
+    }
+
+    if (filters.ingredients.length > 0) {
+      const ingredientConditions = filters.ingredients
+        .map((ingredient) => `ingredients.ilike.%${ingredient}%`)
+        .join(",")
+      query = query.or(ingredientConditions)
+    }
+
+    if (filters.verifiedOnly) {
       query = query.eq("vendors.is_verified", true)
+    }
+
+    if (filters.selectedCertifications.length > 0) {
+      const { data: certifiedProducts } = await supabase
+        .from("entity_certifications")
+        .select("entity_id")
+        .eq("entity_type", "product")
+        .eq("verified", true)
+        .in("certification_id", filters.selectedCertifications)
+
+      if (certifiedProducts && certifiedProducts.length > 0) {
+        const productIds = certifiedProducts.map((cert) => cert.entity_id)
+        query = query.in("id", productIds)
+      } else {
+        setProducts([])
+        setLoading(false)
+        return
+      }
     }
 
     switch (sortBy) {
@@ -148,8 +197,15 @@ export default function ProductsPage() {
   const clearFilters = () => {
     setSearchQuery("")
     setSelectedCategory("all")
-    setPriceRange({ min: "", max: "" })
-    setVerifiedOnly(false)
+    setFilters({
+      priceRange: { min: "", max: "" },
+      selectedCertifications: [],
+      dimensions: "",
+      weightRange: { min: "", max: "" },
+      features: [],
+      ingredients: [],
+      verifiedOnly: false,
+    })
     setSortBy("newest")
   }
 
@@ -157,17 +213,9 @@ export default function ProductsPage() {
     <div className="min-h-screen bg-background">
       <div className="center-content py-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          <aside className="lg:w-64 space-y-6">
+          <aside className="lg:w-80 space-y-6">
             <Card>
               <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-semibold">Filters</h3>
-                  <Button variant="ghost" size="sm" onClick={clearFilters}>
-                    <X className="h-4 w-4 mr-1" />
-                    Clear
-                  </Button>
-                </div>
-
                 <div className="space-y-3">
                   <h4 className="text-sm font-medium">Category</h4>
                   <Select value={selectedCategory} onValueChange={setSelectedCategory}>
@@ -184,41 +232,15 @@ export default function ProductsPage() {
                     </SelectContent>
                   </Select>
                 </div>
-
-                <div className="space-y-3">
-                  <h4 className="text-sm font-medium">Price Range</h4>
-                  <div className="flex gap-2">
-                    <Input
-                      placeholder="Min"
-                      type="number"
-                      value={priceRange.min}
-                      onChange={(e) => setPriceRange((prev) => ({ ...prev, min: e.target.value }))}
-                    />
-                    <Input
-                      placeholder="Max"
-                      type="number"
-                      value={priceRange.max}
-                      onChange={(e) => setPriceRange((prev) => ({ ...prev, max: e.target.value }))}
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <h4 className="text-sm font-medium">Vendor</h4>
-                  <div className="space-y-2">
-                    <label className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        className="rounded"
-                        checked={verifiedOnly}
-                        onChange={(e) => setVerifiedOnly(e.target.checked)}
-                      />
-                      <span className="text-sm">Verified Only</span>
-                    </label>
-                  </div>
-                </div>
               </CardContent>
             </Card>
+
+            <DynamicProductFilters
+              selectedCategory={selectedCategory}
+              filters={filters}
+              onFiltersChange={setFilters}
+              onClearFilters={clearFilters}
+            />
           </aside>
 
           <main className="flex-1">
@@ -328,7 +350,6 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
       setUser(authUser)
 
       if (authUser) {
-        // Check if product is favorited
         const { data } = await supabase
           .from("favorites")
           .select("id")
@@ -347,7 +368,7 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
   }
 
   const handleAddToCart = async (e: React.MouseEvent) => {
-    e.stopPropagation() // Prevent navigation when clicking add to cart
+    e.stopPropagation()
 
     if (!user) {
       router.push("/auth/login")
@@ -357,7 +378,6 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
     setIsAddingToCart(true)
 
     try {
-      // Check if item already exists in cart
       const { data: existingItem } = await supabase
         .from("cart_items")
         .select("id, quantity")
@@ -366,13 +386,11 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
         .single()
 
       if (existingItem) {
-        // Update quantity if item exists
         await supabase
           .from("cart_items")
           .update({ quantity: existingItem.quantity + 1 })
           .eq("id", existingItem.id)
       } else {
-        // Add new item to cart
         await supabase.from("cart_items").insert({
           user_id: user.id,
           product_id: product.id,
@@ -380,7 +398,6 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
         })
       }
 
-      // Refresh the page to update cart count in navbar
       window.location.reload()
     } catch (error) {
       console.error("Error adding to cart:", error)
@@ -390,7 +407,7 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
   }
 
   const handleToggleFavorite = async (e: React.MouseEvent) => {
-    e.stopPropagation() // Prevent navigation when clicking favorite
+    e.stopPropagation()
 
     if (!user) {
       router.push("/auth/login")
@@ -401,12 +418,10 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
 
     try {
       if (isFavorited) {
-        // Remove from favorites
         await supabase.from("favorites").delete().eq("user_id", user.id).eq("product_id", product.id)
 
         setIsFavorited(false)
       } else {
-        // Add to favorites
         await supabase.from("favorites").insert({
           user_id: user.id,
           product_id: product.id,
