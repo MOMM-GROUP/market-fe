@@ -230,7 +230,7 @@ export default async function HomePage() {
       </section>
 
       {/* Our Promise / Deeper Dive Section */}
-      <section className="py-16 px-4 bg-muted/30">
+      {/* <section className="py-16 px-4 bg-muted/30">
         <div className="center-content max-w-4xl text-center">
           <h2 className="text-3xl font-bold mb-4">Radical Transparency, Made Simple.</h2>
           <p className="text-xl text-muted-foreground mb-6">
@@ -246,7 +246,7 @@ export default async function HomePage() {
             Learn About Our Verification Process
           </Button>
         </div>
-      </section>
+      </section> */}
 
       {/* Certifications Carousel Section */}
       <section className="py-16 px-4">
