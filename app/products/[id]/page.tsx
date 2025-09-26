@@ -111,7 +111,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                     href={`/vendors/${product.vendor_id}`}
                     className="text-sm text-muted-foreground hover:text-primary"
                   >
-                    {product.vendors.business_name}
+                    {product.vendors?.business_name}
                   </Link>
                   {product.vendors.is_verified && (
                     <Badge variant="secondary" className="text-xs">
@@ -330,7 +330,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Award className="h-5 w-5" />
-                    About {product.vendors.business_name}
+                    About {product.vendors?.business_name}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>

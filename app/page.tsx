@@ -309,8 +309,8 @@ function ProductCard({ product }: { product: Product }) {
         </div>
         <div className="p-4 space-y-2">
           <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground">{product.vendors.business_name}</span>
-            {product.vendors.is_verified && (
+            <span className="text-xs text-muted-foreground">{product.vendors?.business_name}</span>
+            {product.vendors?.is_verified && (
               <Badge variant="secondary" className="text-xs">
                 Verified
               </Badge>

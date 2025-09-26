@@ -55,18 +55,15 @@ export function CategoryNav() {
   if (loading) {
     return (
       <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container">
           <div className="flex h-12 items-center justify-center">
             <div className="animate-pulse text-sm text-muted-foreground">Loading categories...</div>
           </div>
-        </div>
       </div>
     )
   }
 
-  return (
+  return ( 
     <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container">
         <nav className="flex h-12 items-center justify-center">
           <div className="flex items-center space-x-8">
             {categories.map((category) => {
@@ -113,7 +110,6 @@ export function CategoryNav() {
             })}
           </div>
         </nav>
-      </div>
     </div>
   )
 }
