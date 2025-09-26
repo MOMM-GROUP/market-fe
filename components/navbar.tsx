@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Search, ShoppingCart, Heart, LogOut, Package, Settings, User, X } from "lucide-react"
+import { Search, ShoppingCart, Heart, LogOut, Package, Settings, User, X, Store, BarChart3 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -167,28 +167,30 @@ export function Navbar() {
           <nav className="hidden md:flex items-center space-x-6 text-sm font-medium"></nav>
         </div>
 
-        <form onSubmit={handleSearch} className="flex-1 max-w-md mx-6">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-            <Input
-              placeholder="Search products..."
-              className="pl-10 pr-10 w-full bg-muted/50 border-0 focus:bg-background focus:ring-2 focus:ring-primary/20"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            {searchQuery && (
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
-                onClick={() => setSearchQuery("")}
-              >
-                <X className="h-3 w-3" />
-              </Button>
-            )}
-          </div>
-        </form>
+        {user?.profiles.role !== "vendor" && (
+          <form onSubmit={handleSearch} className="flex-1 max-w-md mx-6">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Input
+                placeholder="Search products..."
+                className="pl-10 pr-10 w-full bg-muted/50 border-0 focus:bg-background focus:ring-2 focus:ring-primary/20"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              {searchQuery && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
+                  onClick={() => setSearchQuery("")}
+                >
+                  <X className="h-3 w-3" />
+                </Button>
+              )}
+            </div>
+          </form>
+        )}
 
         <div className="flex items-center space-x-4">
           {user && user.profiles.role !== "vendor" && (
@@ -213,63 +215,82 @@ export function Navbar() {
           )}
 
           {user ? (
-            <DropdownMenu modal={false}>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <User className="h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <div className="px-2 py-1.5">
-                  <p className="text-sm font-medium">Hi {user.profiles.first_name}</p>
-                  <p className="text-xs text-muted-foreground">{user.email}</p>
-                </div>
-                <DropdownMenuSeparator />
-                {user.profiles.role !== "vendor" && (
-                  <>
+            <div className="flex items-center space-x-2">
+              <span className="text-sm font-medium hidden sm:block">
+                {user.profiles.first_name} {user.profiles.last_name}
+              </span>
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <div className="px-2 py-1.5">
+                    <p className="text-sm font-medium">Hi {user.profiles.first_name}</p>
+                    <p className="text-xs text-muted-foreground">{user.email}</p>
+                  </div>
+                  <DropdownMenuSeparator />
+                  {user.profiles.role !== "vendor" && (
+                    <>
+                      <DropdownMenuItem asChild>
+                        <Link href="/orders">
+                          <Package className="mr-2 h-4 w-4" />
+                          Orders
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/favorites">
+                          <Heart className="mr-2 h-4 w-4" />
+                          Favorites
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/cart">
+                          <ShoppingCart className="mr-2 h-4 w-4" />
+                          Cart
+                        </Link>
+                      </DropdownMenuItem>
+                    </>
+                  )}
+                  {user.profiles.role === "vendor" && (
+                    <>
+                      <DropdownMenuItem asChild>
+                        <Link href="/vendor">
+                          <BarChart3 className="mr-2 h-4 w-4" />
+                          View Dashboard
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href={`/vendors/${user.id}`}>
+                          <Store className="mr-2 h-4 w-4" />
+                          View Storefront
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/vendor/profile">
+                          <Settings className="mr-2 h-4 w-4" />
+                          Settings
+                        </Link>
+                      </DropdownMenuItem>
+                    </>
+                  )}
+                  {user.profiles.role === "admin" && (
                     <DropdownMenuItem asChild>
-                      <Link href="/orders">
-                        <Package className="mr-2 h-4 w-4" />
-                        Orders
+                      <Link href="/admin">
+                        <Settings className="mr-2 h-4 w-4" />
+                        Admin Panel
                       </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/favorites">
-                        <Heart className="mr-2 h-4 w-4" />
-                        Favorites
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/cart">
-                        <ShoppingCart className="mr-2 h-4 w-4" />
-                        Cart
-                      </Link>
-                    </DropdownMenuItem>
-                  </>
-                )}
-                {user.profiles.role === "vendor" && (
-                  <DropdownMenuItem asChild>
-                    <Link href="/vendor">
-                      <Settings className="mr-2 h-4 w-4" />
-                      Vendor Dashboard
-                    </Link>
+                  )}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sign Out
                   </DropdownMenuItem>
-                )}
-                {user.profiles.role === "admin" && (
-                  <DropdownMenuItem asChild>
-                    <Link href="/admin">
-                      <Settings className="mr-2 h-4 w-4" />
-                      Admin Panel
-                    </Link>
-                  </DropdownMenuItem>
-                )}
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleSignOut}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Sign Out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           ) : (
             <>
               <Link href="/auth/login">
