@@ -9,7 +9,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Package, Plus, Search, MoreHorizontal, Edit, Eye, Trash2 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-// import { VendorSidebar } from "@/components/vendor-sidebar"
 
 interface Product {
   id: string

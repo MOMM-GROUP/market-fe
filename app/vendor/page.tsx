@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Package, ShoppingCart, DollarSign, TrendingUp, Plus, Star, AlertCircle } from "lucide-react"
 import Link from "next/link"
-import { VendorSidebar } from "@/components/vendor-sidebar"
 
 interface VendorStats {
   totalProducts: number
@@ -92,7 +91,6 @@ export default async function VendorDashboard() {
 
   return (
     <div className="flex min-h-screen bg-background">
-      <VendorSidebar />
       <main className="flex-1 p-8">
         <div className="max-w-7xl mx-auto space-y-8">
           {/* Header */}
