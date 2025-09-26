@@ -5,10 +5,9 @@ import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Heart, ShoppingCart, Star } from "lucide-react"
+import { Heart, ShoppingCart } from "lucide-react"
 import Link from "next/link"
-import Image from "next/image"
-
+import { useAuth } from "@/context/AuthContext"
 
 interface Product {
   id: string
@@ -27,82 +26,79 @@ interface Product {
 
 export default function FavoritesPage() {
   const [favorites, setFavorites] = useState<Product[]>([])
-  const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState<any>(null)
+  const [favoritesLoading, setFavoritesLoading] = useState(true)
+  const { user, loading } = useAuth()
   const supabase = createClient()
 
   useEffect(() => {
-    let isMounted = true;
+    let isMounted = true
 
-    const getUserAndFavorites = async () => {
-      const {
-        data: { user: authUser },
-      } = await supabase.auth.getUser()
-      
-      if (!isMounted) return;
-      setUser(authUser)
-
-      if (authUser) {
-        // REVISED FETCH LOGIC: This robust two-step query ensures data is fetched correctly.
-
-        // 1. Get the list of favorite product IDs for the current user.
-        const { data: favoriteIdsData, error: idsError } = await supabase
-          .from("favorites")
-          .select("product_id")
-          .eq("user_id", authUser.id);
-
-        if (idsError) {
-            console.error("Error fetching favorite IDs:", idsError);
-            if (isMounted) setLoading(false);
-            return;
+    const getFavorites = async () => {
+      if (!user) {
+        if (isMounted) {
+          setFavoritesLoading(false)
         }
+        return
+      }
 
-        const productIds = favoriteIdsData.map(fav => fav.product_id);
+      // Get the list of favorite product IDs for the current user
+      const { data: favoriteIdsData, error: idsError } = await supabase
+        .from("favorites")
+        .select("product_id")
+        .eq("user_id", user.id)
 
-        if (productIds.length > 0) {
-            // 2. Fetch all product details for the retrieved IDs using the correct schema.
-            const { data: productsData, error: productsError } = await supabase
-              .from("products")
-              .select(`
-                id,
-                name,
-                description,
-                price,
-                featured_image_url,
-                vendors (
-                  business_name,
-                  is_verified
-                ),
-                categories (
-                  name
-                )
-              `)
-              .in("id", productIds);
+      if (idsError) {
+        console.error("Error fetching favorite IDs:", idsError)
+        if (isMounted) setFavoritesLoading(false)
+        return
+      }
 
-            if (productsError) {
-                console.error("Error fetching favorited products:", productsError);
-            } else if (isMounted) {
-                setFavorites(productsData || []);
-            }
-        } else {
-            // If there are no favorite IDs, the list is empty.
-            if (isMounted) {
-                setFavorites([]);
-            }
+      const productIds = favoriteIdsData.map((fav) => fav.product_id)
+
+      if (productIds.length > 0) {
+        // Fetch all product details for the retrieved IDs
+        const { data: productsData, error: productsError } = await supabase
+          .from("products")
+          .select(`
+            id,
+            name,
+            description,
+            price,
+            featured_image_url,
+            vendors (
+              business_name,
+              is_verified
+            ),
+            categories (
+              name
+            )
+          `)
+          .in("id", productIds)
+
+        if (productsError) {
+          console.error("Error fetching favorited products:", productsError)
+        } else if (isMounted) {
+          setFavorites(productsData || [])
+        }
+      } else {
+        if (isMounted) {
+          setFavorites([])
         }
       }
+
       if (isMounted) {
-        setLoading(false)
+        setFavoritesLoading(false)
       }
     }
 
-    getUserAndFavorites()
+    if (!loading) {
+      getFavorites()
+    }
 
-    // Cleanup function to prevent state updates on unmounted component
     return () => {
-        isMounted = false;
-    };
-  }, [supabase])
+      isMounted = false
+    }
+  }, [user, loading, supabase])
 
   const removeFavorite = async (productId: string) => {
     if (!user) return
@@ -110,13 +106,13 @@ export default function FavoritesPage() {
     const { error } = await supabase.from("favorites").delete().eq("user_id", user.id).eq("product_id", productId)
 
     if (error) {
-        console.error("Error removing favorite:", error);
+      console.error("Error removing favorite:", error)
     } else {
-        setFavorites(favorites.filter((product) => product.id !== productId))
+      setFavorites(favorites.filter((product) => product.id !== productId))
     }
   }
 
-  if (loading) {
+  if (loading || favoritesLoading) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">Loading your favorites...</div>
@@ -128,9 +124,9 @@ export default function FavoritesPage() {
     return (
       <div className="container mx-auto px-4 py-8 text-center">
         <h1 className="text-2xl font-bold mb-4">Please sign in to view your favorites</h1>
-        <a href="/auth/login">
+        <Link href="/auth/login">
           <Button>Sign In</Button>
-        </a>
+        </Link>
       </div>
     )
   }
@@ -147,9 +143,9 @@ export default function FavoritesPage() {
           <Heart className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
           <h2 className="text-xl font-semibold mb-2">No favorites yet</h2>
           <p className="text-muted-foreground mb-4">Start browsing products and add them to your favorites!</p>
-          <a href="/products">
+          <Link href="/products">
             <Button>Browse Products</Button>
-          </a>
+          </Link>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -157,7 +153,6 @@ export default function FavoritesPage() {
             <Card key={product.id} className="group hover:shadow-lg transition-shadow">
               <CardHeader className="p-0">
                 <div className="relative aspect-square overflow-hidden rounded-t-lg">
-                  {/* CORRECTED: Using `featured_image_url` */}
                   <img
                     src={product.featured_image_url || "/placeholder.svg?height=300&width=300"}
                     alt={product.name}
@@ -168,9 +163,9 @@ export default function FavoritesPage() {
                     size="icon"
                     className="absolute top-2 right-2 bg-white/80 hover:bg-white"
                     onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        removeFavorite(product.id);
+                      e.preventDefault()
+                      e.stopPropagation()
+                      removeFavorite(product.id)
                     }}
                   >
                     <Heart className="h-4 w-4 fill-red-500 text-red-500" />
@@ -178,22 +173,22 @@ export default function FavoritesPage() {
                 </div>
               </CardHeader>
               <CardContent className="p-4">
-                {/* CORRECTED: Safely accessing nested data */}
                 {product.categories?.name && (
-                    <Badge variant="secondary" className="text-xs mb-2">
-                        {product.categories.name}
-                    </Badge>
+                  <Badge variant="secondary" className="text-xs mb-2">
+                    {product.categories.name}
+                  </Badge>
                 )}
                 {product.vendors?.is_verified && (
-                    <Badge variant="default" className="text-xs bg-green-100 text-green-800 ml-2">
-                      Verified
-                    </Badge>
+                  <Badge variant="default" className="text-xs bg-green-100 text-green-800 ml-2">
+                    Verified
+                  </Badge>
                 )}
-                <a href={`/products/${product.id}`}>
-                  <CardTitle className="text-lg mb-2 line-clamp-2 cursor-pointer hover:underline">{product.name}</CardTitle>
-                </a>
+                <Link href={`/products/${product.id}`}>
+                  <CardTitle className="text-lg mb-2 line-clamp-2 cursor-pointer hover:underline">
+                    {product.name}
+                  </CardTitle>
+                </Link>
                 <p className="text-sm text-muted-foreground mb-2 line-clamp-2">{product.description}</p>
-                {/* CORRECTED: Using safe access for vendor name */}
                 <p className="text-sm text-muted-foreground">by {product.vendors?.business_name}</p>
               </CardContent>
               <CardFooter className="p-4 pt-0 flex items-center justify-between">

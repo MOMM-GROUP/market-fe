@@ -6,6 +6,7 @@ import { Navbar } from "@/components/navbar"
 import { Suspense } from "react"
 import { Footer } from "@/components/footer"
 import { CategoryNav } from "@/components/category-nav"
+import { AuthProvider } from "@/context/AuthContext"
 import "./globals.css"
 
 const inter = Inter({
@@ -32,14 +33,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable} ${jetbrainsMono.variable}`}>
-        <div className="min-h-screen flex flex-col">
-          <Suspense fallback={<div>Loading...</div>}>
-            <Navbar />
-            <CategoryNav />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </Suspense>
-        </div>
+        <AuthProvider>
+          <div className="min-h-screen flex flex-col">
+            <Suspense fallback={<div>Loading...</div>}>
+              <Navbar />
+              <CategoryNav />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </Suspense>
+          </div>
+        </AuthProvider>
         <Analytics />
       </body>
     </html>

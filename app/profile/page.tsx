@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -11,90 +11,58 @@ import { Separator } from "@/components/ui/separator"
 import { User, Mail, Phone, MapPin, Calendar, ArrowLeft, Save, Package, Heart, ShoppingCart } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-
-interface UserProfile {
-  id: string
-  email: string
-  first_name: string
-  last_name: string
-  phone: string | null
-  address: string | null
-  city: string | null
-  state: string | null
-  zip_code: string | null
-  role: string
-  created_at: string
-}
+import { useAuth } from "@/context/AuthContext"
 
 export default function ProfilePage() {
-  const [profile, setProfile] = useState<UserProfile | null>(null)
-  const [loading, setLoading] = useState(true)
+  const { user, profile, loading, refreshProfile } = useAuth()
   const [saving, setSaving] = useState(false)
-  const [user, setUser] = useState<any>(null)
+  const [localProfile, setLocalProfile] = useState(profile)
   const router = useRouter()
   const supabase = createClient()
 
-  useEffect(() => {
-    const getProfile = async () => {
-      const {
-        data: { user: authUser },
-      } = await supabase.auth.getUser()
+  if (profile && localProfile?.id !== profile.id) {
+    setLocalProfile(profile)
+  }
 
-      if (!authUser) {
-        router.push("/auth/login")
-        return
-      }
+  if (!loading && !user) {
+    router.push("/auth/login")
+    return null
+  }
 
-      setUser(authUser)
-
-      const { data: profileData } = await supabase.from("profiles").select("*").eq("id", authUser.id).single()
-
-      if (profileData) {
-        if (profileData.role === "vendor") {
-          router.push("/vendor/profile")
-          return
-        }
-
-        setProfile({
-          ...profileData,
-          email: authUser.email!,
-        })
-      }
-      setLoading(false)
-    }
-
-    getProfile()
-  }, [supabase, router])
+  if (!loading && profile?.role === "vendor") {
+    router.push("/vendor/profile")
+    return null
+  }
 
   const handleSave = async () => {
-    if (!profile || !user) return
+    if (!localProfile || !user) return
 
     setSaving(true)
 
     const { error } = await supabase
       .from("profiles")
       .update({
-        first_name: profile.first_name,
-        last_name: profile.last_name,
-        phone: profile.phone,
-        address: profile.address,
-        city: profile.city,
-        state: profile.state,
-        zip_code: profile.zip_code,
+        first_name: localProfile.first_name,
+        last_name: localProfile.last_name,
+        phone: localProfile.phone,
+        address: localProfile.address,
+        city: localProfile.city,
+        state: localProfile.state,
+        zip_code: localProfile.zip_code,
       })
       .eq("id", user.id)
 
     if (!error) {
-      // Show success message or toast
+      await refreshProfile()
       console.log("Profile updated successfully")
     }
 
     setSaving(false)
   }
 
-  const updateProfile = (field: keyof UserProfile, value: string) => {
-    if (!profile) return
-    setProfile({ ...profile, [field]: value })
+  const updateProfile = (field: keyof typeof localProfile, value: string) => {
+    if (!localProfile) return
+    setLocalProfile({ ...localProfile, [field]: value })
   }
 
   if (loading) {
@@ -105,7 +73,7 @@ export default function ProfilePage() {
     )
   }
 
-  if (!user || !profile) {
+  if (!user || !localProfile) {
     return (
       <div className="container mx-auto px-4 py-8 text-center">
         <h1 className="text-2xl font-bold mb-4">Please sign in to view your profile</h1>
@@ -148,37 +116,37 @@ export default function ProfilePage() {
                     <User className="h-10 w-10 text-primary" />
                   </div>
                   <h3 className="font-semibold text-lg">
-                    {profile.first_name} {profile.last_name}
+                    {localProfile.first_name} {localProfile.last_name}
                   </h3>
-                  <p className="text-muted-foreground">{profile.email}</p>
+                  <p className="text-muted-foreground">{localProfile.email}</p>
                   <Badge variant="secondary" className="mt-2 capitalize">
-                    {profile.role}
+                    {localProfile.role}
                   </Badge>
                 </div>
                 <Separator />
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-sm">
                     <Calendar className="h-4 w-4 text-muted-foreground" />
-                    <span>Member since {new Date(profile.created_at).toLocaleDateString()}</span>
+                    <span>Member since {new Date(localProfile.created_at).toLocaleDateString()}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
                     <Mail className="h-4 w-4 text-muted-foreground" />
-                    <span>{profile.email}</span>
+                    <span>{localProfile.email}</span>
                   </div>
-                  {profile.phone && (
+                  {localProfile.phone && (
                     <div className="flex items-center gap-2 text-sm">
                       <Phone className="h-4 w-4 text-muted-foreground" />
-                      <span>{profile.phone}</span>
+                      <span>{localProfile.phone}</span>
                     </div>
                   )}
-                  {profile.address && (
+                  {localProfile.address && (
                     <div className="flex items-center gap-2 text-sm">
                       <MapPin className="h-4 w-4 text-muted-foreground" />
                       <span>
-                        {profile.address}
-                        {profile.city && `, ${profile.city}`}
-                        {profile.state && `, ${profile.state}`}
-                        {profile.zip_code && ` ${profile.zip_code}`}
+                        {localProfile.address}
+                        {localProfile.city && `, ${localProfile.city}`}
+                        {localProfile.state && `, ${localProfile.state}`}
+                        {localProfile.zip_code && ` ${localProfile.zip_code}`}
                       </span>
                     </div>
                   )}
@@ -225,7 +193,7 @@ export default function ProfilePage() {
                     <Label htmlFor="first_name">First Name</Label>
                     <Input
                       id="first_name"
-                      value={profile.first_name || ""}
+                      value={localProfile.first_name || ""}
                       onChange={(e) => updateProfile("first_name", e.target.value)}
                     />
                   </div>
@@ -233,7 +201,7 @@ export default function ProfilePage() {
                     <Label htmlFor="last_name">Last Name</Label>
                     <Input
                       id="last_name"
-                      value={profile.last_name || ""}
+                      value={localProfile.last_name || ""}
                       onChange={(e) => updateProfile("last_name", e.target.value)}
                     />
                   </div>
@@ -241,7 +209,7 @@ export default function ProfilePage() {
 
                 <div className="space-y-2">
                   <Label htmlFor="email">Email Address</Label>
-                  <Input id="email" type="email" value={profile.email} disabled className="bg-muted" />
+                  <Input id="email" type="email" value={localProfile.email} disabled className="bg-muted" />
                   <p className="text-xs text-muted-foreground">
                     Email cannot be changed. Contact support if you need to update your email.
                   </p>
@@ -252,7 +220,7 @@ export default function ProfilePage() {
                   <Input
                     id="phone"
                     type="tel"
-                    value={profile.phone || ""}
+                    value={localProfile.phone || ""}
                     onChange={(e) => updateProfile("phone", e.target.value)}
                     placeholder="(555) 123-4567"
                   />
@@ -267,7 +235,7 @@ export default function ProfilePage() {
                     <Label htmlFor="address">Street Address</Label>
                     <Input
                       id="address"
-                      value={profile.address || ""}
+                      value={localProfile.address || ""}
                       onChange={(e) => updateProfile("address", e.target.value)}
                       placeholder="123 Main Street"
                     />
@@ -278,7 +246,7 @@ export default function ProfilePage() {
                       <Label htmlFor="city">City</Label>
                       <Input
                         id="city"
-                        value={profile.city || ""}
+                        value={localProfile.city || ""}
                         onChange={(e) => updateProfile("city", e.target.value)}
                         placeholder="New York"
                       />
@@ -287,7 +255,7 @@ export default function ProfilePage() {
                       <Label htmlFor="state">State</Label>
                       <Input
                         id="state"
-                        value={profile.state || ""}
+                        value={localProfile.state || ""}
                         onChange={(e) => updateProfile("state", e.target.value)}
                         placeholder="NY"
                       />
@@ -296,7 +264,7 @@ export default function ProfilePage() {
                       <Label htmlFor="zip_code">ZIP Code</Label>
                       <Input
                         id="zip_code"
-                        value={profile.zip_code || ""}
+                        value={localProfile.zip_code || ""}
                         onChange={(e) => updateProfile("zip_code", e.target.value)}
                         placeholder="10001"
                       />

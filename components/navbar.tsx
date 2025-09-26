@@ -16,108 +16,18 @@ import {
 import { Search, ShoppingCart, Heart, LogOut, Package, Settings, User, X, Store, BarChart3 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
-
-interface UserProfile {
-  id: string
-  email: string
-  profiles: {
-    first_name: string
-    last_name: string
-    role: string
-  }
-}
+import { useState } from "react"
+import { useAuth } from "@/context/AuthContext"
 
 export function Navbar() {
-  const [user, setUser] = useState<UserProfile | null>(null)
-  const [cartCount, setCartCount] = useState(0)
+  const { user, profile, loading, cartCount, setCartCount } = useAuth()
   const [searchQuery, setSearchQuery] = useState("")
-  const [loading, setLoading] = useState(true)
   const router = useRouter()
-
-  useEffect(() => {
-    let mounted = true
-    const supabase = createClient()
-
-    const checkAuth = async () => {
-      try {
-        const {
-          data: { user: authUser },
-        } = await supabase.auth.getUser()
-
-        if (!mounted) return
-
-        if (authUser) {
-          // Try to get profile, but don't fail if it doesn't exist
-          const { data: profile } = await supabase
-            .from("profiles")
-            .select("first_name, last_name, role")
-            .eq("id", authUser.id)
-            .single()
-
-          if (!mounted) return
-
-          const userProfile = {
-            id: authUser.id,
-            email: authUser.email!,
-            profiles: profile || {
-              first_name: "User",
-              last_name: "",
-              role: "customer",
-            },
-          }
-          setUser(userProfile)
-
-          if (profile?.role !== "vendor") {
-            // Get cart count
-            const { count } = await supabase
-              .from("cart_items")
-              .select("*", { count: "exact" })
-              .eq("user_id", authUser.id)
-
-            if (mounted) {
-              setCartCount(count || 0)
-            }
-          }
-        } else {
-          setUser(null)
-        }
-      } catch (error) {
-        console.error("Auth check error:", error)
-        if (mounted) {
-          setUser(null)
-        }
-      } finally {
-        if (mounted) {
-          setLoading(false)
-        }
-      }
-    }
-
-    checkAuth()
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_IN" && session) {
-        checkAuth()
-      } else if (event === "SIGNED_OUT") {
-        setUser(null)
-        setCartCount(0)
-      }
-    })
-
-    return () => {
-      mounted = false
-      subscription.unsubscribe()
-    }
-  }, [])
 
   const handleSignOut = async () => {
     try {
       const supabase = createClient()
       await supabase.auth.signOut()
-      setUser(null)
       setCartCount(0)
       router.push("/")
       router.refresh()
@@ -167,7 +77,7 @@ export function Navbar() {
           <nav className="hidden md:flex items-center space-x-6 text-sm font-medium"></nav>
         </div>
 
-        {user?.profiles.role !== "vendor" && (
+        {profile?.role !== "vendor" && (
           <form onSubmit={handleSearch} className="flex-1 max-w-md mx-6">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
@@ -193,7 +103,7 @@ export function Navbar() {
         )}
 
         <div className="flex items-center space-x-4">
-          {user && user.profiles.role !== "vendor" && (
+          {user && profile?.role !== "vendor" && (
             <>
               <Link href="/cart">
                 <Button variant="ghost" size="icon" className="relative hover:bg-primary/10">
@@ -214,10 +124,10 @@ export function Navbar() {
             </>
           )}
 
-          {user ? (
+          {user && profile ? (
             <div className="flex items-center space-x-2">
               <span className="text-sm font-medium hidden sm:block">
-                {user.profiles.first_name} {user.profiles.last_name}
+                {profile.first_name} {profile.last_name}
               </span>
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
@@ -227,11 +137,11 @@ export function Navbar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
                   <div className="px-2 py-1.5">
-                    <p className="text-sm font-medium">Hi {user.profiles.first_name}</p>
+                    <p className="text-sm font-medium">Hi {profile.first_name}</p>
                     <p className="text-xs text-muted-foreground">{user.email}</p>
                   </div>
                   <DropdownMenuSeparator />
-                  {user.profiles.role !== "vendor" && (
+                  {profile.role !== "vendor" && (
                     <>
                       <DropdownMenuItem asChild>
                         <Link href="/profile">
@@ -259,7 +169,7 @@ export function Navbar() {
                       </DropdownMenuItem>
                     </>
                   )}
-                  {user.profiles.role === "vendor" && (
+                  {profile.role === "vendor" && (
                     <>
                       <DropdownMenuItem asChild>
                         <Link href="/vendor">
@@ -281,7 +191,7 @@ export function Navbar() {
                       </DropdownMenuItem>
                     </>
                   )}
-                  {user.profiles.role === "admin" && (
+                  {profile.role === "admin" && (
                     <DropdownMenuItem asChild>
                       <Link href="/admin">
                         <Settings className="mr-2 h-4 w-4" />
