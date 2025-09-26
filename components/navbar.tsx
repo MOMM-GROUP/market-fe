@@ -159,14 +159,7 @@ export function Navbar() {
             </div>
             <span className="font-bold text-xl">MOMM Market</span>
           </Link>
-          <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
-            <Link href="/vendors" className="text-foreground/60 hover:text-foreground transition-colors">
-              Vendors
-            </Link>
-            <Link href="/deals" className="text-foreground/60 hover:text-foreground transition-colors">
-              Deals
-            </Link>
-          </nav>
+          <nav className="hidden md:flex items-center space-x-6 text-sm font-medium"></nav>
         </div>
 
         <form onSubmit={handleSearch} className="flex-1 max-w-md mx-6">

@@ -55,7 +55,8 @@ export default async function VendorProfilePage({ params }: { params: { id: stri
         certifications (
           name,
           description,
-          icon_url
+          icon_url,
+          id
         )
       `)
       .eq("entity_id", params.id)
@@ -258,7 +259,11 @@ export default async function VendorProfilePage({ params }: { params: { id: stri
                   </CardHeader>
                   <CardContent className="space-y-3">
                     {certifications.map((cert, index) => (
-                      <div key={index} className="flex items-center gap-3">
+                      <Link
+                        key={index}
+                        href={`/certifications/${cert.certifications?.id || "#"}`}
+                        className="flex items-center gap-3 hover:bg-muted/50 p-2 rounded-md transition-colors"
+                      >
                         <CheckCircle className="h-4 w-4 text-green-600" />
                         <div>
                           <span className="font-medium text-sm">{cert.certifications?.name}</span>
@@ -266,7 +271,7 @@ export default async function VendorProfilePage({ params }: { params: { id: stri
                             <p className="text-xs text-muted-foreground">{cert.certifications.description}</p>
                           )}
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   </CardContent>
                 </Card>

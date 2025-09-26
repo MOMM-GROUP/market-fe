@@ -191,21 +191,30 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                   <CardTitle>The Ethical Breakdown</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex items-center gap-3">
+                  <Link
+                    href="/certifications/gots-organic"
+                    className="flex items-center gap-3 hover:bg-muted/50 p-2 rounded-md transition-colors"
+                  >
                     <CheckCircle className="h-5 w-5 text-green-600" />
                     <div>
                       <span className="font-medium">GOTS Organic:</span>
                       <span className="text-muted-foreground ml-2">Verified for materials used.</span>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-3">
+                  </Link>
+                  <Link
+                    href="/certifications/fair-trade"
+                    className="flex items-center gap-3 hover:bg-muted/50 p-2 rounded-md transition-colors"
+                  >
                     <CheckCircle className="h-5 w-5 text-green-600" />
                     <div>
                       <span className="font-medium">Fair Trade Certified:</span>
                       <span className="text-muted-foreground ml-2">Verified for factory labor practices.</span>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-3">
+                  </Link>
+                  <Link
+                    href="/certifications/b-corp"
+                    className="flex items-center gap-3 hover:bg-muted/50 p-2 rounded-md transition-colors"
+                  >
                     <CheckCircle className="h-5 w-5 text-green-600" />
                     <div>
                       <span className="font-medium">B Corp Certified:</span>
@@ -213,14 +222,17 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                         Verified for overall company impact (Score: 94).
                       </span>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-3">
+                  </Link>
+                  <Link
+                    href="/certifications/living-wage"
+                    className="flex items-center gap-3 hover:bg-muted/50 p-2 rounded-md transition-colors"
+                  >
                     <CheckCircle className="h-5 w-5 text-green-600" />
                     <div>
                       <span className="font-medium">Living Wage:</span>
                       <span className="text-muted-foreground ml-2">Verified for worker compensation.</span>
                     </div>
-                  </div>
+                  </Link>
                 </CardContent>
               </Card>
 
