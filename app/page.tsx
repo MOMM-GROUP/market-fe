@@ -353,9 +353,11 @@ function ProductCard({ product }: { product: Product }) {
             </div>
             <span className="text-xs text-muted-foreground">(4.8)</span>
           </div>
-          <Button className="w-full" size="sm">
-            Add to Cart
-          </Button>
+          <Link href={`/products/${product.id}`}>
+            <Button className="w-full bg-transparent" size="sm" variant="outline">
+              View Details
+            </Button>
+          </Link>
         </div>
       </CardContent>
     </Card>

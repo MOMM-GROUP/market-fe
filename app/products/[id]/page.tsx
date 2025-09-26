@@ -7,8 +7,8 @@ import { Star, Shield, CheckCircle, Truck, RotateCcw, Award } from "lucide-react
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { AddToCartButton } from "@/components/add-to-cart-button"
 import { FavoriteButton } from "@/components/favorite-button"
+import { WhereToBuySection } from "@/components/where-to-buy-section"
 
 interface Product {
   id: string
@@ -148,7 +148,9 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                 </div>
 
                 <div className="flex gap-3 mb-6">
-                  <AddToCartButton productId={product.id} className="flex-1" size="lg" />
+                  <div className="flex-1">
+                    <WhereToBuySection productId={product.id} />
+                  </div>
                   <FavoriteButton productId={product.id} size="lg" />
                 </div>
 

@@ -177,6 +177,12 @@ export default async function VendorProductsPage() {
                                   Edit
                                 </Link>
                               </DropdownMenuItem>
+                              <DropdownMenuItem asChild>
+                                <Link href={`/vendor/products/${product.id}/links`}>
+                                  <Package className="mr-2 h-4 w-4" />
+                                  Manage Links
+                                </Link>
+                              </DropdownMenuItem>
                               <DropdownMenuItem className="text-destructive">
                                 <Trash2 className="mr-2 h-4 w-4" />
                                 Delete

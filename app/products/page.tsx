@@ -399,45 +399,6 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
     router.push(`/products/${product.id}`)
   }
 
-  const handleAddToCart = async (e: React.MouseEvent) => {
-    e.stopPropagation()
-
-    if (!user) {
-      router.push("/auth/login")
-      return
-    }
-
-    setIsAddingToCart(true)
-
-    try {
-      const { data: existingItem } = await supabase
-        .from("cart_items")
-        .select("id, quantity")
-        .eq("user_id", user.id)
-        .eq("product_id", product.id)
-        .single()
-
-      if (existingItem) {
-        await supabase
-          .from("cart_items")
-          .update({ quantity: existingItem.quantity + 1 })
-          .eq("id", existingItem.id)
-      } else {
-        await supabase.from("cart_items").insert({
-          user_id: user.id,
-          product_id: product.id,
-          quantity: 1,
-        })
-      }
-
-      window.location.reload()
-    } catch (error) {
-      console.error("Error adding to cart:", error)
-    } finally {
-      setIsAddingToCart(false)
-    }
-  }
-
   const handleToggleFavorite = async (e: React.MouseEvent) => {
     e.stopPropagation()
 
@@ -504,9 +465,7 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
                     <span className="text-sm text-muted-foreground line-through">${product.compare_at_price}</span>
                   )}
                 </div>
-                <Button size="sm" onClick={handleAddToCart} disabled={isAddingToCart}>
-                  {isAddingToCart ? "Adding..." : "Add to Cart"}
-                </Button>
+                <div className="text-xs text-muted-foreground">View Details</div>
               </div>
             </div>
           </div>
@@ -567,8 +526,8 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
             </div>
             <span className="text-xs text-muted-foreground">(4.8)</span>
           </div>
-          <Button className="w-full" size="sm" onClick={handleAddToCart} disabled={isAddingToCart}>
-            {isAddingToCart ? "Adding..." : "Add to Cart"}
+          <Button className="w-full bg-transparent" size="sm" variant="outline" onClick={handleProductClick}>
+            View Details
           </Button>
         </div>
       </CardContent>
