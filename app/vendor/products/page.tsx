@@ -48,7 +48,7 @@ export default async function VendorProductsPage() {
   const { data: vendor } = await supabase.from("vendors").select("*").eq("user_id", user.id).single()
 
   if (!vendor) {
-    redirect("/vendor/setup")
+    redirect("/vendor/profile")
   }
 
   // Get vendor's products

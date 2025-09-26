@@ -23,17 +23,17 @@ interface OrderItem {
     created_at: string
     customer_id: string
     shipping_address: any
-  }
+  } | null
   products: {
     name: string
     featured_image_url: string | null
-  }
+  } | null
 }
 
 export default async function VendorOrdersPage() {
   const supabase = await createClient()
 
-  // Check authentication and vendor status
+  // Check authentication
   const {
     data: { user },
   } = await supabase.auth.getUser()
@@ -42,20 +42,29 @@ export default async function VendorOrdersPage() {
     redirect("/auth/login")
   }
 
-  const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).single()
+  // --- START: PERMISSIVE VENDOR DATA FETCHING ---
 
-  if (profile?.role !== "vendor") {
-    redirect("/")
+  // Step 1: Check if the user is a member of ANY vendor team.
+  const { data: teamMember } = await supabase
+    .from("team_members")
+    .select("vendor_id")
+    .eq("user_id", user.id)
+    .limit(1) // We only need to know if at least one record exists
+    .single()
+
+
+  console.log("Vendor team member check:", teamMember)
+  console.log("User ID:", user.id)
+  console.log("vendor_id:", teamMember?.vendor_id)
+
+  // If the user is not on ANY vendor team, they can't see vendor pages.
+  if (!teamMember) {
+    // This could be a customer or a vendor whose application is pending.
+    redirect("/vendor/application-submitted")
   }
 
-  // Get vendor data
-  const { data: vendor } = await supabase.from("vendors").select("*").eq("user_id", user.id).single()
-
-  if (!vendor) {
-    redirect("/vendor/setup")
-  }
-
-  // Get vendor's orders
+  // Step 2: Get ALL order items from ALL vendors for development purposes.
+  // The specific vendor_id filter has been removed.
   const { data: orderItems } = await supabase
     .from("order_items")
     .select(
@@ -72,11 +81,12 @@ export default async function VendorOrdersPage() {
       products (name, featured_image_url)
     `,
     )
-    .eq("vendor_id", vendor.id)
     .order("created_at", { ascending: false })
 
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
+  // --- END: PERMISSIVE VENDOR DATA FETCHING ---
+
+  const getStatusColor = (status: string | undefined) => {
+    switch (status?.toLowerCase()) {
       case "pending":
         return "secondary"
       case "processing":
@@ -121,8 +131,8 @@ export default async function VendorOrdersPage() {
           {/* Orders Table */}
           <Card>
             <CardHeader>
-              <CardTitle>Your Orders ({orderItems?.length || 0})</CardTitle>
-              <CardDescription>Track and manage customer orders</CardDescription>
+              <CardTitle>All Vendor Orders ({orderItems?.length || 0})</CardTitle>
+              <CardDescription>Showing all orders across the platform for editing</CardDescription>
             </CardHeader>
             <CardContent>
               {orderItems && orderItems.length > 0 ? (
@@ -139,60 +149,64 @@ export default async function VendorOrdersPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {orderItems.map((item) => (
-                      <TableRow key={item.id}>
-                        <TableCell>
-                          <div>
-                            <p className="font-medium">#{item.orders.order_number}</p>
-                            <p className="text-sm text-muted-foreground">Order ID: {item.orders.id.slice(0, 8)}...</p>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg overflow-hidden bg-muted">
-                              <div className="w-full h-full bg-primary/10 flex items-center justify-center">
-                                <Package className="h-5 w-5 text-primary/50" />
+                    {orderItems
+                      .filter((item) => item.orders && item.products) // Filter out items with missing relations
+                      .map((item) => (
+                        <TableRow key={item.id}>
+                          <TableCell>
+                            <div>
+                              <p className="font-medium">#{item.orders?.order_number}</p>
+                              <p className="text-sm text-muted-foreground">
+                                Order ID: {item.orders?.id.slice(0, 8)}...
+                              </p>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 rounded-lg overflow-hidden bg-muted">
+                                <div className="w-full h-full bg-primary/10 flex items-center justify-center">
+                                  <Package className="h-5 w-5 text-primary/50" />
+                                </div>
+                              </div>
+                              <div>
+                                <p className="font-medium">{item.products?.name}</p>
                               </div>
                             </div>
+                          </TableCell>
+                          <TableCell>{item.quantity}</TableCell>
+                          <TableCell>
                             <div>
-                              <p className="font-medium">{item.products.name}</p>
+                              <span className="font-medium">${item.total_price}</span>
+                              <p className="text-sm text-muted-foreground">${item.unit_price} each</p>
                             </div>
-                          </div>
-                        </TableCell>
-                        <TableCell>{item.quantity}</TableCell>
-                        <TableCell>
-                          <div>
-                            <span className="font-medium">${item.total_price}</span>
-                            <p className="text-sm text-muted-foreground">${item.unit_price} each</p>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant={getStatusColor(item.orders.status)}>{item.orders.status}</Badge>
-                        </TableCell>
-                        <TableCell>{new Date(item.created_at).toLocaleDateString()}</TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="icon">
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem asChild>
-                                <Link href={`/vendor/orders/${item.orders.id}`}>
-                                  <Eye className="mr-2 h-4 w-4" />
-                                  View Details
-                                </Link>
-                              </DropdownMenuItem>
-                              <DropdownMenuItem>
-                                <Package className="mr-2 h-4 w-4" />
-                                Update Status
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                          </TableCell>
+                          <TableCell>
+                            <Badge variant={getStatusColor(item.orders?.status)}>{item.orders?.status}</Badge>
+                          </TableCell>
+                          <TableCell>{new Date(item.created_at).toLocaleDateString()}</TableCell>
+                          <TableCell>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon">
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuItem asChild>
+                                  <Link href={`/vendor/orders/${item.orders?.id}`}>
+                                    <Eye className="mr-2 h-4 w-4" />
+                                    View Details
+                                  </Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                  <Package className="mr-2 h-4 w-4" />
+                                  Update Status
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                        </TableRow>
+                      ))}
                   </TableBody>
                 </Table>
               ) : (

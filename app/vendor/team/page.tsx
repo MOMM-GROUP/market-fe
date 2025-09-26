@@ -39,7 +39,7 @@ interface TeamMember {
     first_name: string
     last_name: string
     email: string
-  }
+  } | null
 }
 
 interface TeamInvitation {
@@ -73,6 +73,7 @@ export default function TeamManagementPage() {
     },
   })
   const [isInviting, setIsInviting] = useState(false)
+  const [error, setError] = useState("")
   const router = useRouter()
   const supabase = createClient()
 
@@ -86,52 +87,69 @@ export default function TeamManagementPage() {
         router.push("/auth/login")
         return
       }
+      setUser(authUser)
 
-      const { data: profile } = await supabase.from("profiles").select("role").eq("id", authUser.id).single()
+      // --- START: NEW OWNER-BASED DATA FETCHING ---
 
-      if (profile?.role !== "vendor") {
-        router.push("/")
+      // Step 1: Find the current user in the team_members table to check their role.
+      const { data: teamMember, error: teamMemberError } = await supabase
+        .from("team_members")
+        .select("vendor_id, role")
+        .eq("user_id", authUser.id)
+        .single()
+
+      // Step 2: Check if they are an owner. If not, they cannot manage the team.
+      if (teamMemberError || !teamMember || teamMember.role !== "owner") {
+        console.error("Access Denied: User is not the vendor owner.", teamMemberError)
+        // Redirect to the main vendor dashboard, as they don't have permission for this page.
+        router.push("/vendor")
         return
       }
 
-      setUser(authUser)
+      const vendorId = teamMember.vendor_id
 
-      // Get vendor data
-      const { data: vendorData } = await supabase.from("vendors").select("*").eq("user_id", authUser.id).single()
+      // Step 3: Since they are the owner, fetch the main vendor data.
+      const { data: vendorData } = await supabase.from("vendors").select("*").eq("id", vendorId).single()
 
       if (!vendorData) {
-        router.push("/vendor/setup")
+        console.error("Critical Error: Vendor record not found for owner's vendor_id:", vendorId)
+        setError("Could not load your vendor information.")
+        setLoading(false)
         return
       }
 
       setVendor(vendorData)
 
-      // Load team members
+      // Step 4: Load all team members for the owner's vendor.
       const { data: members } = await supabase
         .from("team_members")
-        .select(`
+        .select(
+          `
           *,
           profiles (
             first_name,
             last_name,
             email
           )
-        `)
-        .eq("vendor_id", vendorData.id)
+        `,
+        )
+        .eq("vendor_id", vendorId)
         .order("joined_at", { ascending: false })
 
       setTeamMembers(members || [])
 
-      // Load pending invitations
+      // Step 5: Load pending invitations for the owner's vendor.
       const { data: pendingInvitations } = await supabase
         .from("team_invitations")
         .select("*")
-        .eq("vendor_id", vendorData.id)
+        .eq("vendor_id", vendorId)
         .eq("status", "pending")
         .order("created_at", { ascending: false })
 
       setInvitations(pendingInvitations || [])
       setLoading(false)
+
+      // --- END: NEW OWNER-BASED DATA FETCHING ---
     }
 
     checkAuthAndLoadData()
@@ -212,6 +230,17 @@ export default function TeamManagementPage() {
         <VendorSidebar />
         <main className="flex-1 p-8">
           <div className="text-center">Loading...</div>
+        </main>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-screen bg-background">
+        <VendorSidebar />
+        <main className="flex-1 p-8">
+          <div className="text-center text-red-600">{error}</div>
         </main>
       </div>
     )
@@ -351,9 +380,9 @@ export default function TeamManagementPage() {
                       </div>
                       <div>
                         <p className="font-medium">
-                          {member.profiles.first_name} {member.profiles.last_name}
+                          {member.profiles?.first_name} {member.profiles?.last_name}
                         </p>
-                        <p className="text-sm text-muted-foreground">{member.profiles.email}</p>
+                        <p className="text-sm text-muted-foreground">{member.profiles?.email}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">

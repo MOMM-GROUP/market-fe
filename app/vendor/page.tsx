@@ -37,7 +37,7 @@ export default async function VendorDashboard() {
   const { data: vendor } = await supabase.from("vendors").select("*").eq("user_id", user.id).single()
 
   if (!vendor) {
-    redirect("/vendor/setup")
+    redirect("/vendor/profile")
   }
 
   // Get vendor statistics
