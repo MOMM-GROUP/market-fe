@@ -27,7 +27,6 @@ import {
   ShoppingBag,
   Globe,
 } from "lucide-react"
-import { VendorSidebar } from "@/components/vendor-sidebar"
 import { ConnectionManager } from "@/components/connection-manager"
 import { cn } from "@/lib/utils"
 
@@ -259,240 +258,234 @@ export default function UnifiedOrdersPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen bg-background">
-        <VendorSidebar />
-        <main className="flex-1 p-8">
-          <div className="max-w-7xl mx-auto space-y-8">
-            <div className="h-8 bg-muted rounded animate-pulse" />
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="h-32 bg-muted rounded animate-pulse" />
-              ))}
-            </div>
-            <div className="h-96 bg-muted rounded animate-pulse" />
+      <main className="min-h-screen bg-background p-8">
+        <div className="max-w-7xl mx-auto space-y-8">
+          <div className="h-8 bg-muted rounded animate-pulse" />
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-32 bg-muted rounded animate-pulse" />
+            ))}
           </div>
-        </main>
-      </div>
+          <div className="h-96 bg-muted rounded animate-pulse" />
+        </div>
+      </main>
     )
   }
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <VendorSidebar />
-      <main className="flex-1 p-8">
-        <div className="max-w-7xl mx-auto space-y-8">
-          {/* Header */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold">Unified Order Dashboard</h1>
-              <p className="text-muted-foreground">Manage orders from all your connected platforms in one place</p>
-            </div>
-            <div className="flex items-center gap-4">
-              <Select value={dateRange} onValueChange={setDateRange}>
-                <SelectTrigger className="w-32">
-                  <Calendar className="h-4 w-4 mr-2" />
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="today">Today</SelectItem>
-                  <SelectItem value="week">This Week</SelectItem>
-                  <SelectItem value="month">This Month</SelectItem>
-                </SelectContent>
-              </Select>
-              <Button onClick={handleSync} disabled={syncing}>
-                <RefreshCw className={cn("h-4 w-4 mr-2", syncing && "animate-spin")} />
-                {syncing ? "Syncing..." : "Sync Now"}
-              </Button>
-            </div>
+    <main className="min-h-screen bg-background p-8">
+      <div className="max-w-7xl mx-auto space-y-8">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold">Unified Order Dashboard</h1>
+            <p className="text-muted-foreground">Manage orders from all your connected platforms in one place</p>
           </div>
-
-          {/* Summary Bar */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Today's Revenue</CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">${stats.todayRevenue.toFixed(2)}</div>
-                <p className="text-xs text-muted-foreground">From all platforms</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Today's Orders</CardTitle>
-                <ShoppingCart className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{stats.todayOrders}</div>
-                <p className="text-xs text-muted-foreground">New orders today</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Pending Fulfillment</CardTitle>
-                <Package className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{stats.pendingFulfillment}</div>
-                <p className="text-xs text-muted-foreground">Orders to fulfill</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">7-Day Revenue</CardTitle>
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">${stats.weekRevenue.toFixed(2)}</div>
-                <p className="text-xs text-muted-foreground">Last 7 days</p>
-              </CardContent>
-            </Card>
+          <div className="flex items-center gap-4">
+            <Select value={dateRange} onValueChange={setDateRange}>
+              <SelectTrigger className="w-32">
+                <Calendar className="h-4 w-4 mr-2" />
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="today">Today</SelectItem>
+                <SelectItem value="week">This Week</SelectItem>
+                <SelectItem value="month">This Month</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={handleSync} disabled={syncing}>
+              <RefreshCw className={cn("h-4 w-4 mr-2", syncing && "animate-spin")} />
+              {syncing ? "Syncing..." : "Sync Now"}
+            </Button>
           </div>
-
-          {/* Main Content */}
-          <Tabs defaultValue="orders" className="space-y-6">
-            <TabsList>
-              <TabsTrigger value="orders">Orders</TabsTrigger>
-              <TabsTrigger value="connections">Connections</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="orders" className="space-y-6">
-              {/* Filters */}
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <div className="relative flex-1">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                      <Input
-                        placeholder="Search by Order ID, customer name, or email..."
-                        className="pl-10"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                      />
-                    </div>
-                    <Select value={statusFilter} onValueChange={setStatusFilter}>
-                      <SelectTrigger className="w-40">
-                        <Filter className="h-4 w-4 mr-2" />
-                        <SelectValue placeholder="Status" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All Status</SelectItem>
-                        <SelectItem value="pending">Pending</SelectItem>
-                        <SelectItem value="processing">Processing</SelectItem>
-                        <SelectItem value="shipped">Shipped</SelectItem>
-                        <SelectItem value="delivered">Delivered</SelectItem>
-                        <SelectItem value="cancelled">Cancelled</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <Select value={platformFilter} onValueChange={setPlatformFilter}>
-                      <SelectTrigger className="w-40">
-                        <SelectValue placeholder="Platform" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All Platforms</SelectItem>
-                        <SelectItem value="shopify">Shopify</SelectItem>
-                        <SelectItem value="etsy">Etsy</SelectItem>
-                        <SelectItem value="amazon">Amazon</SelectItem>
-                        <SelectItem value="woocommerce">WooCommerce</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Orders Table */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Orders ({filteredOrders.length})</CardTitle>
-                  <CardDescription>All orders from your connected platforms</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {filteredOrders.length > 0 ? (
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Source</TableHead>
-                          <TableHead>Order ID</TableHead>
-                          <TableHead>Date</TableHead>
-                          <TableHead>Customer</TableHead>
-                          <TableHead>Total</TableHead>
-                          <TableHead>Status</TableHead>
-                          <TableHead className="w-[70px]"></TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {filteredOrders.map((order) => (
-                          <TableRow key={order.id}>
-                            <TableCell>{getPlatformIcon(order.platform_type)}</TableCell>
-                            <TableCell>
-                              <div>
-                                <p className="font-medium">{order.external_order_number}</p>
-                                <p className="text-sm text-muted-foreground">{order.platform_connections.store_name}</p>
-                              </div>
-                            </TableCell>
-                            <TableCell>{new Date(order.order_date).toLocaleDateString()}</TableCell>
-                            <TableCell>
-                              <div>
-                                <p className="font-medium">{order.customer_name}</p>
-                                <p className="text-sm text-muted-foreground">{order.customer_email}</p>
-                              </div>
-                            </TableCell>
-                            <TableCell>
-                              <span className="font-medium">${order.total_amount}</span>
-                            </TableCell>
-                            <TableCell>
-                              <div className="space-y-1">
-                                {getStatusBadge(order.order_status, "order")}
-                                {getStatusBadge(order.fulfillment_status, "fulfillment")}
-                              </div>
-                            </TableCell>
-                            <TableCell>
-                              <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                  <Button variant="ghost" size="icon">
-                                    <MoreHorizontal className="h-4 w-4" />
-                                  </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end">
-                                  <OrderDetailSheet orderId={order.id}>
-                                    <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                                      <Eye className="mr-2 h-4 w-4" />
-                                      View Details
-                                    </DropdownMenuItem>
-                                  </OrderDetailSheet>
-                                  <DropdownMenuItem asChild>
-                                    <a href={order.platform_order_url} target="_blank" rel="noopener noreferrer">
-                                      <ExternalLink className="mr-2 h-4 w-4" />
-                                      View on {order.platform_type}
-                                    </a>
-                                  </DropdownMenuItem>
-                                </DropdownMenuContent>
-                              </DropdownMenu>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  ) : (
-                    <div className="text-center py-12">
-                      <ShoppingCart className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                      <h3 className="text-lg font-medium mb-2">No orders found</h3>
-                      <p className="text-muted-foreground mb-4">
-                        {orders.length === 0
-                          ? "Connect your platforms to start seeing orders here."
-                          : "Try adjusting your filters to see more orders."}
-                      </p>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="connections">{vendor && <ConnectionManager vendorId={vendor.id} />}</TabsContent>
-          </Tabs>
         </div>
-      </main>
-    </div>
+
+        {/* Summary Bar */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Today's Revenue</CardTitle>
+              <DollarSign className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">${stats.todayRevenue.toFixed(2)}</div>
+              <p className="text-xs text-muted-foreground">From all platforms</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Today's Orders</CardTitle>
+              <ShoppingCart className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stats.todayOrders}</div>
+              <p className="text-xs text-muted-foreground">New orders today</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Pending Fulfillment</CardTitle>
+              <Package className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stats.pendingFulfillment}</div>
+              <p className="text-xs text-muted-foreground">Orders to fulfill</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">7-Day Revenue</CardTitle>
+              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">${stats.weekRevenue.toFixed(2)}</div>
+              <p className="text-xs text-muted-foreground">Last 7 days</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Main Content */}
+        <Tabs defaultValue="orders" className="space-y-6">
+          <TabsList>
+            <TabsTrigger value="orders">Orders</TabsTrigger>
+            <TabsTrigger value="connections">Connections</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="orders" className="space-y-6">
+            {/* Filters */}
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                    <Input
+                      placeholder="Search by Order ID, customer name, or email..."
+                      className="pl-10"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                  </div>
+                  <Select value={statusFilter} onValueChange={setStatusFilter}>
+                    <SelectTrigger className="w-40">
+                      <Filter className="h-4 w-4 mr-2" />
+                      <SelectValue placeholder="Status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Status</SelectItem>
+                      <SelectItem value="pending">Pending</SelectItem>
+                      <SelectItem value="processing">Processing</SelectItem>
+                      <SelectItem value="shipped">Shipped</SelectItem>
+                      <SelectItem value="delivered">Delivered</SelectItem>
+                      <SelectItem value="cancelled">Cancelled</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Select value={platformFilter} onValueChange={setPlatformFilter}>
+                    <SelectTrigger className="w-40">
+                      <SelectValue placeholder="Platform" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Platforms</SelectItem>
+                      <SelectItem value="shopify">Shopify</SelectItem>
+                      <SelectItem value="etsy">Etsy</SelectItem>
+                      <SelectItem value="amazon">Amazon</SelectItem>
+                      <SelectItem value="woocommerce">WooCommerce</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Orders Table */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Orders ({filteredOrders.length})</CardTitle>
+                <CardDescription>All orders from your connected platforms</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {filteredOrders.length > 0 ? (
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Source</TableHead>
+                        <TableHead>Order ID</TableHead>
+                        <TableHead>Date</TableHead>
+                        <TableHead>Customer</TableHead>
+                        <TableHead>Total</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead className="w-[70px]"></TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {filteredOrders.map((order) => (
+                        <TableRow key={order.id}>
+                          <TableCell>{getPlatformIcon(order.platform_type)}</TableCell>
+                          <TableCell>
+                            <div>
+                              <p className="font-medium">{order.external_order_number}</p>
+                              <p className="text-sm text-muted-foreground">{order.platform_connections.store_name}</p>
+                            </div>
+                          </TableCell>
+                          <TableCell>{new Date(order.order_date).toLocaleDateString()}</TableCell>
+                          <TableCell>
+                            <div>
+                              <p className="font-medium">{order.customer_name}</p>
+                              <p className="text-sm text-muted-foreground">{order.customer_email}</p>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <span className="font-medium">${order.total_amount}</span>
+                          </TableCell>
+                          <TableCell>
+                            <div className="space-y-1">
+                              {getStatusBadge(order.order_status, "order")}
+                              {getStatusBadge(order.fulfillment_status, "fulfillment")}
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon">
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <OrderDetailSheet orderId={order.id}>
+                                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                                    <Eye className="mr-2 h-4 w-4" />
+                                    View Details
+                                  </DropdownMenuItem>
+                                </OrderDetailSheet>
+                                <DropdownMenuItem asChild>
+                                  <a href={order.platform_order_url} target="_blank" rel="noopener noreferrer">
+                                    <ExternalLink className="mr-2 h-4 w-4" />
+                                    View on {order.platform_type}
+                                  </a>
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                ) : (
+                  <div className="text-center py-12">
+                    <ShoppingCart className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                    <h3 className="text-lg font-medium mb-2">No orders found</h3>
+                    <p className="text-muted-foreground mb-4">
+                      {orders.length === 0
+                        ? "Connect your platforms to start seeing orders here."
+                        : "Try adjusting your filters to see more orders."}
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="connections">{vendor && <ConnectionManager vendorId={vendor.id} />}</TabsContent>
+        </Tabs>
+      </div>
+    </main>
   )
 }

@@ -23,7 +23,6 @@ import {
 } from "@/components/ui/dialog"
 import { Switch } from "@/components/ui/switch"
 import { Plus, ExternalLink, MoreHorizontal, Edit, Trash2, ArrowLeft } from "lucide-react"
-import { VendorSidebar } from "@/components/vendor-sidebar"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
@@ -202,223 +201,217 @@ export default function ProductLinksPage({ params }: { params: { id: string } })
 
   if (loading) {
     return (
-      <div className="flex min-h-screen bg-background">
-        <VendorSidebar />
-        <main className="flex-1 p-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="animate-pulse space-y-4">
-              <div className="h-8 bg-muted rounded w-1/3"></div>
-              <div className="h-64 bg-muted rounded"></div>
-            </div>
+      <main className="min-h-screen bg-background p-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="animate-pulse space-y-4">
+            <div className="h-8 bg-muted rounded w-1/3"></div>
+            <div className="h-64 bg-muted rounded"></div>
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     )
   }
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <VendorSidebar />
-      <main className="flex-1 p-8">
-        <div className="max-w-7xl mx-auto space-y-8">
-          {/* Header */}
-          <div className="flex items-center gap-4">
-            <Link href="/vendor/products">
-              <Button variant="outline" size="icon">
-                <ArrowLeft className="h-4 w-4" />
+    <main className="min-h-screen bg-background p-8">
+      <div className="max-w-7xl mx-auto space-y-8">
+        {/* Header */}
+        <div className="flex items-center gap-4">
+          <Link href="/vendor/products">
+            <Button variant="outline" size="icon">
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
+          </Link>
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold">Manage Purchase Links</h1>
+            <p className="text-muted-foreground">{product?.name} - Add external purchase links for your product</p>
+          </div>
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Button>
+                <Plus className="h-4 w-4 mr-2" />
+                Add Link
               </Button>
-            </Link>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold">Manage Purchase Links</h1>
-              <p className="text-muted-foreground">{product?.name} - Add external purchase links for your product</p>
-            </div>
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-              <DialogTrigger asChild>
-                <Button>
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Link
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>{editingLink ? "Edit" : "Add"} Purchase Link</DialogTitle>
-                  <DialogDescription>Add a link where customers can purchase this product</DialogDescription>
-                </DialogHeader>
-                <form onSubmit={handleSubmit} className="space-y-4">
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>{editingLink ? "Edit" : "Add"} Purchase Link</DialogTitle>
+                <DialogDescription>Add a link where customers can purchase this product</DialogDescription>
+              </DialogHeader>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="platform">Platform *</Label>
+                  <Select
+                    value={formData.platform}
+                    onValueChange={(value) => setFormData({ ...formData, platform: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select platform" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {PLATFORMS.map((platform) => (
+                        <SelectItem key={platform} value={platform}>
+                          {platform}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="url">Product URL *</Label>
+                  <Input
+                    id="url"
+                    type="url"
+                    placeholder="https://..."
+                    value={formData.url}
+                    onChange={(e) => setFormData({ ...formData, url: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="platform">Platform *</Label>
+                    <Label htmlFor="price">Price *</Label>
+                    <Input
+                      id="price"
+                      type="number"
+                      step="0.01"
+                      placeholder="0.00"
+                      value={formData.price}
+                      onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="currency">Currency</Label>
                     <Select
-                      value={formData.platform}
-                      onValueChange={(value) => setFormData({ ...formData, platform: value })}
+                      value={formData.currency}
+                      onValueChange={(value) => setFormData({ ...formData, currency: value })}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select platform" />
+                        <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {PLATFORMS.map((platform) => (
-                          <SelectItem key={platform} value={platform}>
-                            {platform}
+                        {CURRENCIES.map((currency) => (
+                          <SelectItem key={currency} value={currency}>
+                            {currency}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="url">Product URL *</Label>
-                    <Input
-                      id="url"
-                      type="url"
-                      placeholder="https://..."
-                      value={formData.url}
-                      onChange={(e) => setFormData({ ...formData, url: e.target.value })}
-                      required
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="price">Price *</Label>
-                      <Input
-                        id="price"
-                        type="number"
-                        step="0.01"
-                        placeholder="0.00"
-                        value={formData.price}
-                        onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="currency">Currency</Label>
-                      <Select
-                        value={formData.currency}
-                        onValueChange={(value) => setFormData({ ...formData, currency: value })}
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {CURRENCIES.map((currency) => (
-                            <SelectItem key={currency} value={currency}>
-                              {currency}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Switch
-                      id="available"
-                      checked={formData.is_available}
-                      onCheckedChange={(checked) => setFormData({ ...formData, is_available: checked })}
-                    />
-                    <Label htmlFor="available">Available for purchase</Label>
-                  </div>
-                  <DialogFooter>
-                    <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
-                      Cancel
-                    </Button>
-                    <Button type="submit">{editingLink ? "Update" : "Add"} Link</Button>
-                  </DialogFooter>
-                </form>
-              </DialogContent>
-            </Dialog>
-          </div>
-
-          {/* Links Table */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Purchase Links ({links.length})</CardTitle>
-              <CardDescription>Manage where customers can buy this product</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {links.length > 0 ? (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Platform</TableHead>
-                      <TableHead>Price</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Last Updated</TableHead>
-                      <TableHead>URL</TableHead>
-                      <TableHead className="w-[70px]"></TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {links.map((link) => (
-                      <TableRow key={link.id}>
-                        <TableCell>
-                          <div className="font-medium">{link.platform}</div>
-                        </TableCell>
-                        <TableCell>
-                          <span className="font-medium">
-                            {link.currency} {link.price.toFixed(2)}
-                          </span>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-2">
-                            <Badge variant={link.is_available ? "default" : "secondary"}>
-                              {link.is_available ? "Available" : "Unavailable"}
-                            </Badge>
-                            <Switch
-                              checked={link.is_available}
-                              onCheckedChange={() => toggleAvailability(link.id, link.is_available)}
-                              size="sm"
-                            />
-                          </div>
-                        </TableCell>
-                        <TableCell>{new Date(link.last_updated).toLocaleDateString()}</TableCell>
-                        <TableCell>
-                          <a
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1 text-primary hover:underline text-sm"
-                          >
-                            View Link
-                            <ExternalLink className="h-3 w-3" />
-                          </a>
-                        </TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="icon">
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem onClick={() => handleEdit(link)}>
-                                <Edit className="mr-2 h-4 w-4" />
-                                Edit
-                              </DropdownMenuItem>
-                              <DropdownMenuItem className="text-destructive" onClick={() => handleDelete(link.id)}>
-                                <Trash2 className="mr-2 h-4 w-4" />
-                                Delete
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              ) : (
-                <div className="text-center py-12">
-                  <ExternalLink className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-medium mb-2">No purchase links yet</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Add links to external platforms where customers can buy this product.
-                  </p>
-                  <Button onClick={() => setIsDialogOpen(true)}>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add Your First Link
-                  </Button>
                 </div>
-              )}
-            </CardContent>
-          </Card>
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="available"
+                    checked={formData.is_available}
+                    onCheckedChange={(checked) => setFormData({ ...formData, is_available: checked })}
+                  />
+                  <Label htmlFor="available">Available for purchase</Label>
+                </div>
+                <DialogFooter>
+                  <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+                    Cancel
+                  </Button>
+                  <Button type="submit">{editingLink ? "Update" : "Add"} Link</Button>
+                </DialogFooter>
+              </form>
+            </DialogContent>
+          </Dialog>
         </div>
-      </main>
-    </div>
+
+        {/* Links Table */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Purchase Links ({links.length})</CardTitle>
+            <CardDescription>Manage where customers can buy this product</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {links.length > 0 ? (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Platform</TableHead>
+                    <TableHead>Price</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Last Updated</TableHead>
+                    <TableHead>URL</TableHead>
+                    <TableHead className="w-[70px]"></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {links.map((link) => (
+                    <TableRow key={link.id}>
+                      <TableCell>
+                        <div className="font-medium">{link.platform}</div>
+                      </TableCell>
+                      <TableCell>
+                        <span className="font-medium">
+                          {link.currency} {link.price.toFixed(2)}
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Badge variant={link.is_available ? "default" : "secondary"}>
+                            {link.is_available ? "Available" : "Unavailable"}
+                          </Badge>
+                          <Switch
+                            checked={link.is_available}
+                            onCheckedChange={() => toggleAvailability(link.id, link.is_available)}
+                            size="sm"
+                          />
+                        </div>
+                      </TableCell>
+                      <TableCell>{new Date(link.last_updated).toLocaleDateString()}</TableCell>
+                      <TableCell>
+                        <a
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 text-primary hover:underline text-sm"
+                        >
+                          View Link
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      </TableCell>
+                      <TableCell>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon">
+                              <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => handleEdit(link)}>
+                              <Edit className="mr-2 h-4 w-4" />
+                              Edit
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="text-destructive" onClick={() => handleDelete(link.id)}>
+                              <Trash2 className="mr-2 h-4 w-4" />
+                              Delete
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            ) : (
+              <div className="text-center py-12">
+                <ExternalLink className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                <h3 className="text-lg font-medium mb-2">No purchase links yet</h3>
+                <p className="text-muted-foreground mb-4">
+                  Add links to external platforms where customers can buy this product.
+                </p>
+                <Button onClick={() => setIsDialogOpen(true)}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add Your First Link
+                </Button>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </main>
   )
 }

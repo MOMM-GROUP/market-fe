@@ -162,7 +162,7 @@ export default async function VendorDashboard() {
           </div>
 
           {/* Main Content */}
-          <Tabs defaultValue="overview" className="space-y-6">
+          <Tabs defaultValue="analytics" className="space-y-6">
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="products">Products</TabsTrigger>
