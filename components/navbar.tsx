@@ -68,11 +68,16 @@ export function Navbar() {
           }
           setUser(userProfile)
 
-          // Get cart count
-          const { count } = await supabase.from("cart_items").select("*", { count: "exact" }).eq("user_id", authUser.id)
+          if (profile?.role !== "vendor") {
+            // Get cart count
+            const { count } = await supabase
+              .from("cart_items")
+              .select("*", { count: "exact" })
+              .eq("user_id", authUser.id)
 
-          if (mounted) {
-            setCartCount(count || 0)
+            if (mounted) {
+              setCartCount(count || 0)
+            }
           }
         } else {
           setUser(null)
@@ -186,23 +191,25 @@ export function Navbar() {
         </form>
 
         <div className="flex items-center space-x-4">
-          <Link href="/cart">
-            <Button variant="ghost" size="icon" className="relative hover:bg-primary/10">
-              <ShoppingCart className="h-5 w-5" />
-              {cartCount > 0 && (
-                <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-primary">
-                  {cartCount}
-                </Badge>
-              )}
-            </Button>
-          </Link>
+          {user && user.profiles.role !== "vendor" && (
+            <>
+              <Link href="/cart">
+                <Button variant="ghost" size="icon" className="relative hover:bg-primary/10">
+                  <ShoppingCart className="h-5 w-5" />
+                  {cartCount > 0 && (
+                    <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-primary">
+                      {cartCount}
+                    </Badge>
+                  )}
+                </Button>
+              </Link>
 
-          {user && (
-            <Link href="/favorites">
-              <Button variant="ghost" size="icon" className="hover:bg-primary/10">
-                <Heart className="h-5 w-5" />
-              </Button>
-            </Link>
+              <Link href="/favorites">
+                <Button variant="ghost" size="icon" className="hover:bg-primary/10">
+                  <Heart className="h-5 w-5" />
+                </Button>
+              </Link>
+            </>
           )}
 
           {user ? (
@@ -218,30 +225,28 @@ export function Navbar() {
                   <p className="text-xs text-muted-foreground">{user.email}</p>
                 </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link href="/profile">
-                    <User className="mr-2 h-4 w-4" />
-                    Profile
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/orders">
-                    <Package className="mr-2 h-4 w-4" />
-                    Orders
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/favorites">
-                    <Heart className="mr-2 h-4 w-4" />
-                    Favorites
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/cart">
-                    <ShoppingCart className="mr-2 h-4 w-4" />
-                    Cart
-                  </Link>
-                </DropdownMenuItem>
+                {user.profiles.role !== "vendor" && (
+                  <>
+                    <DropdownMenuItem asChild>
+                      <Link href="/orders">
+                        <Package className="mr-2 h-4 w-4" />
+                        Orders
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/favorites">
+                        <Heart className="mr-2 h-4 w-4" />
+                        Favorites
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/cart">
+                        <ShoppingCart className="mr-2 h-4 w-4" />
+                        Cart
+                      </Link>
+                    </DropdownMenuItem>
+                  </>
+                )}
                 {user.profiles.role === "vendor" && (
                   <DropdownMenuItem asChild>
                     <Link href="/vendor">

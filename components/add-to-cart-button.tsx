@@ -23,6 +23,7 @@ export function AddToCartButton({
 }: AddToCartButtonProps) {
   const [isAddingToCart, setIsAddingToCart] = useState(false)
   const [user, setUser] = useState<any>(null)
+  const [userProfile, setUserProfile] = useState<any>(null)
   const router = useRouter()
   const supabase = createClient()
 
@@ -32,9 +33,18 @@ export function AddToCartButton({
         data: { user: authUser },
       } = await supabase.auth.getUser()
       setUser(authUser)
+
+      if (authUser) {
+        const { data: profile } = await supabase.from("profiles").select("role").eq("id", authUser.id).single()
+        setUserProfile(profile)
+      }
     }
     checkUser()
   }, [supabase])
+
+  if (userProfile?.role === "vendor") {
+    return null
+  }
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.stopPropagation()

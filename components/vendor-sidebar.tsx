@@ -21,6 +21,7 @@ import {
   User,
   ChevronDown,
   Zap,
+  Users,
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
@@ -45,6 +46,7 @@ const navigation = [
   { name: "Products", href: "/vendor/products", icon: Package },
   { name: "Orders", href: "/vendor/orders", icon: ShoppingCart },
   { name: "Unified Orders", href: "/vendor/unified-orders", icon: Zap },
+  { name: "Team", href: "/vendor/team", icon: Users },
   { name: "Analytics", href: "/vendor/analytics", icon: BarChart3 },
   { name: "Settings", href: "/vendor/settings", icon: Settings },
 ]
