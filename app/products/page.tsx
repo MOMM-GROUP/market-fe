@@ -432,7 +432,7 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
             <div className="flex-1 space-y-2">
               <div className="flex items-center gap-2">
                 <span className="text-xs text-muted-foreground">{product.vendors?.business_name}</span>
-                {product.vendors.is_verified && (
+                {product.vendors?.is_verified && (
                   <Badge variant="secondary" className="text-xs">
                     Verified
                   </Badge>
@@ -487,7 +487,7 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
         <div className="p-4 space-y-2">
           <div className="flex items-center gap-2">
             <span className="text-xs text-muted-foreground">{product.vendors?.business_name}</span>
-            {product.vendors.is_verified && (
+            {product.vendors?.is_verified && (
               <Badge variant="secondary" className="text-xs">
                 Verified
               </Badge>

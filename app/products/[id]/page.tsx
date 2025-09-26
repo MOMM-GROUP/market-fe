@@ -113,7 +113,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                   >
                     {product.vendors?.business_name}
                   </Link>
-                  {product.vendors.is_verified && (
+                  {product.vendors?.is_verified && (
                     <Badge variant="secondary" className="text-xs">
                       Verified
                     </Badge>
