@@ -50,6 +50,11 @@ export default function ProfilePage() {
       const { data: profileData } = await supabase.from("profiles").select("*").eq("id", authUser.id).single()
 
       if (profileData) {
+        if (profileData.role === "vendor") {
+          router.push("/vendor/profile")
+          return
+        }
+
         setProfile({
           ...profileData,
           email: authUser.email!,
