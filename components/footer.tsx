@@ -22,20 +22,28 @@ export function Footer() {
             <h4 className="font-semibold">Get In Touch</h4>
             <div className="space-y-2 text-sm">
               <a
-                href="https://github.com/momm-org"
+                href="https://discord.gg/PptvudG7jb"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-muted-foreground hover:text-foreground"
               >
-                GitHub Organization
+                Discord
               </a>
               <a
-                href="https://discord.gg/momm"
+                href="https://linkedin.com/company/momm-group"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-muted-foreground hover:text-foreground"
               >
-                Join Discord
+                LinkedIn
+              </a>
+              <a
+                href="https://www.instagram.com/mommgroupofficial/#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-muted-foreground hover:text-foreground"
+              >
+                Instagram
               </a>
             </div>
           </div>
@@ -44,36 +52,28 @@ export function Footer() {
             <h4 className="font-semibold">Quick Links</h4>
             <div className="space-y-2 text-sm">
               <a
-                href="https://momm.com/roadmap"
+                href="https://momm.group/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-muted-foreground hover:text-foreground"
               >
-                → View Roadmap
+                About MOMM
               </a>
               <a
-                href="https://momm.com/about"
+                href="https://wefunder.com/momm"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-muted-foreground hover:text-foreground"
               >
-                → Learn About MOMM
+                Investment
               </a>
               <a
-                href="https://momm.com/invest"
+                href="https://momm.group/contributors"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-muted-foreground hover:text-foreground"
               >
-                → Investment Opportunity
-              </a>
-              <a
-                href="https://momm.com/contribute"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-muted-foreground hover:text-foreground"
-              >
-                → Join as Contributor
+                Contribute
               </a>
             </div>
           </div>
@@ -105,36 +105,6 @@ export function Footer() {
               <Link href="/vendor/help" className="block text-muted-foreground hover:text-foreground">
                 Vendor Help
               </Link>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="font-semibold">Follow Us</h4>
-            <div className="space-y-2 text-sm">
-              <a
-                href="https://linkedin.com/company/momm"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-muted-foreground hover:text-foreground"
-              >
-                LinkedIn
-              </a>
-              <a
-                href="https://instagram.com/momm_official"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-muted-foreground hover:text-foreground"
-              >
-                Instagram
-              </a>
-              <a
-                href="https://discord.gg/momm"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-muted-foreground hover:text-foreground"
-              >
-                Discord
-              </a>
             </div>
           </div>
         </div>
