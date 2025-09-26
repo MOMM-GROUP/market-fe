@@ -221,7 +221,7 @@ export function CategoryNav() {
                 </Link>
 
                 {hasDropdown && hasSubcategories && (
-                  <div className="absolute top-full left-0 z-50 min-w-[200px] bg-background border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-1 group-hover:translate-y-0">
+                  <div className="absolute top-full left-0 z-[9999] min-w-[200px] bg-background border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-1 group-hover:translate-y-0">
                     <div className="py-2">
                       <Link
                         href={`/products?category=${category.slug}`}
