@@ -20,6 +20,7 @@ import {
   LogOut,
   User,
   ChevronDown,
+  Zap,
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
@@ -43,6 +44,7 @@ const navigation = [
   { name: "Dashboard", href: "/vendor", icon: LayoutDashboard },
   { name: "Products", href: "/vendor/products", icon: Package },
   { name: "Orders", href: "/vendor/orders", icon: ShoppingCart },
+  { name: "Unified Orders", href: "/vendor/unified-orders", icon: Zap },
   { name: "Analytics", href: "/vendor/analytics", icon: BarChart3 },
   { name: "Settings", href: "/vendor/settings", icon: Settings },
 ]
