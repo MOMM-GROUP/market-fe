@@ -56,6 +56,26 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
       notFound()
     }
 
+    const { data: productCertifications, error: certError } = await supabase
+      .from("entity_certifications")
+      .select(`
+        certifications (
+          id,
+          name,
+          description,
+          category,
+          icon_url,
+          logo_link
+        )
+      `)
+      .eq("entity_id", params.id)
+      .eq("entity_type", "product")
+
+    console.log("[v0] ProductDetailPage: Certifications query result:", {
+      certifications: productCertifications?.length,
+      error: certError,
+    })
+
     const hasDiscount = product.compare_at_price && product.compare_at_price > product.price
     const discountPercent = hasDiscount
       ? Math.round(((product.compare_at_price - product.price) / product.compare_at_price) * 100)
@@ -191,48 +211,51 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                   <CardTitle>The Ethical Breakdown</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <Link
-                    href="/certifications/gots-organic"
-                    className="flex items-center gap-3 hover:bg-muted/50 p-2 rounded-md transition-colors"
-                  >
-                    <CheckCircle className="h-5 w-5 text-green-600" />
-                    <div>
-                      <span className="font-medium">GOTS Organic:</span>
-                      <span className="text-muted-foreground ml-2">Verified for materials used.</span>
+                  {productCertifications && productCertifications.length > 0 ? (
+                    productCertifications.map((item) => {
+                      const cert = item.certifications
+                      if (!cert) return null
+
+                      return (
+                        <Link
+                          key={cert.id}
+                          href={`/certifications/${cert.id}`}
+                          className="flex items-center gap-3 p-3 rounded-lg border border-transparent hover:border-primary/20 hover:bg-primary/5 transition-all duration-200 group cursor-pointer"
+                        >
+                          <div className="flex-shrink-0">
+                            {cert.icon_url || cert.logo_link ? (
+                              <Image
+                                src={cert.icon_url || cert.logo_link || ""}
+                                alt={cert.name}
+                                width={24}
+                                height={24}
+                                className="rounded"
+                              />
+                            ) : (
+                              <CheckCircle className="h-6 w-6 text-green-600" />
+                            )}
+                          </div>
+                          <div className="flex-1">
+                            <span className="font-medium text-primary group-hover:text-primary/80 transition-colors">
+                              {cert.name}
+                            </span>
+                            {cert.description && (
+                              <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{cert.description}</p>
+                            )}
+                          </div>
+                          <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span className="text-xs text-primary font-medium">View Details →</span>
+                          </div>
+                        </Link>
+                      )
+                    })
+                  ) : (
+                    <div className="text-center py-8 text-muted-foreground">
+                      <Award className="h-12 w-12 mx-auto mb-3 opacity-50" />
+                      <p>No certifications found for this product.</p>
+                      <p className="text-sm mt-1">Certifications may be pending verification.</p>
                     </div>
-                  </Link>
-                  <Link
-                    href="/certifications/fair-trade"
-                    className="flex items-center gap-3 hover:bg-muted/50 p-2 rounded-md transition-colors"
-                  >
-                    <CheckCircle className="h-5 w-5 text-green-600" />
-                    <div>
-                      <span className="font-medium">Fair Trade Certified:</span>
-                      <span className="text-muted-foreground ml-2">Verified for factory labor practices.</span>
-                    </div>
-                  </Link>
-                  <Link
-                    href="/certifications/b-corp"
-                    className="flex items-center gap-3 hover:bg-muted/50 p-2 rounded-md transition-colors"
-                  >
-                    <CheckCircle className="h-5 w-5 text-green-600" />
-                    <div>
-                      <span className="font-medium">B Corp Certified:</span>
-                      <span className="text-muted-foreground ml-2">
-                        Verified for overall company impact (Score: 94).
-                      </span>
-                    </div>
-                  </Link>
-                  <Link
-                    href="/certifications/living-wage"
-                    className="flex items-center gap-3 hover:bg-muted/50 p-2 rounded-md transition-colors"
-                  >
-                    <CheckCircle className="h-5 w-5 text-green-600" />
-                    <div>
-                      <span className="font-medium">Living Wage:</span>
-                      <span className="text-muted-foreground ml-2">Verified for worker compensation.</span>
-                    </div>
-                  </Link>
+                  )}
                 </CardContent>
               </Card>
 
