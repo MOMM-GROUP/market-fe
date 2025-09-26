@@ -23,11 +23,39 @@ interface UserProfile {
   }
 }
 
+const TOP_LEVEL_CATEGORIES = [
+  {
+    name: "Clothing & Accessories",
+    slug: "clothing-accessories",
+    table: "categories_clothing_accessories",
+  },
+  {
+    name: "Health, Bath & Beauty",
+    slug: "health-bath-beauty",
+    table: "categories_health_bath_beauty",
+  },
+  {
+    name: "Home & Garden",
+    slug: "home-garden",
+    table: "categories_home_garden",
+  },
+  {
+    name: "Sports & Outdoors",
+    slug: "sports-outdoors",
+    table: "categories_sports_outdoors",
+  },
+  {
+    name: "Toys, Kids & Babies",
+    slug: "toys-kids-babies",
+    table: "categories_toys_kids_babies",
+  },
+]
+
 export function CategoryNav() {
   const [categories, setCategories] = useState<Category[]>([])
   const [user, setUser] = useState<UserProfile | null>(null)
   const [loading, setLoading] = useState(true)
-  const [profile, setProfile] = useState<any | null>(null) // Declare the profile variable
+  const [profile, setProfile] = useState<any | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +67,7 @@ export function CategoryNav() {
           data: { user: authUser },
         } = await supabase.auth.getUser()
 
-        let userProfileData = null // Declare userProfileData variable
+        let userProfileData = null
 
         if (authUser) {
           const { data: fetchedUserProfileData } = await supabase
@@ -48,7 +76,7 @@ export function CategoryNav() {
             .eq("id", authUser.id)
             .single()
 
-          userProfileData = fetchedUserProfileData // Assign fetched data to userProfileData
+          userProfileData = fetchedUserProfileData
 
           if (userProfileData) {
             const userProfile = {
@@ -61,22 +89,36 @@ export function CategoryNav() {
           }
         }
 
-        // Only fetch categories for non-vendor users
         if (!authUser || !userProfileData || userProfileData.role !== "vendor") {
-          const { data, error } = await supabase.from("categories").select("id, name, slug, parent_id").order("name")
+          const categoriesWithSubs = await Promise.all(
+            TOP_LEVEL_CATEGORIES.map(async (topCategory) => {
+              // Query each specific category table for subcategories
+              const { data: subcategories, error } = await supabase
+                .from(topCategory.table)
+                .select("id, name, slug, parent_id")
+                .not("parent_id", "is", null) // Only get subcategories (items with parent_id)
+                .order("name")
 
-          if (error) {
-            console.error("Error fetching categories:", error)
-            return
-          }
+              if (error) {
+                console.error(`Error fetching ${topCategory.name} subcategories:`, error)
+                return {
+                  id: topCategory.slug,
+                  name: topCategory.name,
+                  slug: topCategory.slug,
+                  parent_id: null,
+                  subcategories: [],
+                }
+              }
 
-          const parentCategories = data?.filter((cat) => !cat.parent_id) || []
-          const childCategories = data?.filter((cat) => cat.parent_id) || []
-
-          const categoriesWithSubs = parentCategories.map((parent) => ({
-            ...parent,
-            subcategories: childCategories.filter((child) => child.parent_id === parent.id),
-          }))
+              return {
+                id: topCategory.slug,
+                name: topCategory.name,
+                slug: topCategory.slug,
+                parent_id: null,
+                subcategories: subcategories || [],
+              }
+            }),
+          )
 
           setCategories(categoriesWithSubs)
         }
