@@ -262,7 +262,7 @@ export default async function HomePage() {
       </section>
 
       {/* Final Call to Action Section */}
-      {/* <section className="py-20 px-4 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
+      <section className="py-20 px-4 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
         <div className="center-content max-w-4xl text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Join the Movement for a More Meaningful Market.</h2>
           <p className="text-xl text-muted-foreground mb-8">
@@ -273,7 +273,7 @@ export default async function HomePage() {
             Shop All Products
           </Button>
         </div>
-      </section> */}
+      </section>
     </div>
   )
 }
