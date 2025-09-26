@@ -39,12 +39,16 @@ export function CategoryNav() {
           data: { user: authUser },
         } = await supabase.auth.getUser()
 
+        let userProfileData = null // Declare userProfileData variable
+
         if (authUser) {
-          const { data: userProfileData } = await supabase
+          const { data: fetchedUserProfileData } = await supabase
             .from("profiles")
             .select("first_name, last_name, role")
             .eq("id", authUser.id)
             .single()
+
+          userProfileData = fetchedUserProfileData // Assign fetched data to userProfileData
 
           if (userProfileData) {
             const userProfile = {
@@ -53,12 +57,12 @@ export function CategoryNav() {
               profiles: userProfileData,
             }
             setUser(userProfile)
-            setProfile(userProfileData) // Set the profile variable
+            setProfile(userProfileData)
           }
         }
 
         // Only fetch categories for non-vendor users
-        if (!authUser || !profile || profile.role !== "vendor") {
+        if (!authUser || !userProfileData || userProfileData.role !== "vendor") {
           const { data, error } = await supabase.from("categories").select("id, name, slug, parent_id").order("name")
 
           if (error) {
