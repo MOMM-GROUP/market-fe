@@ -151,25 +151,6 @@ export default function ProductsPage() {
       query = query.eq("vendors.is_verified", true)
     }
 
-    if (filters.selectedCertifications.length > 0) {
-      const { data: certifiedProducts } = await supabase
-        .from("entity_certifications")
-        .select("entity_id")
-        .eq("entity_type", "product")
-        .eq("verified", true)
-        .in("certification_id", filters.selectedCertifications)
-
-      if (certifiedProducts && certifiedProducts.length > 0) {
-        const productIds = certifiedProducts.map((cert) => cert.entity_id)
-        query = query.in("id", productIds)
-      } else {
-        setProducts([])
-        setLoading(false)
-        return
-      }
-    }
-
-    // Handle subcategory filtering
     if (filters.selectedSubcategories.length > 0) {
       const { data: subcategoryData } = await supabase
         .from("categories")
@@ -396,6 +377,7 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
   }, [supabase, product.id])
 
   const handleProductClick = () => {
+    console.log("[v0] Navigating to product:", product.id) // Added debug logging
     router.push(`/products/${product.id}`)
   }
 
@@ -526,7 +508,7 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
             </div>
             <span className="text-xs text-muted-foreground">(4.8)</span>
           </div>
-          <Button className="w-full bg-transparent" size="sm" variant="outline" onClick={handleProductClick}>
+          <Button className="w-full bg-transparent" size="sm" variant="outline">
             View Details
           </Button>
         </div>
