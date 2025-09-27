@@ -1,68 +1,133 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { createClient } from "@/lib/supabase/client"
 import Image from "next/image"
 
-const certifications = [
-  { id: 1, name: "ISO 9001", logo: "/iso-9001-certification-logo.png" },
-  { id: 2, name: "SSL Secure", logo: "/ssl-security-certificate-logo.jpg" },
-  { id: 3, name: "PCI DSS", logo: "/pci-dss-compliance-logo.png" },
-  { id: 4, name: "GDPR", logo: "/gdpr-compliance-logo.png" },
-  { id: 5, name: "SOC 2", logo: "/soc-2-certification-logo.png" },
-  { id: 6, name: "Better Business Bureau", logo: "/bbb-accredited-logo.png" },
-  { id: 7, name: "TrustPilot", logo: "/placeholder-zijvs.png" },
-  { id: 8, name: "Verified by Visa", logo: "/placeholder-xmnlu.png" },
-]
+
+// Define an interface for the certification data we expect from Supabase
+interface Certification {
+  id: string
+  name: string
+  logo_link: string | null
+}
 
 export function CertificationCarousel() {
+  const [certifications, setCertifications] = useState<Certification[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null) // State to hold error messages
   const [currentIndex, setCurrentIndex] = useState(0)
 
+  // Effect to fetch certifications from the database
   useEffect(() => {
+    const supabase = createClient()
+    const fetchCertifications = async () => {
+      const { data, error } = await supabase
+        .from("certifications")
+        .select("id, name, logo_link")
+        .neq("logo_link", null)
+
+      if (error) {
+        console.error("Error fetching certifications:", error)
+        setError("Could not load certifications at this time.") // Set user-facing error message
+      } else if (data) {
+        setCertifications(data)
+      }
+      setLoading(false)
+    }
+
+    fetchCertifications()
+  }, []) // Dependency array should be empty to run only once on mount
+
+  // Effect to manage the carousel's auto-scroll behavior
+  useEffect(() => {
+    if (certifications.length === 0) return
+
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % certifications.length)
     }, 3000) // Change every 3 seconds
 
     return () => clearInterval(interval)
-  }, [])
+  }, [certifications.length])
+
+  if (loading) {
+    return (
+      <div className="text-center p-8">
+        <p>Loading Certifications...</p>
+      </div>
+    )
+  }
+
+  // Display an error message if the fetch failed
+  if (error) {
+    return (
+      <div className="text-center p-8 text-red-600">
+        <p>{error}</p>
+      </div>
+    )
+  }
+  
+  if (certifications.length === 0) {
+    return null; // Don't render the component if there are no certifications to show
+  }
 
   // Create an infinite loop effect by duplicating the array
   const extendedCertifications = [...certifications, ...certifications, ...certifications]
 
   return (
-    <div className="relative overflow-hidden">
-      <div
-        className="flex transition-transform duration-1000 ease-in-out"
-        style={{
-          transform: `translateX(-${(currentIndex * 100) / 4}%)`,
-          width: `${extendedCertifications.length * 25}%`,
-        }}
-      >
-        {extendedCertifications.map((cert, index) => (
-          <div
-            key={`${cert.id}-${Math.floor(index / certifications.length)}`}
-            className="flex-shrink-0 px-4"
-            style={{ width: `${100 / extendedCertifications.length}%` }}
-          >
-            <div className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow">
-              <div className="relative h-20 w-full flex items-center justify-center">
-                <Image
-                  src={cert.logo || "/placeholder.svg"}
-                  alt={`${cert.name} certification`}
-                  width={120}
-                  height={80}
-                  className="object-contain opacity-70 hover:opacity-100 transition-opacity"
-                />
+    <>
+      {/* The CSS for the continuous sliding animation is defined here */}
+      <style jsx>{`
+        @keyframes slide {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            /* We slide by -50% because the extendedCertifications array is twice
+              the length of the original. This brings the second half (the duplicate)
+              perfectly into view, creating a seamless loop.
+            */
+            transform: translateX(-50%);
+          }
+        }
+        .carousel-track {
+          /* Adjust the duration (e.g., 60s) to make the slide slower or faster.
+            'linear' ensures constant speed. 'infinite' makes it loop forever.
+          */
+          animation: slide 120s linear infinite;
+        }
+        .carousel-container:hover .carousel-track {
+          /* This is a nice UX touch: pause the animation on hover */
+          animation-play-state: paused;
+        }
+      `}</style>
+      <div className="relative overflow-hidden carousel-container">
+        <div className="flex carousel-track">
+          {extendedCertifications.map((cert, index) => (
+            <div key={`${cert.id}-${index}`} className="carousel-item px-3">
+              {/* Added flex, flex-col, and h-full to make all cards equal height */}
+              <div className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow flex flex-col h-full">
+                {/* Added flex-grow to push text to the bottom and center the image */}
+                <div className="relative w-full flex-grow flex items-center justify-center">
+                  <Image
+                    src={cert.logo_link || "/placeholder.svg"}
+                    alt={`${cert.name} certification`}
+                    fill
+                    sizes="200px"
+                    className="object-contain opacity-70 hover:opacity-100 transition-opacity"
+                  />
+                </div>
+                <p className="text-center text-sm font-medium text-muted-foreground mt-4">{cert.name}</p>
               </div>
-              <p className="text-center text-sm font-medium text-muted-foreground mt-2">{cert.name}</p>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      {/* Gradient overlays for smooth infinite effect */}
-      <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-muted/30 to-transparent pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-muted/30 to-transparent pointer-events-none" />
-    </div>
+        {/* Gradient overlays for smooth infinite effect */}
+        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-muted/30 to-transparent pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-muted/30 to-transparent pointer-events-none" />
+      </div>
+    </>
   )
 }
 
