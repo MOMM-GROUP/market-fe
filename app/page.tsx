@@ -2,7 +2,20 @@ import { createClient } from "@/lib/supabase/server"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Star, Heart, Sparkles, CheckCircle, Leaf, Handshake, Globe, Recycle, FlaskConical, Users } from "lucide-react"
+import {
+  Star,
+  Heart,
+  CheckCircle,
+  Leaf,
+  Handshake,
+  Globe,
+  Recycle,
+  FlaskConical,
+  Users,
+  PiggyBank,
+  Zap,
+  RotateCcw,
+} from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import CertificationCarousel from "@/components/certification-carousel"
@@ -61,11 +74,11 @@ export default async function HomePage() {
       <section className="py-20 px-4 text-center bg-gradient-to-br from-primary/5 via-background to-secondary/5">
         <div className="center-content max-w-5xl">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance center-text">
-            Shop Your Values. <span className="text-primary">With Proof.</span>
+            Shop Your Values. <span className="text-primary">Redefine the Economy.</span>
           </h1>
           <p className="text-xl text-muted-foreground mb-8 text-pretty center-text max-w-3xl mx-auto">
-            Tired of greenwashing and empty promises? MOMM is the first marketplace where every product's ethical claims
-            are verified, making it simple to find brands you can trust and products you'll love.
+            The era of the billionaire is over. MOMM is the marketplace built for economic justice, where a significant
+            portion of the value we create goes straight back to the community. Stop funding the few. Join the Movement.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button size="lg" className="text-lg px-8 bg-primary hover:bg-primary/90">
@@ -82,52 +95,98 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Trust-Building Section - "The MOMM Difference" */}
+      {/* Core Value Proposition - 3 Pillars */}
       <section className="py-16 px-4">
         <div className="center-content">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Confidence in Every Purchase.</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              No more guesswork. No more endless research. We did the hard work so you don't have to.
-            </p>
-          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div className="space-y-4">
-              <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
-                <CheckCircle className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold">We Verify Every Claim</h3>
-              <p className="text-muted-foreground">
-                From B Corp scores to organic certifications, our TRUST protocol rigorously vets every brand's ethical
-                credentials. If you see a "Verified" checkmark, you know it's real.
-              </p>
-            </div>
             <div className="space-y-4">
               <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
                 <Heart className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold">Personalized to Your Values</h3>
+              <h3 className="text-xl font-semibold">YOU Are the Ultimate Decider</h3>
               <p className="text-muted-foreground">
-                Our HEART AI learns what matters most to you—fair labor, sustainability, women-owned—and filters the
-                entire market to show you products that perfectly align with your principles.
+                Tired of shopping someone else's version of 'good'? Our HEART AI is your personal compass. It learns
+                what you value—from Fair Labor to style—and instantly filters the world to match your ethics, your
+                principles, and your style.
               </p>
             </div>
             <div className="space-y-4">
               <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
-                <Sparkles className="h-8 w-8 text-primary" />
+                <PiggyBank className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold">You Shop with Joy</h3>
+              <h3 className="text-xl font-semibold">Wealth Goes to the Community</h3>
               <p className="text-muted-foreground">
-                Discover incredible products from brands that are genuinely making a difference. Feel good about every
-                item in your cart and the positive impact you're creating.
+                The core of the movement. A portion of the profits from your verified purchases goes into The MOMM
+                Vault—a fund you control to invest in safety nets, local communities, or causes you care about. We built
+                a system where wealth empowers the people.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                <CheckCircle className="h-8 w-8 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold">The Truth. Guaranteed.</h3>
+              <p className="text-muted-foreground">
+                No more guesswork. Our TRUST protocol does the detective work for you, vetting every single claim and
+                supply chain fact. If it's on MOMM, it's earned the Verified checkmark. The facts are real; the choice
+                is yours.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Values Section */}
+      {/* Revolutionary Features Section */}
       <section className="py-16 px-4 bg-muted/30">
+        <div className="center-content">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Revolutionary Features</h2>
+            <p className="text-xl text-muted-foreground">Built for a new economy where your values drive real change</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="hover:shadow-md transition-all duration-200">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                  <PiggyBank className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4">Community-Owned Rewards</h3>
+                <p className="text-muted-foreground">
+                  The MOMM Vault is not cash back. A percentage of the value created by your purchase helps fund the
+                  Vault, which you can use to invest in ethical brands, donate to vetted nonprofits, or build your own
+                  personal safety net. Redistribute power and wealth.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="hover:shadow-md transition-all duration-200">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                  <Zap className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4">AI-Powered Personal Styling</h3>
+                <p className="text-muted-foreground">
+                  Beyond ethics. Our AI also matches products to your unique style, body shape, and color season. Shop
+                  your principles and your perfect fit.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="hover:shadow-md transition-all duration-200">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                  <RotateCcw className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4">The Complete Lifecycle</h3>
+                <p className="text-muted-foreground">
+                  Buy new, sell used, and recycle—all in one place. With End-of-Life Guidance built-in, you finally have
+                  total control over your product's journey. Zero waste, zero worries.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Values Section */}
+      <section className="py-16 px-4">
         <div className="center-content">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Explore by What Matters Most</h2>
@@ -229,25 +288,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Our Promise / Deeper Dive Section */}
-      {/* <section className="py-16 px-4 bg-muted/30">
-        <div className="center-content max-w-4xl text-center">
-          <h2 className="text-3xl font-bold mb-4">Radical Transparency, Made Simple.</h2>
-          <p className="text-xl text-muted-foreground mb-6">
-            How can you be sure? Our TRUST protocol is the engine that powers our marketplace. It's a comprehensive,
-            verifiable database of ethical information, tracking a product's journey from raw material to your doorstep.
-          </p>
-          <p className="text-muted-foreground mb-8">
-            We combine data from hundreds of global certifications with cutting-edge verification technology to create a
-            single, easy-to-understand ethical profile for every item. No jargon, no dense reports—just clear, honest
-            information you can rely on.
-          </p>
-          <Button size="lg" variant="outline">
-            Learn About Our Verification Process
-          </Button>
-        </div>
-      </section> */}
-
       {/* Certifications Carousel Section */}
       <section className="py-16 px-4">
         <div className="center-content">
@@ -260,20 +300,6 @@ export default async function HomePage() {
           <CertificationCarousel />
         </div>
       </section>
-
-      {/* Final Call to Action Section */}
-      {/* <section className="py-20 px-4 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-        <div className="center-content max-w-4xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Join the Movement for a More Meaningful Market.</h2>
-          <p className="text-xl text-muted-foreground mb-8">
-            Every purchase is a vote for the world you want to live in. Start today by exploring products from brands
-            that are building a better future for all.
-          </p>
-          <Button size="lg" className="text-lg px-8 bg-primary hover:bg-primary/90">
-            Shop All Products
-          </Button>
-        </div>
-      </section> */}
     </div>
   )
 }
