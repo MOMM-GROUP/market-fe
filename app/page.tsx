@@ -81,16 +81,11 @@ export default async function HomePage() {
             portion of the value we create goes straight back to the community. Stop funding the few. Join the Movement.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="text-lg px-8 bg-primary hover:bg-primary/90">
-              Start Exploring
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-lg px-8 border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground bg-transparent"
-            >
-              How It Works
-            </Button>
+            <Link href="/how-it-works">
+              <Button size="lg" className="text-lg px-8 bg-primary hover:bg-primary/90">
+                How It Works
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
