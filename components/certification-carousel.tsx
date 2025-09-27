@@ -104,9 +104,9 @@ export function CertificationCarousel() {
       <div className="relative overflow-hidden carousel-container">
         <div className="flex carousel-track">
           {extendedCertifications.map((cert, index) => (
-            <div key={`${cert.id}-${index}`} className="carousel-item px-3">
+            <div key={`${cert.id}-${index}`} className="carousel-item px-4 flex-shrink-0" style={{ width: "200px" }}>
               {/* Added flex, flex-col, and h-full to make all cards equal height */}
-              <div className="bg-background rounded-lg p-6 shadow-sm border hover:shadow-md transition-shadow flex flex-col h-full">
+              <div className="bg-background rounded-lg p-2 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
                 {/* Added flex-grow to push text to the bottom and center the image */}
                 <div className="relative w-full flex-grow flex items-center justify-center">
                   <Image
@@ -117,7 +117,7 @@ export function CertificationCarousel() {
                     className="object-contain opacity-70 hover:opacity-100 transition-opacity"
                   />
                 </div>
-                <p className="text-center text-sm font-medium text-muted-foreground mt-4">{cert.name}</p>
+                {/* <p className="text-center text-xsm font-small text-muted-foreground mt-2">{cert.name}</p> */}
               </div>
             </div>
           ))}
