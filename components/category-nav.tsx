@@ -37,7 +37,18 @@ export function CategoryNav({
               <Package className="h-4 w-4" />
               <span>Products</span>
             </Link>
-            {/* ... All your other vendor links remain exactly the same ... */}
+            <Link href="/vendor/orders" className="flex items-center space-x-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors py-3">
+              <Package className="h-4 w-4" />
+              <span>Orders</span>
+            </Link>
+            <Link href="/vendor/team" className="flex items-center space-x-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors py-3">
+              <Users className="h-4 w-4" />
+              <span>Team</span>
+            </Link>
+            <Link href="/vendor/settings" className="flex items-center space-x-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors py-3">
+              <Settings className="h-4 w-4" />
+              <span>Settings</span>
+            </Link>
             <Link href={`/vendors/${user.id}`} className="flex items-center space-x-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors py-3">
               <Store className="h-4 w-4" />
               <span>View Storefront</span>
