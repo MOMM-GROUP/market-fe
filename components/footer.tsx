@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="bg-muted py-12 px-4 mt-auto">
       <div className="center-content">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
@@ -75,21 +75,6 @@ export function Footer() {
               >
                 Contribute
               </a>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="font-semibold">Shop</h4>
-            <div className="space-y-2 text-sm">
-              <Link href="/categories" className="block text-muted-foreground hover:text-foreground">
-                Categories
-              </Link>
-              <Link href="/products" className="block text-muted-foreground hover:text-foreground">
-                All Products
-              </Link>
-              <Link href="/deals" className="block text-muted-foreground hover:text-foreground">
-                Deals
-              </Link>
             </div>
           </div>
 

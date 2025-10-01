@@ -95,7 +95,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={`font-sans ${inter.variable} ${jetbrainsMono.variable}`}>
         {/* Use the new Providers wrapper here */}
-        <Providers serverSession={null}>
+        <Providers serverSession={user}>
           <div className="min-h-screen flex flex-col">
             <Suspense fallback={<div>Loading...</div>}>
               <Navbar />

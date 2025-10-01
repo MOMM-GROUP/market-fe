@@ -355,13 +355,13 @@ export default function HowItWorksPage() {
                   Start Shopping <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
-              <Link href="/auth/register">
+              <Link href="https://wefunder.com/momm">
                 <Button
                   size="lg"
                   variant="outline"
                   className="text-lg px-8 border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground bg-transparent"
                 >
-                  Become a Community Builder
+                  Invest
                 </Button>
               </Link>
             </div>
