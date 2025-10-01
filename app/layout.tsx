@@ -41,7 +41,7 @@ async function getNavData() {
     // IMPORTANT: Fetch the full profile now with select('*')
     const { data: profile } = await supabase
       .from("profiles")
-      .select("id, username, role") // Select only required columns
+      .select("id, username, role, first_name, last_name, phone, address, city, state, zip_code, created_at") // Select all required UserProfile columns
       .eq("id", authUser.id)
       .single();
 
