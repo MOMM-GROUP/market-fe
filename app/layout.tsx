@@ -27,6 +27,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "MarketPlace - Multi-Vendor Platform",
   description: "Your trusted marketplace connecting customers with verified vendors worldwide",
+    generator: 'v0.app'
 };
 
 // --- SERVER-SIDE DATA FETCHING FUNCTION ---
