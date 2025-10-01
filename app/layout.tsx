@@ -95,6 +95,14 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable} ${jetbrainsMono.variable}`}>
+          {(process.env.NODE_ENV === "development" || process.env.VERCEL_ENV === "preview") && (
+            // eslint-disable-next-line @next/next/no-sync-scripts
+            <script
+              data-recording-token="ZOxGEtX1Mv1sxDjLJW07CAgsLPt2nu0jT2IzdBqD"
+              data-is-production-environment="false"
+              src="https://snippet.meticulous.ai/v1/meticulous.js"
+            />
+          )}
         {/* Use the new Providers wrapper here */}
         <Providers serverSession={user}>
           <div className="min-h-screen flex flex-col">
