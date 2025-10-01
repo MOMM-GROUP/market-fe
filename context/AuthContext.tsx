@@ -61,23 +61,35 @@ export function AuthProvider({ children, serverSession }: { children: React.Reac
     }
   };
 
-  // 5. This useEffect is now ONLY for listening to real-time auth changes (client-side login/logout).
+  // This useEffect handles real-time auth changes (login/logout) efficiently.
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (session?.user && session.user.id !== user?.id) {
-        setUser(session.user);
-        await fetchProfile(session.user);
-      } else if (!session?.user && user) {
-        setUser(null);
-        setProfile(null);
-        setCartCount(0);
-      }
-    });
+    // The listener is set up just once when the component mounts.
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        // This callback has the most up-to-date session info from Supabase.
+        const currentUser = session?.user ?? null;
+        
+        // Update the user state.
+        setUser(currentUser);
 
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [user]); // Rerun only if the user object changes.
+        // If a user exists, fetch their profile. Otherwise, clear it.
+        if (currentUser) {
+          // fetchProfile is already defined in your component.
+          // It will get the latest profile and set the state.
+          await fetchProfile(currentUser);
+        } else {
+          // If the user is logged out, clear the profile and cart.
+          setProfile(null);
+          setCartCount(0);
+        }
+      }
+    );
+
+  // The cleanup function runs when the component unmounts to prevent memory leaks.
+  return () => {
+    subscription.unsubscribe();
+  };
+}, []); // <-- The empty array means this effect runs only ONCE.
 
   const value: AuthContextType = {
     user,
