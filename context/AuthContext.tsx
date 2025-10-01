@@ -4,20 +4,7 @@ import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 import { createClient } from "@/lib/supabase/client"
 import type { User } from "@supabase/supabase-js"
-
-interface UserProfile {
-  id: string
-  email: string
-  first_name: string
-  last_name: string
-  phone: string | null
-  address: string | null
-  city: string | null
-  state: string | null
-  zip_code: string | null
-  role: string
-  created_at: string
-}
+import type { UserProfile, ServerSession } from "@/lib/types"
 
 interface AuthContextType {
   user: User | null
@@ -30,105 +17,79 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null)
-  const [profile, setProfile] = useState<UserProfile | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [cartCount, setCartCount] = useState(0)
+// 1. The Provider now accepts the server-fetched session as a prop.
+export function AuthProvider({ children, serverSession }: { children: React.ReactNode, serverSession: ServerSession | null }) {
   const supabase = createClient()
+  
+  // 2. Initialize state directly from the server prop. No more fetching here!
+  const [user, setUser] = useState(serverSession?.user ?? null)
+  const [profile, setProfile] = useState(serverSession?.profile ?? null)
+  const [cartCount, setCartCount] = useState(0)
+
+  // 3. Loading is now 'false' from the start if the server provided the session.
+  const [loading, setLoading] = useState(false)
+
+  // 4. A new, separate useEffect just for fetching the cart count.
+  useEffect(() => {
+    // Only fetch cart if we have a user and they are not a vendor.
+    if (user && profile && profile.role !== 'vendor') {
+      const fetchCartCount = async () => {
+        const { count } = await supabase
+          .from("cart_items")
+          .select("*", { count: "exact" })
+          .eq("user_id", user.id);
+        setCartCount(count || 0);
+      };
+      fetchCartCount();
+    } else {
+      setCartCount(0);
+    }
+  }, [user, profile]); // This runs whenever the user or profile changes.
 
   const fetchProfile = async (authUser: User) => {
-    try {
-      const { data: profileData } = await supabase.from("profiles").select("*").eq("id", authUser.id).single()
-
-      if (profileData) {
-        const userProfile: UserProfile = {
-          ...profileData,
-          email: authUser.email!,
-        }
-        setProfile(userProfile)
-
-        // Fetch cart count for non-vendor users
-        if (profileData.role !== "vendor") {
-          const { count } = await supabase.from("cart_items").select("*", { count: "exact" }).eq("user_id", authUser.id)
-
-          setCartCount(count || 0)
-        } else {
-          setCartCount(0)
-        }
-      } else {
-        setProfile(null)
-        setCartCount(0)
-      }
-    } catch (error) {
-      console.error("Error fetching profile:", error)
-      setProfile(null)
-      setCartCount(0)
+    const { data: profileData } = await supabase.from("profiles").select("*").eq("id", authUser.id).single();
+    if (profileData) {
+        setProfile({ ...profileData, email: authUser.email! });
+    } else {
+        setProfile(null);
     }
-  }
+  };
 
   const refreshProfile = async () => {
     if (user) {
-      await fetchProfile(user)
+      await fetchProfile(user);
     }
-  }
+  };
 
+  // This useEffect handles real-time auth changes (login/logout) efficiently.
   useEffect(() => {
-    let mounted = true
+    // The listener is set up just once when the component mounts.
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        // This callback has the most up-to-date session info from Supabase.
+        const currentUser = session?.user ?? null;
+        
+        // Update the user state.
+        setUser(currentUser);
 
-    const initializeAuth = async () => {
-      try {
-        const {
-          data: { user: authUser },
-        } = await supabase.auth.getUser()
-
-        if (!mounted) return
-
-        if (authUser) {
-          setUser(authUser)
-          await fetchProfile(authUser)
+        // If a user exists, fetch their profile. Otherwise, clear it.
+        if (currentUser) {
+          // fetchProfile is already defined in your component.
+          // It will get the latest profile and set the state.
+          await fetchProfile(currentUser);
         } else {
-          setUser(null)
-          setProfile(null)
-          setCartCount(0)
-        }
-      } catch (error) {
-        console.error("Auth initialization error:", error)
-        if (mounted) {
-          setUser(null)
-          setProfile(null)
-          setCartCount(0)
-        }
-      } finally {
-        if (mounted) {
-          setLoading(false)
+          // If the user is logged out, clear the profile and cart.
+          setProfile(null);
+          setCartCount(0);
         }
       }
-    }
+    );
 
-    initializeAuth()
-
-    // Listen for auth state changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (!mounted) return
-
-      if (event === "SIGNED_IN" && session?.user) {
-        setUser(session.user)
-        await fetchProfile(session.user)
-      } else if (event === "SIGNED_OUT") {
-        setUser(null)
-        setProfile(null)
-        setCartCount(0)
-      }
-    })
-
-    return () => {
-      mounted = false
-      subscription.unsubscribe()
-    }
-  }, [])
+  // The cleanup function runs when the component unmounts to prevent memory leaks.
+  return () => {
+    subscription.unsubscribe();
+  };
+}, []); // <-- The empty array means this effect runs only ONCE.
 
   const value: AuthContextType = {
     user,

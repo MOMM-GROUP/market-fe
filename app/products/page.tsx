@@ -86,20 +86,30 @@ export default function ProductsPage() {
 
   const fetchData = async () => {
     setLoading(true)
+    
+    // The base query is now dynamic
+    let query;
 
-    let query = supabase
-      .from("products")
-      .select(`
+    // 1. IF a search query exists, use our powerful RPC function as the base.
+    // This gives us relevance ranking from the start.
+    if (searchQuery) {
+      query = supabase.rpc("search_products", {
+        search_term: searchQuery,
+      })
+    } else {
+      // 2. IF NOT, use the standard 'products' table as the base.
+      query = supabase.from("products").select(`
         *,
         vendors (business_name, is_verified),
         categories (name, slug)
       `)
+    }
+
+    // 3. ALL other filters and conditions are chained onto the base query,
+    // regardless of whether it's a search result or the full product list.
+    query = query
       .eq("is_active", true)
       .gt("inventory_quantity", 0)
-
-    if (searchQuery) {
-      query = query.or(`name.ilike.%${searchQuery}%,description.ilike.%${searchQuery}%`)
-    }
 
     if (selectedCategory !== "all") {
       const category = categories.find((c) => c.slug === selectedCategory)
