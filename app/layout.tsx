@@ -10,6 +10,7 @@ import { Footer } from "@/components/footer";
 import { CategoryNav } from "@/components/category-nav";
 import { createClient } from "@/lib/supabase/server"; 
 import { Providers } from "./providers";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import type { Category, ServerSession, UserProfile } from "@/lib/types";
 import "./globals.css";
 
