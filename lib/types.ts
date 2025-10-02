@@ -26,8 +26,4 @@ export interface Category {
 export interface ServerSession {
   user: User;
   profile: UserProfile;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 451345e (added forgot password)
