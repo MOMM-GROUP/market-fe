@@ -18,8 +18,4 @@ test('Verify the landing page UI is visually stable', async ({ page }) => {
   // This is the Visual Regression check!
   // It takes a full-page screenshot and compares it to the baseline.
   await expect(page).toHaveScreenshot('landing-page-full.png', { fullPage: true });
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> 2741e87 (feat: Add Playwright and initial landing page E2E test)

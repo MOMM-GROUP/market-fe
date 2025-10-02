@@ -10,8 +10,6 @@ export function Providers({ children, serverSession }: { children: React.ReactNo
       {children}
     </AuthProvider>
   )
-<<<<<<< HEAD
 }
 =======
 }
->>>>>>> 451345e (added forgot password)
