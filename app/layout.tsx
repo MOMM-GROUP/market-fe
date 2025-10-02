@@ -10,10 +10,7 @@ import { Footer } from "@/components/footer";
 import { CategoryNav } from "@/components/category-nav";
 import { createClient } from "@/lib/supabase/server"; 
 import { Providers } from "./providers";
-<<<<<<< HEAD
 import { SpeedInsights } from "@vercel/speed-insights/next"
-=======
->>>>>>> 451345e (added forgot password)
 import type { Category, ServerSession, UserProfile } from "@/lib/types";
 import "./globals.css";
 
@@ -30,10 +27,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "MarketPlace - Multi-Vendor Platform",
   description: "Your trusted marketplace connecting customers with verified vendors worldwide",
-<<<<<<< HEAD
     generator: 'v0.app'
-=======
->>>>>>> 451345e (added forgot password)
 };
 
 // --- SERVER-SIDE DATA FETCHING FUNCTION ---
@@ -48,11 +42,7 @@ async function getNavData() {
     // IMPORTANT: Fetch the full profile now with select('*')
     const { data: profile } = await supabase
       .from("profiles")
-<<<<<<< HEAD
       .select("id, username, role, first_name, last_name, phone, address, city, state, zip_code, created_at") // Select all required UserProfile columns
-=======
-      .select("*")
->>>>>>> 451345e (added forgot password)
       .eq("id", authUser.id)
       .single();
 
@@ -106,7 +96,6 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable} ${jetbrainsMono.variable}`}>
-<<<<<<< HEAD
           {(process.env.NODE_ENV === "development" || process.env.VERCEL_ENV === "preview") && (
             // eslint-disable-next-line @next/next/no-sync-scripts
             <script
@@ -115,16 +104,7 @@ export default async function RootLayout({
               src="https://snippet.meticulous.ai/v1/meticulous.js"
             />
           )}
-        {/* Use the new Providers wrapper here */}
         <Providers serverSession={user}>
-=======
-        {/* Use the new Providers wrapper here */}
-<<<<<<< HEAD
-        <Providers serverSession={null}>
->>>>>>> 451345e (added forgot password)
-=======
-        <Providers serverSession={user}>
->>>>>>> b5bded4 (updated contact page and login nav)
           <div className="min-h-screen flex flex-col">
             <Suspense fallback={<div>Loading...</div>}>
               <Navbar />
@@ -138,8 +118,4 @@ export default async function RootLayout({
       </body>
     </html>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 451345e (added forgot password)
