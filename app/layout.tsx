@@ -42,7 +42,7 @@ async function getNavData() {
     // IMPORTANT: Fetch the full profile now with select('*')
     const { data: profile } = await supabase
       .from("profiles")
-      .select("id, username, role") // Select only required columns
+      .select("id, username, role, first_name, last_name, phone, address, city, state, zip_code, created_at") // Select all required UserProfile columns
       .eq("id", authUser.id)
       .single();
 
@@ -50,17 +50,7 @@ async function getNavData() {
       // Create a session object that matches our new types
       session = {
         user: authUser,
-        profile: {
-          ...profile, email: authUser.email!,
-          first_name: "",
-          last_name: "",
-          phone: null,
-          address: null,
-          city: null,
-          state: null,
-          zip_code: null,
-          created_at: ""
-        },
+        profile: { ...profile, email: authUser.email! },
       };
     }
   }
@@ -109,7 +99,7 @@ export default async function RootLayout({
           {(process.env.NODE_ENV === "development" || process.env.VERCEL_ENV === "preview") && (
             // eslint-disable-next-line @next/next/no-sync-scripts
             <script
-              data-recording-token="ZOxGEtX1Mv1sxDjLJW07CAgsLPt2nu0jT2IzdBqD"
+              data-recording-token={process.env.METICULOUS_DATA_RECORDING_TOKEN}
               data-is-production-environment="false"
               src="https://snippet.meticulous.ai/v1/meticulous.js"
             />
