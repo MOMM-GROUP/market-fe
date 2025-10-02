@@ -26,7 +26,11 @@ export function CategoryNav({
 
   if (user?.role === "vendor") {
     return (
+<<<<<<< HEAD
       <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-40">
+=======
+      <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+>>>>>>> 451345e (added forgot password)
         <nav className="flex h-12 items-center justify-center">
           <div className="flex items-center space-x-8">
             <Link href="/vendor" className="flex items-center space-x-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors py-3">
@@ -37,6 +41,7 @@ export function CategoryNav({
               <Package className="h-4 w-4" />
               <span>Products</span>
             </Link>
+<<<<<<< HEAD
             <Link href="/vendor/orders" className="flex items-center space-x-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors py-3">
               <Package className="h-4 w-4" />
               <span>Orders</span>
@@ -49,6 +54,9 @@ export function CategoryNav({
               <Settings className="h-4 w-4" />
               <span>Settings</span>
             </Link>
+=======
+            {/* ... All your other vendor links remain exactly the same ... */}
+>>>>>>> 451345e (added forgot password)
             <Link href={`/vendors/${user.id}`} className="flex items-center space-x-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors py-3">
               <Store className="h-4 w-4" />
               <span>View Storefront</span>

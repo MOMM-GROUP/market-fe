@@ -61,6 +61,7 @@ export function AuthProvider({ children, serverSession }: { children: React.Reac
     }
   };
 
+<<<<<<< HEAD
   // This useEffect handles real-time auth changes (login/logout) efficiently.
   useEffect(() => {
     // The listener is set up just once when the component mounts.
@@ -90,6 +91,25 @@ export function AuthProvider({ children, serverSession }: { children: React.Reac
     subscription.unsubscribe();
   };
 }, []); // <-- The empty array means this effect runs only ONCE.
+=======
+  // 5. This useEffect is now ONLY for listening to real-time auth changes (client-side login/logout).
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session?.user && session.user.id !== user?.id) {
+        setUser(session.user);
+        await fetchProfile(session.user);
+      } else if (!session?.user && user) {
+        setUser(null);
+        setProfile(null);
+        setCartCount(0);
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [user]); // Rerun only if the user object changes.
+>>>>>>> 451345e (added forgot password)
 
   const value: AuthContextType = {
     user,
