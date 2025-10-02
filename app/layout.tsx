@@ -101,6 +101,7 @@ export default async function RootLayout({
               data-recording-token={process.env.METICULOUS_DATA_RECORDING_TOKEN}
               data-is-production-environment="false"
               src="https://snippet.meticulous.ai/v1/meticulous.js"
+              async
             />
           )}
         {/* Use the new Providers wrapper here */}
