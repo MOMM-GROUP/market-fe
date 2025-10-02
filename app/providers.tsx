@@ -11,5 +11,4 @@ export function Providers({ children, serverSession }: { children: React.ReactNo
     </AuthProvider>
   )
 }
-=======
 }
