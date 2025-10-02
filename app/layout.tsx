@@ -119,8 +119,12 @@ export default async function RootLayout({
         <Providers serverSession={user}>
 =======
         {/* Use the new Providers wrapper here */}
+<<<<<<< HEAD
         <Providers serverSession={null}>
 >>>>>>> 451345e (added forgot password)
+=======
+        <Providers serverSession={user}>
+>>>>>>> b5bded4 (updated contact page and login nav)
           <div className="min-h-screen flex flex-col">
             <Suspense fallback={<div>Loading...</div>}>
               <Navbar />
