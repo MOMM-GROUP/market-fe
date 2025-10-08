@@ -9,7 +9,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react" 
+import { useAuth } from "@/context/AuthContext" 
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -17,7 +18,17 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-
+  const { user } = useAuth()
+  
+  useEffect(() => {
+    // If the router.refresh() has completed and the AuthProvider
+    // now has a user, it means the login was successful.
+    // We can then redirect to the homepage.
+    if (user) {
+      router.push("/")
+    }
+  }, [user, router])
+  
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     const supabase = createClient()
@@ -28,13 +39,9 @@ export default function LoginPage() {
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
-        // options: {
-        //   emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/`,
-        // },
       })
       if (error) throw error
 
-      router.push("/")
       router.refresh()
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred")
