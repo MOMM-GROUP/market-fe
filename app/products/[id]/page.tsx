@@ -32,8 +32,8 @@ interface Product {
   }
 }
 
-export default async function ProductDetailPage({ params }: { params: { id: string } }) {
-  console.log("[v0] ProductDetailPage: Loading product with ID:", params.id)
+export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
 
   const supabase = await createClient()
 
@@ -45,14 +45,11 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
         vendors (business_name, is_verified, business_description),
         categories (name, slug)
       `)
-      .eq("id", params.id)
+      .eq("id", id)
       .eq("is_active", true)
       .single()
 
-    console.log("[v0] ProductDetailPage: Product query result:", { product: product?.name, error })
-
     if (error || !product) {
-      console.log("[v0] ProductDetailPage: Product not found, showing 404")
       notFound()
     }
 
@@ -68,13 +65,8 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
           logo_link
         )
       `)
-      .eq("entity_id", params.id)
+      .eq("entity_id", id)
       .eq("entity_type", "product")
-
-    console.log("[v0] ProductDetailPage: Certifications query result:", {
-      certifications: productCertifications?.length,
-      error: certError,
-    })
 
     const hasDiscount = product.compare_at_price && product.compare_at_price > product.price
     const discountPercent = hasDiscount
