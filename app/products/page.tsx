@@ -361,7 +361,7 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
   const supabase = createClient()
 
   const hasDiscount = product.compare_at_price && product.compare_at_price > product.price
-  const discountPercent = hasDiscount
+  const discountPercent = hasDiscount && product.compare_at_price
     ? Math.round(((product.compare_at_price - product.price) / product.compare_at_price) * 100)
     : 0
 
