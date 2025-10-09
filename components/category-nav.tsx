@@ -26,7 +26,7 @@ export function CategoryNav({
 
   if (user?.role === "vendor") {
     return (
-      <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-40">
+      <div className="sticky top-16 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-40">
         <nav className="flex h-12 items-center justify-center">
           <div className="flex items-center space-x-8">
             <Link href="/vendor" className="flex items-center space-x-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors py-3">
@@ -60,7 +60,7 @@ export function CategoryNav({
   }
 
   return (
-    <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-40">
+    <div className="sticky top-16 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-40">
       <nav className="flex h-12 items-center justify-center">
         <div className="flex items-center space-x-8">
 {categories.map((category) => {
