@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Award, Search, Building, Package, ExternalLink } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -82,6 +83,9 @@ export default function CertificationsPage() {
       {} as Record<string, Certification[]>,
     ) || {}
 
+  const filterTypes = Object.keys(certificationsByFilterType).sort()
+  const defaultTab = filterTypes[0] || "organic"
+
   const handleImageError = (certId: string) => {
     setImageErrors((prev) => ({ ...prev, [certId]: true }))
   }
@@ -136,34 +140,40 @@ export default function CertificationsPage() {
         </div>
 
         {/* Certifications Table */}
-        <div className="space-y-12">
-          {Object.entries(certificationsByFilterType).map(([filterType, certs]) => (
-            <div key={filterType}>
-              <div className="flex items-center gap-3 mb-6">
-                <Award className="h-6 w-6 text-primary" />
-                <h2 className="text-2xl font-bold capitalize">{filterType.replace("-", " ")} Certifications</h2>
-                <Badge variant="secondary">{certs.length}</Badge>
-              </div>
+        <Tabs defaultValue={defaultTab} className="w-full">
+          <TabsList className="w-full justify-start overflow-x-auto flex-wrap h-auto">
+            {filterTypes.map((filterType) => (
+              <TabsTrigger key={filterType} value={filterType} className="capitalize">
+                {filterType.replace("-", " ")}
+                <Badge variant="secondary" className="ml-2">
+                  {certificationsByFilterType[filterType].length}
+                </Badge>
+              </TabsTrigger>
+            ))}
+          </TabsList>
 
-              <Card>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-[80px]">Logo</TableHead>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Certifier</TableHead>
-                      <TableHead className="text-center">Products</TableHead>
-                      <TableHead className="text-center">Companies</TableHead>
-                      <TableHead className="text-right">Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {certs.map((certification) => {
-                      const filterTypeColor =
-                        filterTypeColors[filterType as keyof typeof filterTypeColors] ||
-                        "bg-gray-100 text-gray-800 border-gray-200"
+          {filterTypes.map((filterType) => {
+            const certs = certificationsByFilterType[filterType]
+            const filterTypeColor =
+              filterTypeColors[filterType as keyof typeof filterTypeColors] ||
+              "bg-gray-100 text-gray-800 border-gray-200"
 
-                      return (
+            return (
+              <TabsContent key={filterType} value={filterType} className="mt-6">
+                <Card>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-[80px]">Logo</TableHead>
+                        <TableHead>Name</TableHead>
+                        <TableHead>Certifier</TableHead>
+                        <TableHead className="text-center">Products</TableHead>
+                        <TableHead className="text-center">Companies</TableHead>
+                        <TableHead className="text-right">Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {certs.map((certification) => (
                         <TableRow key={certification.id} className="hover:bg-muted/50">
                           <TableCell>
                             <Link href={`/certifications/${certification.id}`}>
@@ -211,14 +221,14 @@ export default function CertificationsPage() {
                             </Link>
                           </TableCell>
                         </TableRow>
-                      )
-                    })}
-                  </TableBody>
-                </Table>
-              </Card>
-            </div>
-          ))}
-        </div>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </Card>
+              </TabsContent>
+            )
+          })}
+        </Tabs>
 
         {/* Stats Section */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
