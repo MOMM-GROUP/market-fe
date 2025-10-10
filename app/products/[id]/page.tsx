@@ -325,16 +325,16 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                     About {product.vendors?.business_name}
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {product.vendors.description || "A verified vendor committed to ethical and sustainable practices."}
-                  </p>
-                  <Link href={`/vendors/${product.vendor_id}`}>
-                    <Button variant="outline" size="sm" className="w-full bg-transparent">
-                      View Vendor Profile
-                    </Button>
-                  </Link>
-                </CardContent>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        {product.vendors?.description || "A verified vendor committed to ethical and sustainable practices."}
+                      </p>
+                      <Link href={`/vendors/${product.vendor_id}`}>
+                        <Button variant="outline" size="sm" className="w-full bg-transparent">
+                          View Vendor Profile
+                        </Button>
+                      </Link>
+                    </CardContent>
               </Card>
 
               {/* Trust Indicators */}
