@@ -6,9 +6,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Award, Search, Filter, Building, Package } from "lucide-react"
+import { Award, Search, Building, Package, ExternalLink } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 interface Certification {
   id: string
@@ -39,6 +40,7 @@ export default function CertificationsPage() {
   const [certifications, setCertifications] = useState<Certification[]>([])
   const [loading, setLoading] = useState(true)
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
+  const [searchQuery, setSearchQuery] = useState("")
 
   useEffect(() => {
     async function fetchCertifications() {
@@ -60,8 +62,15 @@ export default function CertificationsPage() {
     fetchCertifications()
   }, [])
 
+  const filteredCertifications = certifications.filter(
+    (cert) =>
+      cert.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      cert.certifier?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      cert.filter_type?.toLowerCase().includes(searchQuery.toLowerCase()),
+  )
+
   const certificationsByFilterType =
-    certifications?.reduce(
+    filteredCertifications?.reduce(
       (acc, cert) => {
         const filterType = cert.filter_type || "other"
         if (!acc[filterType]) {
@@ -108,23 +117,25 @@ export default function CertificationsPage() {
             </p>
           </div>
 
-          {/* Search and Filters */}
+          {/* Search */}
           <Card className="mb-8">
             <CardContent className="p-6">
               <div className="flex flex-col md:flex-row gap-4">
                 <div className="flex-1 relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input placeholder="Search certifications..." className="pl-10" />
+                  <Input
+                    placeholder="Search certifications..."
+                    className="pl-10"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
                 </div>
-                <Button variant="outline" className="bg-transparent">
-                  <Filter className="h-4 w-4 mr-2" />
-                  Filter by Type
-                </Button>
               </div>
             </CardContent>
           </Card>
         </div>
 
+        {/* Certifications Table */}
         <div className="space-y-12">
           {Object.entries(certificationsByFilterType).map(([filterType, certs]) => (
             <div key={filterType}>
@@ -134,45 +145,77 @@ export default function CertificationsPage() {
                 <Badge variant="secondary">{certs.length}</Badge>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                {certs.map((certification) => {
-                  const filterTypeColor =
-                    filterTypeColors[filterType as keyof typeof filterTypeColors] ||
-                    "bg-gray-100 text-gray-800 border-gray-200"
+              <Card>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-[80px]">Logo</TableHead>
+                      <TableHead>Name</TableHead>
+                      <TableHead>Certifier</TableHead>
+                      <TableHead className="text-center">Products</TableHead>
+                      <TableHead className="text-center">Companies</TableHead>
+                      <TableHead className="text-right">Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {certs.map((certification) => {
+                      const filterTypeColor =
+                        filterTypeColors[filterType as keyof typeof filterTypeColors] ||
+                        "bg-gray-100 text-gray-800 border-gray-200"
 
-                  return (
-                    <Link key={certification.id} href={`/certifications/${certification.id}`}>
-                      <Card className="hover:shadow-lg transition-all hover:scale-105 cursor-pointer h-full">
-                        <CardContent className="p-4 flex flex-col items-center text-center">
-                          <div className="relative w-20 h-20 mb-3">
-                            <Image
-                              src={getImageSrc(certification) || "/placeholder.svg"}
-                              alt={certification.name}
-                              fill
-                              className="rounded-lg object-contain"
-                              onError={() => handleImageError(certification.id)}
-                            />
-                          </div>
-                          <h3 className="font-semibold text-sm line-clamp-2 mb-2">{certification.name}</h3>
-                          <Badge className={`${filterTypeColor} text-xs mb-2`} variant="outline">
-                            {filterType}
-                          </Badge>
-                          <div className="flex items-center gap-3 text-xs text-muted-foreground mt-auto">
-                            <div className="flex items-center gap-1">
-                              <Package className="h-3 w-3" />
-                              <span>{certification.product_count || 0}</span>
+                      return (
+                        <TableRow key={certification.id} className="hover:bg-muted/50">
+                          <TableCell>
+                            <Link href={`/certifications/${certification.id}`}>
+                              <div className="relative w-16 h-16 cursor-pointer hover:scale-105 transition-transform">
+                                <Image
+                                  src={getImageSrc(certification) || "/placeholder.svg"}
+                                  alt={certification.name}
+                                  fill
+                                  className="rounded-lg object-contain"
+                                  onError={() => handleImageError(certification.id)}
+                                />
+                              </div>
+                            </Link>
+                          </TableCell>
+                          <TableCell>
+                            <Link href={`/certifications/${certification.id}`} className="hover:underline">
+                              <div>
+                                <p className="font-semibold">{certification.name}</p>
+                                <Badge className={`${filterTypeColor} text-xs mt-1`} variant="outline">
+                                  {filterType}
+                                </Badge>
+                              </div>
+                            </Link>
+                          </TableCell>
+                          <TableCell>
+                            <span className="text-sm text-muted-foreground">{certification.certifier || "N/A"}</span>
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Package className="h-4 w-4 text-muted-foreground" />
+                              <span className="font-medium">{certification.product_count || 0}</span>
                             </div>
-                            <div className="flex items-center gap-1">
-                              <Building className="h-3 w-3" />
-                              <span>{certification.company_count || 0}</span>
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Building className="h-4 w-4 text-muted-foreground" />
+                              <span className="font-medium">{certification.company_count || 0}</span>
                             </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  )
-                })}
-              </div>
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <Link href={`/certifications/${certification.id}`}>
+                              <Button variant="ghost" size="sm">
+                                <ExternalLink className="h-4 w-4" />
+                              </Button>
+                            </Link>
+                          </TableCell>
+                        </TableRow>
+                      )
+                    })}
+                  </TableBody>
+                </Table>
+              </Card>
             </div>
           ))}
         </div>

@@ -122,6 +122,7 @@ export default async function CertificationProfilePage({ params }: { params: Pro
                         certification.logo_link ||
                         certification.icon_url ||
                         "/placeholder.svg?height=120&width=120&query=certification logo" ||
+                        "/placeholder.svg" ||
                         "/placeholder.svg"
                       }
                       alt={certification.name}
@@ -271,6 +272,7 @@ export default async function CertificationProfilePage({ params }: { params: Pro
                                 src={
                                   item.products.featured_image_url ||
                                   "/placeholder.svg?height=200&width=200&query=product" ||
+                                  "/placeholder.svg" ||
                                   "/placeholder.svg"
                                 }
                                 alt={item.products.name}
@@ -402,12 +404,6 @@ export default async function CertificationProfilePage({ params }: { params: Pro
                     <div>
                       <span className="text-sm font-medium">Information Source:</span>
                       <p className="text-sm text-muted-foreground">{certification.information_source}</p>
-                    </div>
-                  )}
-                  {certification.data_source && (
-                    <div>
-                      <span className="text-sm font-medium">Data Source:</span>
-                      <p className="text-sm text-muted-foreground">{certification.data_source}</p>
                     </div>
                   )}
                   {certification.filter_type && (
