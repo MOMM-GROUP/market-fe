@@ -1,9 +1,12 @@
-import { createClient } from "@/lib/supabase/server"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+"use client"
+
+import { useEffect, useState } from "react"
+import { createClient } from "@/lib/supabase/client"
+import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Award, Search, Filter, Building, Package, CheckCircle } from "lucide-react"
+import { Award, Search, Filter, Building, Package } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -18,44 +21,79 @@ interface Certification {
   product_count: number | null
   company_count: number | null
   priority: string | null
+  filter_type: string | null
 }
 
-const categoryColors = {
-  environmental: "bg-green-100 text-green-800 border-green-200",
-  social: "bg-blue-100 text-blue-800 border-blue-200",
-  ethical: "bg-purple-100 text-purple-800 border-purple-200",
-  quality: "bg-orange-100 text-orange-800 border-orange-200",
-  organic: "bg-emerald-100 text-emerald-800 border-emerald-200",
-  fair_trade: "bg-amber-100 text-amber-800 border-amber-200",
+const filterTypeColors = {
+  organic: "bg-green-100 text-green-800 border-green-200",
+  "fair-trade": "bg-blue-100 text-blue-800 border-blue-200",
+  sustainability: "bg-emerald-100 text-emerald-800 border-emerald-200",
+  "animal-welfare": "bg-purple-100 text-purple-800 border-purple-200",
   safety: "bg-red-100 text-red-800 border-red-200",
+  quality: "bg-orange-100 text-orange-800 border-orange-200",
+  environmental: "bg-teal-100 text-teal-800 border-teal-200",
+  social: "bg-indigo-100 text-indigo-800 border-indigo-200",
 }
 
-export default async function CertificationsPage() {
-  const supabase = await createClient()
+export default function CertificationsPage() {
+  const [certifications, setCertifications] = useState<Certification[]>([])
+  const [loading, setLoading] = useState(true)
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
 
-  const { data: certifications, error } = await supabase
-    .from("certifications")
-    .select("*")
-    .order("priority", { ascending: false })
-    .order("product_count", { ascending: false })
+  useEffect(() => {
+    async function fetchCertifications() {
+      const supabase = createClient()
+      const { data, error } = await supabase
+        .from("certifications")
+        .select("*")
+        .order("priority", { ascending: false })
+        .order("product_count", { ascending: false })
 
-  if (error) {
-    console.error("Error fetching certifications:", error)
-  }
+      if (error) {
+        console.error("Error fetching certifications:", error)
+      } else {
+        setCertifications(data || [])
+      }
+      setLoading(false)
+    }
 
-  // Group certifications by category
-  const certificationsByCategory =
+    fetchCertifications()
+  }, [])
+
+  const certificationsByFilterType =
     certifications?.reduce(
       (acc, cert) => {
-        const category = cert.category || "other"
-        if (!acc[category]) {
-          acc[category] = []
+        const filterType = cert.filter_type || "other"
+        if (!acc[filterType]) {
+          acc[filterType] = []
         }
-        acc[category].push(cert)
+        acc[filterType].push(cert)
         return acc
       },
       {} as Record<string, Certification[]>,
     ) || {}
+
+  const handleImageError = (certId: string) => {
+    setImageErrors((prev) => ({ ...prev, [certId]: true }))
+  }
+
+  const getImageSrc = (cert: Certification) => {
+    if (imageErrors[cert.id]) {
+      return "/certification-document.png"
+    }
+    return cert.logo_link || cert.icon_url || "/certification-document.png"
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Award className="h-12 w-12 mx-auto text-primary mb-4 animate-pulse" />
+          <p className="text-muted-foreground">Loading certifications...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -80,79 +118,54 @@ export default async function CertificationsPage() {
                 </div>
                 <Button variant="outline" className="bg-transparent">
                   <Filter className="h-4 w-4 mr-2" />
-                  Filter by Category
+                  Filter by Type
                 </Button>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Certifications by Category */}
         <div className="space-y-12">
-          {Object.entries(certificationsByCategory).map(([category, certs]) => (
-            <div key={category}>
+          {Object.entries(certificationsByFilterType).map(([filterType, certs]) => (
+            <div key={filterType}>
               <div className="flex items-center gap-3 mb-6">
                 <Award className="h-6 w-6 text-primary" />
-                <h2 className="text-2xl font-bold capitalize">{category.replace("_", " ")} Certifications</h2>
+                <h2 className="text-2xl font-bold capitalize">{filterType.replace("-", " ")} Certifications</h2>
                 <Badge variant="secondary">{certs.length}</Badge>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
                 {certs.map((certification) => {
-                  const categoryColor =
-                    categoryColors[certification.category as keyof typeof categoryColors] ||
+                  const filterTypeColor =
+                    filterTypeColors[filterType as keyof typeof filterTypeColors] ||
                     "bg-gray-100 text-gray-800 border-gray-200"
 
                   return (
                     <Link key={certification.id} href={`/certifications/${certification.id}`}>
-                      <Card className="hover:shadow-lg transition-shadow cursor-pointer h-full">
-                        <CardHeader className="pb-4">
-                          <div className="flex items-start gap-4">
+                      <Card className="hover:shadow-lg transition-all hover:scale-105 cursor-pointer h-full">
+                        <CardContent className="p-4 flex flex-col items-center text-center">
+                          <div className="relative w-20 h-20 mb-3">
                             <Image
-                              src={
-                                certification.logo_link ||
-                                certification.icon_url ||
-                                "/placeholder.svg?height=60&width=60&query=certification"
-                              }
+                              src={getImageSrc(certification) || "/placeholder.svg"}
                               alt={certification.name}
-                              width={60}
-                              height={60}
-                              className="rounded-lg object-cover border"
+                              fill
+                              className="rounded-lg object-contain"
+                              onError={() => handleImageError(certification.id)}
                             />
-                            <div className="flex-1 min-w-0">
-                              <CardTitle className="text-lg line-clamp-2 mb-2">{certification.name}</CardTitle>
-                              <Badge className={categoryColor} variant="outline">
-                                {certification.category}
-                              </Badge>
-                            </div>
                           </div>
-                        </CardHeader>
-                        <CardContent className="pt-0">
-                          <p className="text-sm text-muted-foreground line-clamp-3 mb-4">{certification.description}</p>
-
-                          {certification.certifier && (
-                            <p className="text-xs text-muted-foreground mb-3">
-                              Certified by: <span className="font-medium">{certification.certifier}</span>
-                            </p>
-                          )}
-
-                          <div className="flex items-center justify-between text-sm">
-                            <div className="flex items-center gap-4">
-                              <div className="flex items-center gap-1">
-                                <Package className="h-4 w-4 text-muted-foreground" />
-                                <span>{certification.product_count || 0}</span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <Building className="h-4 w-4 text-muted-foreground" />
-                                <span>{certification.company_count || 0}</span>
-                              </div>
+                          <h3 className="font-semibold text-sm line-clamp-2 mb-2">{certification.name}</h3>
+                          <Badge className={`${filterTypeColor} text-xs mb-2`} variant="outline">
+                            {filterType}
+                          </Badge>
+                          <div className="flex items-center gap-3 text-xs text-muted-foreground mt-auto">
+                            <div className="flex items-center gap-1">
+                              <Package className="h-3 w-3" />
+                              <span>{certification.product_count || 0}</span>
                             </div>
-                            {certification.priority === "high" && (
-                              <Badge variant="secondary" className="text-xs">
-                                <CheckCircle className="h-3 w-3 mr-1" />
-                                Trusted
-                              </Badge>
-                            )}
+                            <div className="flex items-center gap-1">
+                              <Building className="h-3 w-3" />
+                              <span>{certification.company_count || 0}</span>
+                            </div>
                           </div>
                         </CardContent>
                       </Card>
