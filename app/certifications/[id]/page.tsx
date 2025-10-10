@@ -30,6 +30,13 @@ interface Certification {
   product_count: number | null
   company_count: number | null
   priority: string | null
+  certifier_contact: string | null
+  qualifiers: string | null
+  information_source: string | null
+  is_certification: boolean | null
+  filter_type: string | null
+  notes: string | null
+  data_source: string | null
   created_at: string
   updated_at: string
 }
@@ -44,21 +51,17 @@ const categoryColors = {
   safety: "bg-red-100 text-red-800 border-red-200",
 }
 
-export default async function CertificationProfilePage({ params }: { params: { id: string } }) {
+export default async function CertificationProfilePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const supabase = await createClient()
 
   try {
-    const { data: certification, error } = await supabase
-      .from("certifications")
-      .select("*")
-      .eq("id", params.id)
-      .single()
+    const { data: certification, error } = await supabase.from("certifications").select("*").eq("id", id).single()
 
     if (error || !certification) {
       notFound()
     }
 
-    // Get certified entities (products and companies)
     const { data: certifiedProducts } = await supabase
       .from("entity_certifications")
       .select(`
@@ -72,7 +75,7 @@ export default async function CertificationProfilePage({ params }: { params: { i
           vendors (business_name)
         )
       `)
-      .eq("certification_id", params.id)
+      .eq("certification_id", id)
       .eq("entity_type", "product")
       .eq("verified", true)
       .limit(6)
@@ -89,7 +92,7 @@ export default async function CertificationProfilePage({ params }: { params: { i
           is_verified
         )
       `)
-      .eq("certification_id", params.id)
+      .eq("certification_id", id)
       .eq("entity_type", "vendor")
       .eq("verified", true)
       .limit(6)
@@ -98,7 +101,6 @@ export default async function CertificationProfilePage({ params }: { params: { i
       categoryColors[certification.category as keyof typeof categoryColors] ||
       "bg-gray-100 text-gray-800 border-gray-200"
 
-    // Mock trust score based on certification attributes
     const trustScore = Math.floor(
       (certification.is_audited ? 25 : 0) +
         (certification.has_rating_system ? 20 : 0) +
@@ -110,7 +112,6 @@ export default async function CertificationProfilePage({ params }: { params: { i
     return (
       <div className="min-h-screen bg-background">
         <div className="center-content py-8">
-          {/* Certification Header */}
           <div className="mb-8">
             <Card>
               <CardContent className="p-8">
@@ -120,7 +121,8 @@ export default async function CertificationProfilePage({ params }: { params: { i
                       src={
                         certification.logo_link ||
                         certification.icon_url ||
-                        "/placeholder.svg?height=120&width=120&query=certification logo"
+                        "/placeholder.svg?height=120&width=120&query=certification logo" ||
+                        "/placeholder.svg"
                       }
                       alt={certification.name}
                       width={120}
@@ -144,7 +146,6 @@ export default async function CertificationProfilePage({ params }: { params: { i
                       )}
                     </div>
 
-                    {/* Trust Score */}
                     <div className="mb-4">
                       <div className="flex items-center gap-3 mb-2">
                         <span className="text-sm font-medium">Trust Score:</span>
@@ -199,9 +200,7 @@ export default async function CertificationProfilePage({ params }: { params: { i
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Main Content */}
             <div className="lg:col-span-2 space-y-8">
-              {/* What This Certification Covers */}
               <Card>
                 <CardHeader>
                   <CardTitle>What This Certification Covers</CardTitle>
@@ -257,7 +256,6 @@ export default async function CertificationProfilePage({ params }: { params: { i
                 </CardContent>
               </Card>
 
-              {/* Certified Products */}
               {certifiedProducts && certifiedProducts.length > 0 && (
                 <Card>
                   <CardHeader>
@@ -272,7 +270,8 @@ export default async function CertificationProfilePage({ params }: { params: { i
                               <Image
                                 src={
                                   item.products.featured_image_url ||
-                                  "/placeholder.svg?height=200&width=200&query=product"
+                                  "/placeholder.svg?height=200&width=200&query=product" ||
+                                  "/placeholder.svg"
                                 }
                                 alt={item.products.name}
                                 fill
@@ -305,7 +304,6 @@ export default async function CertificationProfilePage({ params }: { params: { i
                 </Card>
               )}
 
-              {/* Certified Companies */}
               {certifiedVendors && certifiedVendors.length > 0 && (
                 <Card>
                   <CardHeader>
@@ -355,9 +353,7 @@ export default async function CertificationProfilePage({ params }: { params: { i
               )}
             </div>
 
-            {/* Sidebar */}
             <div className="space-y-6">
-              {/* Certification Details */}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -390,10 +386,50 @@ export default async function CertificationProfilePage({ params }: { params: { i
                       <p className="text-sm text-muted-foreground">{certification.audited_by}</p>
                     </div>
                   )}
+                  {certification.certifier_contact && (
+                    <div>
+                      <span className="text-sm font-medium">Contact:</span>
+                      <p className="text-sm text-muted-foreground">{certification.certifier_contact}</p>
+                    </div>
+                  )}
+                  {certification.qualifiers && (
+                    <div>
+                      <span className="text-sm font-medium">Qualifiers:</span>
+                      <p className="text-sm text-muted-foreground">{certification.qualifiers}</p>
+                    </div>
+                  )}
+                  {certification.information_source && (
+                    <div>
+                      <span className="text-sm font-medium">Information Source:</span>
+                      <p className="text-sm text-muted-foreground">{certification.information_source}</p>
+                    </div>
+                  )}
+                  {certification.data_source && (
+                    <div>
+                      <span className="text-sm font-medium">Data Source:</span>
+                      <p className="text-sm text-muted-foreground">{certification.data_source}</p>
+                    </div>
+                  )}
+                  {certification.filter_type && (
+                    <div>
+                      <span className="text-sm font-medium">Filter Type:</span>
+                      <p className="text-sm text-muted-foreground">{certification.filter_type}</p>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
-              {/* Trust Indicators */}
+              {certification.notes && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Additional Notes</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground whitespace-pre-wrap">{certification.notes}</p>
+                  </CardContent>
+                </Card>
+              )}
+
               <Card>
                 <CardHeader>
                   <CardTitle>Why Trust This Certification?</CardTitle>
@@ -423,6 +459,12 @@ export default async function CertificationProfilePage({ params }: { params: { i
                       <span>Regular compliance checks</span>
                     </div>
                   )}
+                  {certification.is_certification && (
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-green-600" />
+                      <span>Official certification program</span>
+                    </div>
+                  )}
                   <div className="flex items-center gap-2 text-sm">
                     <CheckCircle className="h-4 w-4 text-green-600" />
                     <span>Industry recognized standards</span>
@@ -430,7 +472,6 @@ export default async function CertificationProfilePage({ params }: { params: { i
                 </CardContent>
               </Card>
 
-              {/* Quick Stats */}
               <Card>
                 <CardHeader>
                   <CardTitle>Quick Stats</CardTitle>

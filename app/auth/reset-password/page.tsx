@@ -20,20 +20,28 @@ export default function ResetPasswordPage() {
   const router = useRouter()
   const supabase = createClient()
 
+  const [isSessionLoading, setIsSessionLoading] = useState(true); // Add this state
+
   useEffect(() => {
-    // Check if user has a valid recovery session
-    const checkSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
-      if (session) {
-        setIsValidSession(true)
-      } else {
-        setError("Invalid or expired reset link. Please request a new one.")
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      // This listener fires when the auth state changes.
+      // We are waiting for the PASSWORD_RECOVERY event.
+      if (event === "PASSWORD_RECOVERY") {
+        setIsValidSession(true);
       }
-    }
-    checkSession()
-  }, [])
+      // We can stop loading once we get any event,
+      // as the initial check is complete.
+      setIsSessionLoading(false);
+    });
+
+    // The cleanup function unsubscribes from the listener
+    // when the component unmounts.
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []); // The empty dependency array is correct here.
 
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -146,7 +154,7 @@ export default function ResetPasswordPage() {
                   />
                 </div>
                 {error && <p className="text-sm text-destructive">{error}</p>}
-                <Button type="submit" className="w-full" disabled={isLoading || !isValidSession}>
+                <Button type="submit" className="w-full" disabled={isLoading || isSessionLoading || !isValidSession}>
                   {isLoading ? "Resetting..." : "Reset Password"}
                 </Button>
               </div>
