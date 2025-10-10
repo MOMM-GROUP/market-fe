@@ -155,23 +155,23 @@ export default function CertificationsPage() {
 
             return (
               <TabsContent key={filterType} value={filterType} className="mt-6">
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-8">
                   {certs.map((certification) => (
-                    <Link key={certification.id} href={`/certifications/${certification.id}`} className="group">
-                      <Card className="h-full hover:shadow-lg transition-shadow">
-                        <CardContent className="p-6 flex items-center justify-center">
-                          <div className="relative w-full aspect-square">
-                            <Image
-                              src={getImageSrc(certification) || "/placeholder.svg"}
-                              alt={certification.name}
-                              fill
-                              className="object-contain group-hover:scale-105 transition-transform"
-                              onError={() => handleImageError(certification.id)}
-                            />
-                          </div>
-                        </CardContent>
-                      </Card>
-                      <p className="text-sm text-center mt-2 text-muted-foreground group-hover:text-foreground transition-colors">
+                    <Link
+                      key={certification.id}
+                      href={`/certifications/${certification.id}`}
+                      className="group flex flex-col items-center"
+                    >
+                      <div className="relative w-full aspect-square hover:scale-110 transition-transform duration-200">
+                        <Image
+                          src={getImageSrc(certification) || "/placeholder.svg"}
+                          alt={certification.name}
+                          fill
+                          className="object-contain"
+                          onError={() => handleImageError(certification.id)}
+                        />
+                      </div>
+                      <p className="text-xs text-center mt-2 text-muted-foreground group-hover:text-foreground transition-colors line-clamp-2">
                         {certification.name}
                       </p>
                     </Link>
