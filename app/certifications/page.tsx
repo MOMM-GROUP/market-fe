@@ -5,12 +5,10 @@ import { createClient } from "@/lib/supabase/client"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Award, Search, Building, Package, ExternalLink } from "lucide-react"
+import { Award, Search, Building, Package } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 interface Certification {
   id: string
@@ -139,7 +137,7 @@ export default function CertificationsPage() {
           </Card>
         </div>
 
-        {/* Certifications Table */}
+        {/* Certifications Grid */}
         <Tabs defaultValue={defaultTab} className="w-full">
           <TabsList className="w-full justify-start overflow-x-auto flex-wrap h-auto">
             {filterTypes.map((filterType) => (
@@ -154,77 +152,31 @@ export default function CertificationsPage() {
 
           {filterTypes.map((filterType) => {
             const certs = certificationsByFilterType[filterType]
-            const filterTypeColor =
-              filterTypeColors[filterType as keyof typeof filterTypeColors] ||
-              "bg-gray-100 text-gray-800 border-gray-200"
 
             return (
               <TabsContent key={filterType} value={filterType} className="mt-6">
-                <Card>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead className="w-[80px]">Logo</TableHead>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Certifier</TableHead>
-                        <TableHead className="text-center">Products</TableHead>
-                        <TableHead className="text-center">Companies</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {certs.map((certification) => (
-                        <TableRow key={certification.id} className="hover:bg-muted/50">
-                          <TableCell>
-                            <Link href={`/certifications/${certification.id}`}>
-                              <div className="relative w-16 h-16 cursor-pointer hover:scale-105 transition-transform">
-                                <Image
-                                  src={getImageSrc(certification) || "/placeholder.svg"}
-                                  alt={certification.name}
-                                  fill
-                                  className="rounded-lg object-contain"
-                                  onError={() => handleImageError(certification.id)}
-                                />
-                              </div>
-                            </Link>
-                          </TableCell>
-                          <TableCell>
-                            <Link href={`/certifications/${certification.id}`} className="hover:underline">
-                              <div>
-                                <p className="font-semibold">{certification.name}</p>
-                                <Badge className={`${filterTypeColor} text-xs mt-1`} variant="outline">
-                                  {filterType}
-                                </Badge>
-                              </div>
-                            </Link>
-                          </TableCell>
-                          <TableCell>
-                            <span className="text-sm text-muted-foreground">{certification.certifier || "N/A"}</span>
-                          </TableCell>
-                          <TableCell className="text-center">
-                            <div className="flex items-center justify-center gap-1">
-                              <Package className="h-4 w-4 text-muted-foreground" />
-                              <span className="font-medium">{certification.product_count || 0}</span>
-                            </div>
-                          </TableCell>
-                          <TableCell className="text-center">
-                            <div className="flex items-center justify-center gap-1">
-                              <Building className="h-4 w-4 text-muted-foreground" />
-                              <span className="font-medium">{certification.company_count || 0}</span>
-                            </div>
-                          </TableCell>
-                          <TableCell className="text-right">
-                            <Link href={`/certifications/${certification.id}`}>
-                              <Button variant="ghost" size="sm">
-                                <ExternalLink className="h-4 w-4" />
-                              </Button>
-                            </Link>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </Card>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                  {certs.map((certification) => (
+                    <Link key={certification.id} href={`/certifications/${certification.id}`} className="group">
+                      <Card className="h-full hover:shadow-lg transition-shadow">
+                        <CardContent className="p-6 flex items-center justify-center">
+                          <div className="relative w-full aspect-square">
+                            <Image
+                              src={getImageSrc(certification) || "/placeholder.svg"}
+                              alt={certification.name}
+                              fill
+                              className="object-contain group-hover:scale-105 transition-transform"
+                              onError={() => handleImageError(certification.id)}
+                            />
+                          </div>
+                        </CardContent>
+                      </Card>
+                      <p className="text-sm text-center mt-2 text-muted-foreground group-hover:text-foreground transition-colors">
+                        {certification.name}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
               </TabsContent>
             )
           })}
