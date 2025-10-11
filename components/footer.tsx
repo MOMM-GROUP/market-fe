@@ -75,6 +75,9 @@ export function Footer() {
               >
                 Contribute
               </a>
+              <Link href="/certifications" className="block text-muted-foreground hover:text-foreground">
+                View Certifications
+              </Link>
             </div>
           </div>
 
