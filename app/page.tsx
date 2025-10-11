@@ -18,7 +18,7 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import CertificationCarousel from "@/components/certification-carousel"
+import CertificationTabs from "@/components/certification-tabs"
 
 interface Product {
   id: string
@@ -283,8 +283,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Certifications Carousel Section */}
-      <section className="py-16 px-4">
+      {/* Certifications Tabs Section */}
+      <section className="py-16 px-4 bg-muted/30">
         <div className="center-content">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold mb-4">Our Certifications</h2>
@@ -292,7 +292,7 @@ export default async function HomePage() {
               Trusted by industry leaders and certified by top organizations worldwide
             </p>
           </div>
-          <CertificationCarousel />
+          <CertificationTabs />
         </div>
       </section>
     </div>
