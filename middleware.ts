@@ -58,8 +58,7 @@ export async function middleware(request: NextRequest) {
     },
   })
 
-  // This will refresh the session cookie if it's expired.
-  await supabase.auth.getSession()
+  // This simplifies the middleware and avoids Edge Runtime environment variable issues
 
   return response
 }
