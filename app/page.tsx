@@ -48,6 +48,13 @@ interface Category {
   image_url: string | null
 }
 
+interface Certification {
+  id: string
+  name: string
+  priority: number
+  product_count: number
+}
+
 export default async function HomePage() {
   const supabase = await createClient()
 
@@ -67,6 +74,12 @@ export default async function HomePage() {
 
   // Get categories
   const { data: categories } = await supabase.from("categories").select("*").limit(6)
+
+  const { data: certifications } = await supabase
+    .from("certifications")
+    .select("*")
+    .order("priority", { ascending: false })
+    .order("product_count", { ascending: false })
 
   return (
     <div className="min-h-screen bg-background">
@@ -292,7 +305,7 @@ export default async function HomePage() {
               Trusted by industry leaders and certified by top organizations worldwide
             </p>
           </div>
-          <CertificationTabs />
+          <CertificationTabs certifications={certifications || []} />
         </div>
       </section>
     </div>

@@ -9,7 +9,8 @@ export async function updateSession(request: NextRequest) {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-  if (!supabaseUrl || !supabaseAnonKey || supabaseUrl === "" || supabaseAnonKey === "") {
+  // If environment variables are not available, skip auth check
+  if (!supabaseUrl || !supabaseAnonKey) {
     console.log("[v0] Supabase environment variables not found, skipping auth check")
     return supabaseResponse
   }
