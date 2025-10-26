@@ -394,10 +394,29 @@ export function AmazonStyleFilters({
 
   const fetchSubcategories = async () => {
     try {
+      if (selectedCategory === "all") {
+        setSubcategories([])
+        return
+      }
+
+      // First, get the parent category ID from the slug
+      const { data: parentCategory, error: parentError } = await supabase
+        .from("categories")
+        .select("id")
+        .eq("slug", selectedCategory)
+        .single()
+
+      if (parentError || !parentCategory) {
+        console.error("Error fetching parent category:", parentError)
+        setSubcategories([])
+        return
+      }
+
+      // Now fetch subcategories using the parent ID
       const { data, error } = await supabase
         .from("categories")
         .select("*")
-        .eq("parent_id", selectedCategory)
+        .eq("parent_id", parentCategory.id)
         .order("name", { ascending: true })
 
       if (error) {

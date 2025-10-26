@@ -39,6 +39,7 @@ interface Category {
   id: string
   name: string
   slug: string
+  parent_id: string | null
 }
 
 export default function ProductsPage() {
@@ -86,9 +87,9 @@ export default function ProductsPage() {
 
   const fetchData = async () => {
     setLoading(true)
-    
+
     // The base query is now dynamic
-    let query;
+    let query
 
     // 1. IF a search query exists, use our powerful RPC function as the base.
     // This gives us relevance ranking from the start.
@@ -107,14 +108,42 @@ export default function ProductsPage() {
 
     // 3. ALL other filters and conditions are chained onto the base query,
     // regardless of whether it's a search result or the full product list.
-    query = query
-      .eq("is_active", true)
-      .gt("inventory_quantity", 0)
+    query = query.eq("is_active", true).gt("inventory_quantity", 0)
 
     if (selectedCategory !== "all") {
-      const category = categories.find((c) => c.slug === selectedCategory)
-      if (category) {
-        query = query.eq("category_id", category.id)
+      // First, get the category and all its subcategories
+      const { data: categoryData } = await supabase
+        .from("categories")
+        .select("id")
+        .eq("slug", selectedCategory)
+        .single()
+
+      if (categoryData) {
+        // Get all subcategories recursively
+        const { data: subcategoryData } = await supabase
+          .from("categories")
+          .select("id")
+          .eq("parent_id", categoryData.id)
+
+        const categoryIds = [categoryData.id]
+        if (subcategoryData && subcategoryData.length > 0) {
+          categoryIds.push(...subcategoryData.map((sub) => sub.id))
+
+          // Get sub-subcategories (third level)
+          for (const subcat of subcategoryData) {
+            const { data: subSubcategoryData } = await supabase
+              .from("categories")
+              .select("id")
+              .eq("parent_id", subcat.id)
+
+            if (subSubcategoryData && subSubcategoryData.length > 0) {
+              categoryIds.push(...subSubcategoryData.map((sub) => sub.id))
+            }
+          }
+        }
+
+        // Filter products by all category IDs (parent + all descendants)
+        query = query.in("category_id", categoryIds)
       }
     }
 
@@ -361,9 +390,10 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
   const supabase = createClient()
 
   const hasDiscount = product.compare_at_price && product.compare_at_price > product.price
-  const discountPercent = hasDiscount && product.compare_at_price
-    ? Math.round(((product.compare_at_price - product.price) / product.compare_at_price) * 100)
-    : 0
+  const discountPercent =
+    hasDiscount && product.compare_at_price
+      ? Math.round(((product.compare_at_price - product.price) / product.compare_at_price) * 100)
+      : 0
 
   useEffect(() => {
     const checkUser = async () => {
