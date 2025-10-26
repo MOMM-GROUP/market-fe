@@ -31,7 +31,6 @@ interface Product {
   category_id: string
   vendor_id: string
   is_active: boolean
-  inventory_quantity: number
   vendors: {
     business_name: string
     is_verified: boolean
@@ -76,7 +75,6 @@ export default async function HomePage() {
         category_id,
         vendor_id,
         is_active,
-        inventory_quantity,
         vendors!inner (
           business_name,
           is_verified
@@ -87,7 +85,6 @@ export default async function HomePage() {
         )
       `)
       .eq("is_active", true)
-      .gt("inventory_quantity", 0)
       .limit(8)
 
     if (productsError) {
