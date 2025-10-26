@@ -86,100 +86,120 @@ export default function ProductsPage() {
   }, [searchQuery, selectedCategory, filters, sortBy])
 
   const fetchData = async () => {
-    console.log("[v0] Starting fetchData")
-    setLoading(true)
-
-    try {
-      const supabase = createClient()
-      console.log("[v0] Supabase client created")
-
-      let query = supabase
-        .from("products")
-        .select(`
-          id,
-          name,
-          description,
-          price,
-          compare_at_price,
-          featured_image_url,
-          brand,
-          category_id,
-          vendor_id,
-          is_active,
-          inventory_quantity,
-          vendors!inner (
-            business_name,
-            is_verified
-          ),
-          categories!inner (
-            name,
-            slug
-          )
-        `)
-        .eq("is_active", true)
-        .gt("inventory_quantity", 0)
-
-      console.log("[v0] Base query created")
-
-      // Category filtering
-      if (selectedCategory !== "all") {
-        console.log("[v0] Filtering by category:", selectedCategory)
-
-        query = query.eq("categories.slug", selectedCategory)
-      }
-
-      // Price filtering
-      if (filters.priceRange.min) {
-        query = query.gte("price", Number.parseFloat(filters.priceRange.min))
-      }
-      if (filters.priceRange.max) {
-        query = query.lte("price", Number.parseFloat(filters.priceRange.max))
-      }
-
-      // Brand filtering
-      if (filters.selectedBrands.length > 0) {
-        query = query.in("brand", filters.selectedBrands)
-      }
-
-      // Verified vendor filtering
-      if (filters.verifiedOnly) {
-        query = query.eq("vendors.is_verified", true)
-      }
-
-      // Sorting
-      switch (sortBy) {
-        case "price-low":
-          query = query.order("price", { ascending: true })
-          break
-        case "price-high":
-          query = query.order("price", { ascending: false })
-          break
-        case "popular":
-          query = query.order("created_at", { ascending: false })
-          break
-        default:
-          query = query.order("created_at", { ascending: false })
-      }
-
-      // Limit results
-      query = query.limit(50)
-
-      console.log("[v0] Executing query")
-      const { data: productsData, error } = await query
-
-      if (error) {
-        console.error("[v0] Error fetching products:", error)
-        setProducts([])
+  console.log("[v0] Starting fetchData")
+  setLoading(true)
+  
+  try {
+    const supabase = createClient()
+    console.log("[v0] Supabase client created")
+    
+    // Step 1: If filtering by category, get the category ID first
+    let categoryId = null
+    if (selectedCategory !== "all") {
+      console.log("[v0] Looking up category:", selectedCategory)
+      const { data: categoryData, error: categoryError } = await supabase
+        .from("categories")
+        .select("id")
+        .eq("slug", selectedCategory)
+        .single()
+      
+      if (categoryError) {
+        console.error("[v0] Category lookup error:", categoryError)
       } else {
-        console.log("[v0] Products fetched successfully:", productsData?.length || 0)
-        setProducts(productsData || [])
+        categoryId = categoryData?.id
+        console.log("[v0] Found category ID:", categoryId)
       }
-    } catch (error) {
-      console.error("[v0] Exception in fetchData:", error)
-      setProducts([])
-    } finally {
-      setLoading(false)
     }
+    
+    // Step 2: Build products query
+    let query = supabase
+      .from("products")
+      .select(`
+        id,
+        name,
+        description,
+        price,
+        compare_at_price,
+        featured_image_url,
+        brand,
+        category_id,
+        vendor_id,
+        is_active,
+        inventory_quantity,
+        vendors!inner (
+          business_name,
+          is_verified
+        ),
+        categories!inner (
+          name,
+          slug
+        )
+      `)
+      .eq("is_active", true)
+    
+    console.log("[v0] Base query created")
+    
+    // Filter by category_id (not nested slug)
+    if (categoryId) {
+      console.log("[v0] Filtering by category_id:", categoryId)
+      query = query.eq("category_id", categoryId)
+    }
+    
+    // Price filtering
+    if (filters.priceRange.min) {
+      query = query.gte("price", Number.parseFloat(filters.priceRange.min))
+    }
+    if (filters.priceRange.max) {
+      query = query.lte("price", Number.parseFloat(filters.priceRange.max))
+    }
+    
+    // Brand filtering
+    if (filters.selectedBrands.length > 0) {
+      query = query.in("brand", filters.selectedBrands)
+    }
+    
+    // Sorting
+    switch (sortBy) {
+      case "price-low":
+        query = query.order("price", { ascending: true })
+        break
+      case "price-high":
+        query = query.order("price", { ascending: false })
+        break
+      case "popular":
+        query = query.order("created_at", { ascending: false })
+        break
+      default:
+        query = query.order("created_at", { ascending: false })
+    }
+    
+    // Limit results
+    query = query.limit(50)
+    
+    console.log("[v0] Executing query")
+    const { data: productsData, error } = await query
+    
+    if (error) {
+      console.error("[v0] Error fetching products:", error)
+      console.error("[v0] Error details:", JSON.stringify(error, null, 2))
+      setProducts([])
+    } else {
+      console.log("[v0] Products fetched:", productsData?.length || 0)
+      if (productsData && productsData.length > 0) {
+        console.log("[v0] Sample product:", {
+          name: productsData[0].name,
+          category: productsData[0].categories?.name,
+          vendor: productsData[0].vendors?.business_name
+        })
+      }
+      setProducts(productsData || [])
+    }
+  } catch (error) {
+    console.error("[v0] Exception in fetchData:", error)
+    setProducts([])
+  } finally {
+    setLoading(false)
+  }
   }
 
   useEffect(() => {
