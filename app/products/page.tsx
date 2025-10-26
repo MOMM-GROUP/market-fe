@@ -14,6 +14,23 @@ import { useSearchParams, useRouter } from "next/navigation"
 
 import { AmazonStyleFilters } from "@/components/amazon-style-filters"
 
+export function ProductsPageClient({
+  initialProducts,
+  initialCategories,
+  totalCount,
+  currentPage,
+  selectedCategory,
+}: {
+  initialProducts: Product[]
+  initialCategories: Category[]
+  totalCount: number
+  currentPage: number
+  selectedCategory: string
+}) {
+  const [products] = useState(initialProducts)
+  const [categories] = useState(initialCategories)
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')}
+
 interface Product {
   id: string
   name: string
@@ -39,6 +56,7 @@ interface Category {
   id: string
   name: string
   slug: string
+  parent_id: string | null
 }
 
 export default function ProductsPage() {
@@ -47,7 +65,8 @@ export default function ProductsPage() {
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
-
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalProducts, setTotalProducts] = useState(0)
   const [filters, setFilters] = useState({
     priceRange: { min: "", max: "" },
     selectedCertifications: [] as string[],
@@ -61,10 +80,12 @@ export default function ProductsPage() {
     selectedSubcategories: [] as string[],
     verifiedOnly: false,
   })
-
   const [sortBy, setSortBy] = useState("newest")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
-
+  
+  const ITEMS_PER_PAGE = 20
+  const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE)
+  
   const supabase = createClient()
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -72,107 +93,109 @@ export default function ProductsPage() {
   useEffect(() => {
     const categoryParam = searchParams.get("category")
     const searchParam = searchParams.get("search")
+    const pageParam = searchParams.get("page")
+    
     if (categoryParam) {
       setSelectedCategory(categoryParam)
     }
     if (searchParam) {
       setSearchQuery(searchParam)
     }
+    if (pageParam) {
+      setCurrentPage(parseInt(pageParam))
+    }
   }, [searchParams])
 
   useEffect(() => {
-    fetchData()
+    setCurrentPage(1) // Reset to page 1 when filters change
   }, [searchQuery, selectedCategory, filters, sortBy])
 
-  const fetchData = async () => {
-    setLoading(true)
+  useEffect(() => {
+    fetchData()
+  }, [searchQuery, selectedCategory, filters, sortBy, currentPage])
+
+const fetchData = async () => {
+  console.log("[v0] Starting fetchData - Page:", currentPage)
+  console.log("[v0] Selected category:", selectedCategory)
+  setLoading(true)
+  
+  try {
+    const supabase = createClient()
     
-    // The base query is now dynamic
-    let query;
-
-    // 1. IF a search query exists, use our powerful RPC function as the base.
-    // This gives us relevance ranking from the start.
-    if (searchQuery) {
-      query = supabase.rpc("search_products", {
-        search_term: searchQuery,
-      })
-    } else {
-      // 2. IF NOT, use the standard 'products' table as the base.
-      query = supabase.from("products").select(`
-        *,
-        vendors (business_name, is_verified),
-        categories (name, slug)
-      `)
-    }
-
-    // 3. ALL other filters and conditions are chained onto the base query,
-    // regardless of whether it's a search result or the full product list.
-    query = query
-      .eq("is_active", true)
-      .gt("inventory_quantity", 0)
-
+    // Step 1: Get category IDs (including children)
+    let categoryIds: string[] = []
     if (selectedCategory !== "all") {
-      const category = categories.find((c) => c.slug === selectedCategory)
-      if (category) {
-        query = query.eq("category_id", category.id)
+      console.log("[v0] Looking up category:", selectedCategory)
+      
+      const { data: categoryData, error: categoryError } = await supabase
+        .from("categories")
+        .select("id")
+        .eq("slug", selectedCategory)
+        .single()
+      
+      if (categoryError) {
+        console.error("[v0] Category lookup error:", categoryError)
+      } else if (categoryData) {
+        const { data: childCategories } = await supabase
+          .from("categories")
+          .select("id")
+          .eq("parent_id", categoryData.id)
+        
+        categoryIds = [
+          categoryData.id,
+          ...(childCategories?.map(c => c.id) || [])
+        ]
+        
+        console.log("[v0] Category IDs to filter:", categoryIds)
       }
+    } else {
+      console.log("[v0] Fetching all products (no category filter)")
     }
-
+    
+    // Step 2: Build base query WITHOUT count first (for debugging)
+    let query = supabase
+      .from("products")
+      .select(`
+        id,
+        name,
+        description,
+        price,
+        compare_at_price,
+        featured_image_url,
+        brand,
+        category_id,
+        vendor_id,
+        is_active,
+        inventory_quantity,
+        vendors!inner (
+          business_name,
+          is_verified
+        ),
+        categories!inner (
+          name,
+          slug
+        )
+      `)
+      .eq("is_active", true)
+    
+    // Step 3: Apply category filter ONLY if we have category IDs
+    if (categoryIds.length > 0) {
+      console.log("[v0] Applying category filter for", categoryIds.length, "categories")
+      query = query.in("category_id", categoryIds)
+    }
+    
+    // Step 4: Apply other filters
     if (filters.priceRange.min) {
-      query = query.gte("price", Number.parseFloat(filters.priceRange.min))
+      query = query.gte("price", parseFloat(filters.priceRange.min))
     }
     if (filters.priceRange.max) {
-      query = query.lte("price", Number.parseFloat(filters.priceRange.max))
+      query = query.lte("price", parseFloat(filters.priceRange.max))
     }
-
     if (filters.selectedBrands.length > 0) {
       query = query.in("brand", filters.selectedBrands)
     }
-
-    if (filters.selectedColors.length > 0) {
-      query = query.in("color", filters.selectedColors)
-    }
-
-    if (filters.selectedMaterials.length > 0) {
-      query = query.in("material", filters.selectedMaterials)
-    }
-
-    if (filters.selectedStyles.length > 0) {
-      query = query.in("style", filters.selectedStyles)
-    }
-
-    if (filters.selectedSizes.length > 0) {
-      query = query.in("size", filters.selectedSizes)
-    }
-
-    if (filters.selectedFeatures.length > 0) {
-      const featureConditions = filters.selectedFeatures.map((feature) => `features.ilike.%${feature}%`).join(",")
-      query = query.or(featureConditions)
-    }
-
-    if (filters.selectedIngredients.length > 0) {
-      const ingredientConditions = filters.selectedIngredients
-        .map((ingredient) => `ingredients.ilike.%${ingredient}%`)
-        .join(",")
-      query = query.or(ingredientConditions)
-    }
-
-    if (filters.verifiedOnly) {
-      query = query.eq("vendors.is_verified", true)
-    }
-
-    if (filters.selectedSubcategories.length > 0) {
-      const { data: subcategoryData } = await supabase
-        .from("categories")
-        .select("id")
-        .in("name", filters.selectedSubcategories)
-
-      if (subcategoryData && subcategoryData.length > 0) {
-        const subcategoryIds = subcategoryData.map((sub) => sub.id)
-        query = query.in("category_id", subcategoryIds)
-      }
-    }
-
+    
+    // Step 5: Apply sorting
     switch (sortBy) {
       case "price-low":
         query = query.order("price", { ascending: true })
@@ -181,28 +204,72 @@ export default function ProductsPage() {
         query = query.order("price", { ascending: false })
         break
       case "popular":
-        query = query.order("created_at", { ascending: false })
-        break
       default:
         query = query.order("created_at", { ascending: false })
     }
-
+    
+    // Step 6: Get total count FIRST (without pagination)
+    const countQuery = supabase
+      .from("products")
+      .select("id", { count: 'exact', head: true })
+      .eq("is_active", true)
+    
+    if (categoryIds.length > 0) {
+      countQuery.in("category_id", categoryIds)
+    }
+    
+    const { count, error: countError } = await countQuery
+    
+    if (countError) {
+      console.error("[v0] Count error:", countError)
+    } else {
+      console.log("[v0] Total matching products:", count)
+      setTotalProducts(count || 0)
+    }
+    
+    // Step 7: Apply pagination
+    const from = (currentPage - 1) * ITEMS_PER_PAGE
+    const to = from + ITEMS_PER_PAGE - 1
+    query = query.range(from, to)
+    
+    console.log("[v0] Fetching page:", currentPage, "Range:", from, "-", to)
     const { data: productsData, error } = await query
-
+    
     if (error) {
-      console.error("Error fetching products:", error)
+      console.error("[v0] Products error:", error)
+      console.error("[v0] Error code:", error.code)
+      console.error("[v0] Error message:", error.message)
+      console.error("[v0] Error details:", error.details)
+      console.error("[v0] Error hint:", error.hint)
       setProducts([])
     } else {
+      console.log("[v0] Products fetched:", productsData?.length || 0)
+      if (productsData && productsData.length > 0) {
+        console.log("[v0] First product:", {
+          id: productsData[0].id,
+          name: productsData[0].name,
+          category: productsData[0].categories?.name,
+          vendor: productsData[0].vendors?.business_name
+        })
+      }
       setProducts(productsData || [])
     }
-
+  } catch (error) {
+    console.error("[v0] Exception:", error)
+    setProducts([])
+    setTotalProducts(0)
+  } finally {
     setLoading(false)
   }
+}
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const { data, error } = await supabase.from("categories").select("*").order("name")
-
+      const { data, error } = await supabase
+        .from("categories")
+        .select("*")
+        .order("name")
+      
       if (error) {
         console.error("Error fetching categories:", error)
         setCategories([])
@@ -216,6 +283,7 @@ export default function ProductsPage() {
   const clearFilters = () => {
     setSearchQuery("")
     setSelectedCategory("all")
+    setCurrentPage(1)
     setFilters({
       priceRange: { min: "", max: "" },
       selectedCertifications: [],
@@ -230,6 +298,11 @@ export default function ProductsPage() {
       verifiedOnly: false,
     })
     setSortBy("newest")
+  }
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   return (
@@ -270,9 +343,14 @@ export default function ProductsPage() {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
                 <h1 className="text-2xl font-bold">All Products</h1>
-                <span className="text-muted-foreground">({products?.length || 0} products)</span>
-                {searchQuery && <Badge variant="secondary">Search: "{searchQuery}"</Badge>}
+                <span className="text-muted-foreground">
+                  ({totalProducts} products)
+                </span>
+                {searchQuery && (
+                  <Badge variant="secondary">Search: "{searchQuery}"</Badge>
+                )}
               </div>
+
               <div className="flex items-center gap-2">
                 <Select value={sortBy} onValueChange={setSortBy}>
                   <SelectTrigger className="w-40">
@@ -285,6 +363,7 @@ export default function ProductsPage() {
                     <SelectItem value="popular">Most Popular</SelectItem>
                   </SelectContent>
                 </Select>
+
                 <div className="flex border rounded-md">
                   <Button
                     variant={viewMode === "grid" ? "default" : "ghost"}
@@ -322,17 +401,92 @@ export default function ProductsPage() {
                 ))}
               </div>
             ) : (
-              <div
-                className={
-                  viewMode === "grid"
-                    ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center"
-                    : "space-y-4"
-                }
-              >
-                {products?.map((product) => (
-                  <ProductCard key={product.id} product={product} viewMode={viewMode} />
-                ))}
-              </div>
+              <>
+                <div
+                  className={
+                    viewMode === "grid"
+                      ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center"
+                      : "space-y-4"
+                  }
+                >
+                  {products?.map((product) => (
+                    <ProductCard key={product.id} product={product} viewMode={viewMode} />
+                  ))}
+                </div>
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <div className="flex items-center justify-center gap-2 mt-8">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                    >
+                      Previous
+                    </Button>
+
+                    <div className="flex gap-1">
+                      {/* Show first page */}
+                      {currentPage > 3 && (
+                        <>
+                          <Button
+                            variant={currentPage === 1 ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => handlePageChange(1)}
+                          >
+                            1
+                          </Button>
+                          {currentPage > 4 && <span className="px-2">...</span>}
+                        </>
+                      )}
+
+                      {/* Show pages around current page */}
+                      {Array.from({ length: totalPages }, (_, i) => i + 1)
+                        .filter(page => {
+                          return page === currentPage || 
+                                 page === currentPage - 1 || 
+                                 page === currentPage + 1 ||
+                                 (page <= 2 && currentPage <= 3) ||
+                                 (page >= totalPages - 1 && currentPage >= totalPages - 2)
+                        })
+                        .map(page => (
+                          <Button
+                            key={page}
+                            variant={currentPage === page ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => handlePageChange(page)}
+                          >
+                            {page}
+                          </Button>
+                        ))}
+
+                      {/* Show last page */}
+                      {currentPage < totalPages - 2 && (
+                        <>
+                          {currentPage < totalPages - 3 && <span className="px-2">...</span>}
+                          <Button
+                            variant={currentPage === totalPages ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => handlePageChange(totalPages)}
+                          >
+                            {totalPages}
+                          </Button>
+                        </>
+                      )}
+                    </div>
+
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                    >
+                      Next
+                    </Button>
+                  </div>
+                )}
+              </>
             )}
 
             {!loading && products.length === 0 && (
@@ -341,7 +495,9 @@ export default function ProductsPage() {
                   <Search className="h-8 w-8 text-muted-foreground" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">No products found</h3>
-                <p className="text-muted-foreground mb-4">Try adjusting your search or filter criteria</p>
+                <p className="text-muted-foreground mb-4">
+                  Try adjusting your search or filter criteria
+                </p>
                 <Button onClick={clearFilters}>Clear Filters</Button>
               </div>
             )}
@@ -361,9 +517,10 @@ function ProductCard({ product, viewMode = "grid" }: { product: Product; viewMod
   const supabase = createClient()
 
   const hasDiscount = product.compare_at_price && product.compare_at_price > product.price
-  const discountPercent = hasDiscount && product.compare_at_price
-    ? Math.round(((product.compare_at_price - product.price) / product.compare_at_price) * 100)
-    : 0
+  const discountPercent =
+    hasDiscount && product.compare_at_price
+      ? Math.round(((product.compare_at_price - product.price) / product.compare_at_price) * 100)
+      : 0
 
   useEffect(() => {
     const checkUser = async () => {

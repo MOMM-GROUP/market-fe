@@ -1,7 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { createClient } from "@/lib/supabase/client"
+import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Image from "next/image"
@@ -21,30 +20,12 @@ interface Certification {
   filter_type: string | null
 }
 
-export default function CertificationTabs() {
-  const [certifications, setCertifications] = useState<Certification[]>([])
-  const [loading, setLoading] = useState(true)
+interface CertificationTabsProps {
+  certifications: Certification[]
+}
+
+export default function CertificationTabs({ certifications }: CertificationTabsProps) {
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
-
-  useEffect(() => {
-    async function fetchCertifications() {
-      const supabase = createClient()
-      const { data, error } = await supabase
-        .from("certifications")
-        .select("*")
-        .order("priority", { ascending: false })
-        .order("product_count", { ascending: false })
-
-      if (error) {
-        console.error("Error fetching certifications:", error)
-      } else {
-        setCertifications(data || [])
-      }
-      setLoading(false)
-    }
-
-    fetchCertifications()
-  }, [])
 
   const certificationsByFilterType =
     certifications?.reduce(
@@ -73,10 +54,10 @@ export default function CertificationTabs() {
     return cert.logo_link || cert.icon_url || "/certification-document.png"
   }
 
-  if (loading) {
+  if (!certifications || certifications.length === 0) {
     return (
       <div className="text-center py-8">
-        <p className="text-muted-foreground">Loading certifications...</p>
+        <p className="text-muted-foreground">No certifications available</p>
       </div>
     )
   }
