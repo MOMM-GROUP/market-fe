@@ -9,6 +9,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { FavoriteButton } from "@/components/favorite-button"
 import { WhereToBuySection } from "@/components/where-to-buy-section"
+import { ProductImageGallery } from "@/components/product-image-gallery"
 
 interface Product {
   id: string
@@ -76,24 +77,18 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     // Mock values match score
     const valuesMatchScore = Math.floor(Math.random() * 15) + 85
 
+    const productImages = product.featured_image_url ? [product.featured_image_url] : []
+
     return (
       <div className="min-h-screen bg-background">
         <div className="center-content py-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-            {/* Product Images */}
-            <div className="space-y-4">
-              <div className="relative aspect-square overflow-hidden rounded-lg border">
-                <Image
-                  src={product.featured_image_url || "/placeholder.svg?height=600&width=600&query=product"}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                />
-                {hasDiscount && (
-                  <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground">-{discountPercent}%</Badge>
-                )}
-              </div>
-            </div>
+            <ProductImageGallery
+              images={productImages}
+              productName={product.name}
+              hasDiscount={hasDiscount}
+              discountPercent={discountPercent}
+            />
 
             {/* Product Info */}
             <div className="space-y-6">
@@ -193,9 +188,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   <CardTitle>Product Details</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div 
+                  <div
                     className="text-muted-foreground prose prose-sm max-w-none"
-                    dangerouslySetInnerHTML={{ __html: product.description || '' }}
+                    dangerouslySetInnerHTML={{ __html: product.description || "" }}
                   />
                 </CardContent>
               </Card>
@@ -328,16 +323,17 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                     About {product.vendors?.business_name}
                   </CardTitle>
                 </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground mb-4">
-                        {product.vendors?.description || "A verified vendor committed to ethical and sustainable practices."}
-                      </p>
-                      <Link href={`/vendors/${product.vendor_id}`}>
-                        <Button variant="outline" size="sm" className="w-full bg-transparent">
-                          View Vendor Profile
-                        </Button>
-                      </Link>
-                    </CardContent>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    {product.vendors?.description ||
+                      "A verified vendor committed to ethical and sustainable practices."}
+                  </p>
+                  <Link href={`/vendors/${product.vendor_id}`}>
+                    <Button variant="outline" size="sm" className="w-full bg-transparent">
+                      View Vendor Profile
+                    </Button>
+                  </Link>
+                </CardContent>
               </Card>
 
               {/* Trust Indicators */}
