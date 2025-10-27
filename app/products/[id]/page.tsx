@@ -193,7 +193,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   <CardTitle>Product Details</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{product.description}</p>
+                  <div 
+                    className="text-muted-foreground prose prose-sm max-w-none"
+                    dangerouslySetInnerHTML={{ __html: product.description || '' }}
+                  />
                 </CardContent>
               </Card>
 
