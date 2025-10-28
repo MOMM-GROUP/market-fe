@@ -152,7 +152,7 @@ const fetchData = async () => {
       console.log("[v0] Fetching all products (no category filter)")
     }
     
-    // Step 2: Build base query WITHOUT count first (for debugging)
+    // Step 2: Build query with LEFT joins (not INNER)
     let query = supabase
       .from("products")
       .select(`
@@ -167,16 +167,18 @@ const fetchData = async () => {
         vendor_id,
         is_active,
         inventory_quantity,
-        vendors!inner (
+        vendors (
           business_name,
           is_verified
         ),
-        categories!inner (
+        categories (
           name,
           slug
         )
       `)
       .eq("is_active", true)
+      .not("category_id", "is", null)  // Only show categorized products
+      .not("vendor_id", "is", null)    // Only show products with vendors
     
     // Step 3: Apply category filter ONLY if we have category IDs
     if (categoryIds.length > 0) {
@@ -208,11 +210,13 @@ const fetchData = async () => {
         query = query.order("created_at", { ascending: false })
     }
     
-    // Step 6: Get total count FIRST (without pagination)
+    // Step 6: Get total count
     const countQuery = supabase
       .from("products")
       .select("id", { count: 'exact', head: true })
       .eq("is_active", true)
+      .not("category_id", "is", null)
+      .not("vendor_id", "is", null)
     
     if (categoryIds.length > 0) {
       countQuery.in("category_id", categoryIds)
@@ -262,7 +266,6 @@ const fetchData = async () => {
     setLoading(false)
   }
 }
-
   useEffect(() => {
     const fetchCategories = async () => {
       const { data, error } = await supabase
