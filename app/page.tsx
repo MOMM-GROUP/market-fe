@@ -393,7 +393,6 @@ function ProductCard({ product }: { product: Product }) {
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
             onError={() => {
-              console.error('Image failed to load:', imageUrl)
               setImageError(true)
             }}
           />
