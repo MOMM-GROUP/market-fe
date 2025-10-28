@@ -35,7 +35,6 @@ interface Product {
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-
   const supabase = await createClient()
 
   try {
@@ -53,6 +52,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     if (error || !product) {
       notFound()
     }
+
+    // Parse images JSON field (it's stored as JSON in your DB)
+    const productImages = product.images || []
+    const allImages = [
+      product.featured_image_url,
+      ...productImages.map((img: any) => typeof img === 'string' ? img : img.src)
+    ].filter(Boolean)
 
     const { data: productCertifications, error: certError } = await supabase
       .from("entity_certifications")
@@ -77,14 +83,15 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     // Mock values match score
     const valuesMatchScore = Math.floor(Math.random() * 15) + 85
 
-    const productImages = product.featured_image_url ? [product.featured_image_url] : []
+    // const productImages = product.featured_image_url ? [product.featured_image_url] : []
 
     return (
       <div className="min-h-screen bg-background">
         <div className="center-content py-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-            <ProductImageGallery
-              images={productImages}
+            {/* Replace your image section with the v0-generated gallery */}
+            <ProductImageGallery 
+              images={allImages}
               productName={product.name}
               hasDiscount={hasDiscount}
               discountPercent={discountPercent}

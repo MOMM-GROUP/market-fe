@@ -12,6 +12,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
     ],
     // Allow SVG images
     dangerouslyAllowSVG: true,

@@ -369,10 +369,17 @@ export default async function HomePage() {
 }
 
 function ProductCard({ product }: { product: Product }) {
+
+  const [imageError, setImageError] = useState(false)
+  
   const hasDiscount = product.compare_at_price && product.compare_at_price > product.price
   const discountPercent = hasDiscount
     ? Math.round(((product.compare_at_price - product.price) / product.compare_at_price) * 100)
     : 0
+
+  // Debug: log the image URL
+  const imageUrl = product.featured_image_url || "/placeholder.svg"
+  console.log('Product Image URL:', imageUrl)
 
   const valuesMatchScore = Math.floor(Math.random() * 15) + 85 // Mock 85-100% match
 
@@ -381,10 +388,14 @@ function ProductCard({ product }: { product: Product }) {
       <CardContent className="p-0">
         <div className="relative aspect-square overflow-hidden rounded-t-lg">
           <Image
-            src={product.featured_image_url || "/placeholder.svg?height=300&width=300&query=product"}
+            src={imageError ? "/placeholder.svg" : imageUrl}
             alt={product.name}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
+            onError={() => {
+              console.error('Image failed to load:', imageUrl)
+              setImageError(true)
+            }}
           />
           {hasDiscount && (
             <Badge className="absolute top-2 left-2 bg-secondary text-secondary-foreground">-{discountPercent}%</Badge>
