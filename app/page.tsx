@@ -229,36 +229,6 @@ export default async function HomePage() {
                 </CardContent>
               </Card>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              <Card className="border-2 bg-white/10 backdrop-blur-sm border-white/20">
-                <CardContent className="p-6 text-center">
-                  <p className="text-lg font-semibold">35% of our profits go directly to contributors.</p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 bg-white/10 backdrop-blur-sm border-white/20">
-                <CardContent className="p-6 text-center">
-                  <p className="text-lg font-semibold">CEO salaries capped at fair multiples.</p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 bg-white/10 backdrop-blur-sm border-white/20">
-                <CardContent className="p-6 text-center">
-                  <p className="text-lg font-semibold">4-day work week. Full transparency.</p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 bg-white/10 backdrop-blur-sm border-white/20">
-                <CardContent className="p-6 text-center">
-                  <p className="text-lg font-semibold">We're proving there's another way.</p>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="text-center mt-8">
-              <p className="text-lg">This isn't charity. This is how business should work.</p>
-            </div>
           </div>
         </section>
 
