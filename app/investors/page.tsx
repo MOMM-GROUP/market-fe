@@ -220,50 +220,6 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      {/* Growth Trajectory */}
-      <section className="py-16 px-4 bg-gradient-to-br from-teal-50 via-orange-50 to-pink-50">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Growth Trajectory</h2>
-            <p className="text-xl text-muted-foreground">
-              Conservative projections based on comparable ethical commerce platforms
-            </p>
-          </div>
-
-          <Card>
-            <CardContent className="p-8">
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
-                <div>
-                  <div className="text-sm text-muted-foreground mb-2">2025</div>
-                  <div className="text-3xl font-bold text-teal-600">$500K</div>
-                  <div className="text-xs text-muted-foreground mt-1">ARR</div>
-                </div>
-                <div>
-                  <div className="text-sm text-muted-foreground mb-2">2026</div>
-                  <div className="text-3xl font-bold text-orange-600">$3M</div>
-                  <div className="text-xs text-muted-foreground mt-1">ARR</div>
-                </div>
-                <div>
-                  <div className="text-sm text-muted-foreground mb-2">2027</div>
-                  <div className="text-3xl font-bold text-pink-600">$10M</div>
-                  <div className="text-xs text-muted-foreground mt-1">ARR</div>
-                </div>
-                <div>
-                  <div className="text-sm text-muted-foreground mb-2">2028</div>
-                  <div className="text-3xl font-bold text-purple-600">$25M</div>
-                  <div className="text-xs text-muted-foreground mt-1">ARR</div>
-                </div>
-                <div>
-                  <div className="text-sm text-muted-foreground mb-2">2029</div>
-                  <div className="text-3xl font-bold text-blue-600">$60M</div>
-                  <div className="text-xs text-muted-foreground mt-1">ARR</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
       {/* Led by Experts */}
       <section className="py-16 px-4 bg-background">
         <div className="container mx-auto max-w-6xl">
