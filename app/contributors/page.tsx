@@ -17,6 +17,15 @@ import {
   Network,
   Award,
   Heart,
+  Briefcase,
+  FileText,
+  Video,
+  TrendingUp,
+  Headphones,
+  Search,
+  ClipboardCheck,
+  Calculator,
+  UserPlus,
 } from "lucide-react"
 import Link from "next/link"
 
@@ -307,6 +316,209 @@ export default function ContributorsPage() {
         </div>
       </section>
 
+      <section className="py-16 px-4 bg-muted/30">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Other Valuable Skills</h2>
+            <p className="text-xl text-muted-foreground mb-8">
+              We value diverse talents and perspectives. Here are more skills that help us build MOMM.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                    <Briefcase className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <h3 className="font-semibold">Product Management</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Help prioritize features, define roadmaps, and coordinate cross-functional work
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                    <TrendingUp className="h-5 w-5 text-green-600" />
+                  </div>
+                  <h3 className="font-semibold">Business Development</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Build partnerships with brands, certifications, and other platforms
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                    <Headphones className="h-5 w-5 text-purple-600" />
+                  </div>
+                  <h3 className="font-semibold">Customer Support</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">Help users navigate the platform and resolve issues</p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                    <FileText className="h-5 w-5 text-orange-600" />
+                  </div>
+                  <h3 className="font-semibold">Content Writing</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Create blog posts, documentation, and educational content
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
+                    <Video className="h-5 w-5 text-pink-600" />
+                  </div>
+                  <h3 className="font-semibold">Video Production</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Create explainer videos, tutorials, and promotional content
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center">
+                    <Palette className="h-5 w-5 text-teal-600" />
+                  </div>
+                  <h3 className="font-semibold">Graphic Design</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Design marketing materials, social media graphics, and brand assets
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
+                    <Search className="h-5 w-5 text-indigo-600" />
+                  </div>
+                  <h3 className="font-semibold">UX Research</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Conduct user interviews, usability testing, and analyze behavior
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                    <ClipboardCheck className="h-5 w-5 text-red-600" />
+                  </div>
+                  <h3 className="font-semibold">QA Testing</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Test features, find bugs, and ensure quality before launch
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
+                    <Calculator className="h-5 w-5 text-yellow-600" />
+                  </div>
+                  <h3 className="font-semibold">Finance & Accounting</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Help with financial planning, bookkeeping, and reporting
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-cyan-100 rounded-full flex items-center justify-center">
+                    <UserPlus className="h-5 w-5 text-cyan-600" />
+                  </div>
+                  <h3 className="font-semibold">HR & Recruiting</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">Help us find and onboard talented contributors</p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                    <Megaphone className="h-5 w-5 text-gray-600" />
+                  </div>
+                  <h3 className="font-semibold">PR & Communications</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Manage media relations, press releases, and public messaging
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-lime-100 rounded-full flex items-center justify-center">
+                    <Target className="h-5 w-5 text-lime-600" />
+                  </div>
+                  <h3 className="font-semibold">Strategy & Planning</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">Help shape long-term vision and strategic initiatives</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Don't See Your Skills? */}
+          <Card className="border-4 border-teal-500 bg-teal-50">
+            <CardContent className="p-8 text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-teal-600 rounded-full flex items-center justify-center">
+                <Heart className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-teal-900">Don't See Your Skills Here?</h3>
+              <p className="text-lg text-gray-700 mb-4 max-w-2xl mx-auto">
+                This is not an exhaustive list of what we need. We value all kinds of contributions and perspectives.
+              </p>
+              <p className="text-lg text-gray-700 mb-6 max-w-2xl mx-auto font-semibold">
+                If you believe you can help us build a more equitable economy, please reach out anyway!
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" className="bg-teal-600 hover:bg-teal-700" asChild>
+                  <Link href="/contact">
+                    Tell Us About Your Skills <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild>
+                  <Link href="https://discord.gg/momm" target="_blank">
+                    Join Discord Community
+                  </Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
       {/* Why Contribute */}
       <section className="py-16 px-4 bg-background">
         <div className="container mx-auto max-w-6xl">
@@ -360,288 +572,6 @@ export default function ContributorsPage() {
       </section>
 
       {/* The Guild System */}
-      <section id="guilds" className="py-16 px-4 bg-muted/30">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">The System</h2>
-            <p className="text-xl text-muted-foreground">
-              Find your place in the MOMM community. Every contributor is essential to our success.
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {/* Engineering Guild */}
-            <Card className="border-2 border-teal-200 hover:shadow-lg transition-shadow">
-              <CardHeader className="bg-teal-50">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-teal-600 rounded-full flex items-center justify-center">
-                      <Code className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-2xl">Engineering</CardTitle>
-                      <p className="text-sm text-muted-foreground">Build the platform</p>
-                    </div>
-                  </div>
-                  <Badge variant="secondary">High Priority</Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="mb-4">
-                  <h4 className="font-semibold mb-2">What We Need:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline">Full-Stack Developers</Badge>
-                    <Badge variant="outline">Blockchain Engineers</Badge>
-                    <Badge variant="outline">AI/ML Engineers</Badge>
-                    <Badge variant="outline">DevOps</Badge>
-                    <Badge variant="outline">QA Engineers</Badge>
-                  </div>
-                </div>
-                <div className="mb-4">
-                  <h4 className="font-semibold mb-2">Example Contributions:</h4>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-teal-600 flex-shrink-0 mt-0.5" />
-                      <span>Build TRUST protocol verification system</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-teal-600 flex-shrink-0 mt-0.5" />
-                      <span>Develop HEART AI recommendation engine</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-teal-600 flex-shrink-0 mt-0.5" />
-                      <span>Create marketplace features and integrations</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-teal-600 flex-shrink-0 mt-0.5" />
-                      <span>Optimize performance and scalability</span>
-                    </li>
-                  </ul>
-                </div>
-                <Button className="bg-teal-600 hover:bg-teal-700">
-                  Join Engineering <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Marketing Guild */}
-            <Card className="border-2 border-orange-200 hover:shadow-lg transition-shadow">
-              <CardHeader className="bg-orange-50">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center">
-                      <Megaphone className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-2xl">Marketing</CardTitle>
-                      <p className="text-sm text-muted-foreground">Spread the word</p>
-                    </div>
-                  </div>
-                  <Badge variant="secondary">High Priority</Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="mb-4">
-                  <h4 className="font-semibold mb-2">What We Need:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline">Content Creators</Badge>
-                    <Badge variant="outline">Social Media Managers</Badge>
-                    <Badge variant="outline">SEO Specialists</Badge>
-                    <Badge variant="outline">Community Managers</Badge>
-                    <Badge variant="outline">Growth Hackers</Badge>
-                  </div>
-                </div>
-                <div className="mb-4">
-                  <h4 className="font-semibold mb-2">Example Contributions:</h4>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-orange-600 flex-shrink-0 mt-0.5" />
-                      <span>Create social media content and campaigns</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-orange-600 flex-shrink-0 mt-0.5" />
-                      <span>Write blog posts and educational content</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-orange-600 flex-shrink-0 mt-0.5" />
-                      <span>Manage community engagement and growth</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-orange-600 flex-shrink-0 mt-0.5" />
-                      <span>Develop partnership and outreach strategies</span>
-                    </li>
-                  </ul>
-                </div>
-                <Button className="bg-orange-600 hover:bg-orange-700">
-                  Join Marketing Guild <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Design Guild */}
-            <Card className="border-2 border-pink-200 hover:shadow-lg transition-shadow">
-              <CardHeader className="bg-pink-50">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center">
-                      <Palette className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-2xl">Design Guild</CardTitle>
-                      <p className="text-sm text-muted-foreground">Craft the experience</p>
-                    </div>
-                  </div>
-                  <Badge variant="secondary">Medium Priority</Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="mb-4">
-                  <h4 className="font-semibold mb-2">What We Need:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline">UI/UX Designers</Badge>
-                    <Badge variant="outline">Brand Designers</Badge>
-                    <Badge variant="outline">Illustrators</Badge>
-                    <Badge variant="outline">Motion Designers</Badge>
-                    <Badge variant="outline">Product Designers</Badge>
-                  </div>
-                </div>
-                <div className="mb-4">
-                  <h4 className="font-semibold mb-2">Example Contributions:</h4>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-pink-600 flex-shrink-0 mt-0.5" />
-                      <span>Design user interfaces and experiences</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-pink-600 flex-shrink-0 mt-0.5" />
-                      <span>Create brand assets and visual identity</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-pink-600 flex-shrink-0 mt-0.5" />
-                      <span>Develop design systems and components</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-pink-600 flex-shrink-0 mt-0.5" />
-                      <span>Conduct user research and testing</span>
-                    </li>
-                  </ul>
-                </div>
-                <Button className="bg-pink-600 hover:bg-pink-700">
-                  Join Design Guild <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Data Guild */}
-            <Card className="border-2 border-purple-200 hover:shadow-lg transition-shadow">
-              <CardHeader className="bg-purple-50">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center">
-                      <Database className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-2xl">Data Guild</CardTitle>
-                      <p className="text-sm text-muted-foreground">Power the insights</p>
-                    </div>
-                  </div>
-                  <Badge variant="secondary">High Priority</Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="mb-4">
-                  <h4 className="font-semibold mb-2">What We Need:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline">Data Scientists</Badge>
-                    <Badge variant="outline">Data Analysts</Badge>
-                    <Badge variant="outline">Data Engineers</Badge>
-                    <Badge variant="outline">Research Specialists</Badge>
-                    <Badge variant="outline">Certification Experts</Badge>
-                  </div>
-                </div>
-                <div className="mb-4">
-                  <h4 className="font-semibold mb-2">Example Contributions:</h4>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-purple-600 flex-shrink-0 mt-0.5" />
-                      <span>Research and catalog certifications</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-purple-600 flex-shrink-0 mt-0.5" />
-                      <span>Build data pipelines and scraping tools</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-purple-600 flex-shrink-0 mt-0.5" />
-                      <span>Analyze market trends and user behavior</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-purple-600 flex-shrink-0 mt-0.5" />
-                      <span>Verify brand claims and certifications</span>
-                    </li>
-                  </ul>
-                </div>
-                <Button className="bg-purple-600 hover:bg-purple-700">
-                  Join Data Guild <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Legal Guild */}
-            <Card className="border-2 border-blue-200 hover:shadow-lg transition-shadow">
-              <CardHeader className="bg-blue-50">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-                      <Scale className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-2xl">Legal Guild</CardTitle>
-                      <p className="text-sm text-muted-foreground">Ensure compliance</p>
-                    </div>
-                  </div>
-                  <Badge variant="secondary">Medium Priority</Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="mb-4">
-                  <h4 className="font-semibold mb-2">What We Need:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline">Corporate Lawyers</Badge>
-                    <Badge variant="outline">Crypto/Web3 Lawyers</Badge>
-                    <Badge variant="outline">Compliance Specialists</Badge>
-                    <Badge variant="outline">IP Attorneys</Badge>
-                    <Badge variant="outline">Contract Specialists</Badge>
-                  </div>
-                </div>
-                <div className="mb-4">
-                  <h4 className="font-semibold mb-2">Example Contributions:</h4>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
-                      <span>Review terms of service and privacy policies</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
-                      <span>Navigate crypto and blockchain regulations</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
-                      <span>Structure equity and ownership models</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
-                      <span>Ensure compliance across jurisdictions</span>
-                    </li>
-                  </ul>
-                </div>
-                <Button className="bg-blue-600 hover:bg-blue-700">
-                  Join Legal Guild <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       {/* How Equity Works */}
       <section className="py-16 px-4 bg-background">
