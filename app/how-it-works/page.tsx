@@ -1,22 +1,4 @@
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import {
-  ShoppingCart,
-  Filter,
-  CreditCard,
-  TrendingUp,
-  Package,
-  Shield,
-  UsersIcon,
-  Handshake,
-  CheckCircle,
-  Code,
-  Heart,
-  PiggyBank,
-  Zap,
-  Globe,
-  HelpCircle,
-} from "lucide-react"
 import Link from "next/link"
 
 export default function HowItWorksPage() {
@@ -27,367 +9,248 @@ export default function HowItWorksPage() {
         <div className="center-content max-w-5xl">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance">How MOMM Works</h1>
           <p className="text-xl text-muted-foreground mb-8 text-pretty max-w-3xl mx-auto">
-            A marketplace where everyone wins: shoppers, brands, and contributors
+            A marketplace where everybody wins. Shoppers, brands, and contributors.
           </p>
         </div>
       </section>
 
       {/* For Shoppers */}
-      <section className="py-16 px-4 bg-background">
-        <div className="center-content max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">For Shoppers</h2>
-            <p className="text-xl text-muted-foreground">Shop with purpose. Build wealth with every purchase.</p>
+      <section className="py-20 bg-gradient-to-r from-teal-50 to-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <h3 className="text-3xl font-bold mb-4">For Shoppers</h3>
+          <p className="text-gray-600 mb-12">Shop with purpose. Build wealth with every purchase.</p>
+
+          {/* Timeline Layout */}
+          <div className="relative">
+            <div className="absolute top-8 left-0 right-0 h-1 bg-gradient-to-r from-teal-400 to-teal-600 hidden md:block"></div>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-white border-4 border-teal-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <span className="text-2xl">🛒</span>
+                </div>
+                <h4 className="font-bold mb-2">1. Browse</h4>
+                <p className="text-sm text-gray-600">Shop verified ethical products</p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-16 h-16 bg-white border-4 border-teal-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <span className="text-2xl">✓</span>
+                </div>
+                <h4 className="font-bold mb-2">2. Verify</h4>
+                <p className="text-sm text-gray-600">Every claim is verified</p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-16 h-16 bg-white border-4 border-teal-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <span className="text-2xl">💳</span>
+                </div>
+                <h4 className="font-bold mb-2">3. Buy</h4>
+                <p className="text-sm text-gray-600">Purchase with confidence</p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-16 h-16 bg-white border-4 border-teal-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <span className="text-2xl">💰</span>
+                </div>
+                <h4 className="font-bold mb-2">4. Earn</h4>
+                <p className="text-sm text-gray-600">1-2% goes to your Vault</p>
+              </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-teal-100 rounded-full flex items-center justify-center">
-                  <ShoppingCart className="h-8 w-8 text-teal-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">1. Browse</h3>
-                <p className="text-sm text-muted-foreground">
-                  Discover 2,847+ verified ethical products across all categories
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
-                  <Filter className="h-8 w-8 text-orange-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">2. Filter</h3>
-                <p className="text-sm text-muted-foreground">
-                  Search by certifications you care about: Organic, Fair Trade, B Corp, and 150+ more
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-pink-100 rounded-full flex items-center justify-center">
-                  <CreditCard className="h-8 w-8 text-pink-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">3. Purchase</h3>
-                <p className="text-sm text-muted-foreground">
-                  Buy directly from ethical brands with transparent pricing
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
-                  <TrendingUp className="h-8 w-8 text-purple-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">4. Earn Equity</h3>
-                <p className="text-sm text-muted-foreground">
-                  A percentage of every purchase goes into your personal MOMM Vault
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="mt-8 text-center">
-            <Link href="/products">
-              <Button size="lg" className="bg-teal-600 hover:bg-teal-700">
-                Start Shopping
-              </Button>
+          <div className="text-center mt-12">
+            <Link href="#vault">
+              <Button className="bg-teal-600 hover:bg-teal-700">Learn About Your Vault →</Button>
             </Link>
           </div>
         </div>
       </section>
 
       {/* For Brands */}
-      <section className="py-16 px-4 bg-muted/30">
-        <div className="center-content max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">For Brands</h2>
-            <p className="text-xl text-muted-foreground">
-              Reach conscious consumers. Build trust. Share in the success.
-            </p>
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <h3 className="text-3xl font-bold mb-4">For Ethical Brands</h3>
+          <p className="text-gray-600 mb-12">Reach conscious consumers who value what you do.</p>
+
+          {/* 3-Column Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="border-2 border-orange-200 rounded-lg p-8 hover:shadow-lg transition">
+              <div className="text-4xl mb-4">🎯</div>
+              <h4 className="text-xl font-bold mb-3">List Products</h4>
+              <p className="text-gray-600">Submit your verified ethical products to reach conscious shoppers</p>
+              <p className="text-sm text-orange-600 font-bold mt-4">5% Commission</p>
+            </div>
+
+            <div className="border-2 border-orange-200 rounded-lg p-8 hover:shadow-lg transition">
+              <div className="text-4xl mb-4">📊</div>
+              <h4 className="text-xl font-bold mb-3">Get Analytics</h4>
+              <p className="text-gray-600">Understand your customers' values and buying patterns</p>
+              <p className="text-sm text-orange-600 font-bold mt-4">Real-time Insights</p>
+            </div>
+
+            <div className="border-2 border-orange-200 rounded-lg p-8 hover:shadow-lg transition">
+              <div className="text-4xl mb-4">🤝</div>
+              <h4 className="text-xl font-bold mb-3">Grow Together</h4>
+              <p className="text-gray-600">Access co-marketing and partnership opportunities</p>
+              <p className="text-sm text-orange-600 font-bold mt-4">Community First</p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-teal-100 rounded-full flex items-center justify-center">
-                  <Package className="h-8 w-8 text-teal-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">1. List Products</h3>
-                <p className="text-sm text-muted-foreground">Add your ethical products to the MOMM marketplace</p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
-                  <Shield className="h-8 w-8 text-orange-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">2. Get Verified</h3>
-                <p className="text-sm text-muted-foreground">
-                  Submit certifications for blockchain verification through TRUST protocol
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-pink-100 rounded-full flex items-center justify-center">
-                  <UsersIcon className="h-8 w-8 text-pink-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">3. Reach Customers</h3>
-                <p className="text-sm text-muted-foreground">
-                  Connect with shoppers who actively seek ethical products
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
-                  <Handshake className="h-8 w-8 text-purple-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">4. Share Success</h3>
-                <p className="text-sm text-muted-foreground">Participate in the ecosystem you help create and grow</p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="mt-8 text-center">
-            <Link href="/contact">
-              <Button size="lg" variant="outline">
-                Partner With Us
-              </Button>
+          <div className="text-center mt-12">
+            <Link href="/brands">
+              <Button className="bg-orange-600 hover:bg-orange-700">Become a Partner →</Button>
             </Link>
           </div>
         </div>
       </section>
 
       {/* For Contributors */}
-      <section className="py-16 px-4 bg-background">
-        <div className="center-content max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">For Contributors</h2>
-            <p className="text-xl text-muted-foreground">Build the future. Own what you create.</p>
+      <section className="py-20 bg-gradient-to-r from-pink-50 to-purple-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <h3 className="text-3xl font-bold mb-4">For Builders</h3>
+          <p className="text-gray-600 mb-12">Build the future. Share in the success.</p>
+
+          {/* Large Alternating Cards */}
+          {/* Card 1 - Left aligned text, right aligned icon */}
+          <div className="flex flex-col md:flex-row items-center gap-12 mb-12">
+            <div className="flex-1">
+              <h4 className="text-2xl font-bold mb-3">Choose Your Role</h4>
+              <p className="text-gray-700 mb-4">
+                We're hiring for data specialists, legal experts, engineers, and community builders.
+              </p>
+              <ul className="text-sm space-y-2">
+                <li>✓ Data Sourcing</li>
+                <li>✓ Full-Stack Engineers</li>
+                <li>✓ Legal & Operations</li>
+                <li>✓ Community Management</li>
+              </ul>
+            </div>
+            <div className="flex-shrink-0">
+              <div className="w-40 h-40 bg-pink-200 rounded-lg flex items-center justify-center text-6xl">👥</div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-teal-100 rounded-full flex items-center justify-center">
-                  <CheckCircle className="h-8 w-8 text-teal-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">1. Choose Tasks</h3>
-                <p className="text-sm text-muted-foreground">
-                  Browse available tasks: coding, design, marketing, legal, and more
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
-                  <Code className="h-8 w-8 text-orange-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">2. Contribute</h3>
-                <p className="text-sm text-muted-foreground">
-                  Work on your own schedule. Even small contributions matter.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-pink-100 rounded-full flex items-center justify-center">
-                  <TrendingUp className="h-8 w-8 text-pink-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">3. Earn Equity</h3>
-                <p className="text-sm text-muted-foreground">Your contributions earn you ownership in MOMM's success</p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
-                  <UsersIcon className="h-8 w-8 text-purple-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">4. Build Together</h3>
-                <p className="text-sm text-muted-foreground">Join a community building a more equitable economy</p>
-              </CardContent>
-            </Card>
+          {/* Card 2 - Right aligned text, left aligned icon */}
+          <div className="flex flex-col md:flex-row-reverse items-center gap-12 mb-12">
+            <div className="flex-1">
+              <h4 className="text-2xl font-bold mb-3">Earn Profit Share</h4>
+              <p className="text-gray-700 mb-4">
+                Once we're profitable, 35% of profits go to contributors based on impact.
+              </p>
+              <ul className="text-sm space-y-2">
+                <li>✓ Impact-based allocation</li>
+                <li>✓ Role minimums guaranteed</li>
+                <li>✓ Your points never expire</li>
+                <li>✓ Compound forever</li>
+              </ul>
+            </div>
+            <div className="flex-shrink-0">
+              <div className="w-40 h-40 bg-purple-200 rounded-lg flex items-center justify-center text-6xl">💰</div>
+            </div>
           </div>
 
-          <div className="mt-8 text-center">
+          {/* Card 3 - Back to left aligned */}
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <div className="flex-1">
+              <h4 className="text-2xl font-bold mb-3">Build Community</h4>
+              <p className="text-gray-700 mb-4">You're not just coding features. You're building a movement.</p>
+              <ul className="text-sm space-y-2">
+                <li>✓ Discord community</li>
+                <li>✓ Weekly sync calls</li>
+                <li>✓ Transparent decisions</li>
+                <li>✓ Your voice matters</li>
+              </ul>
+            </div>
+            <div className="flex-shrink-0">
+              <div className="w-40 h-40 bg-pink-300 rounded-lg flex items-center justify-center text-6xl">🚀</div>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
             <Link href="/contributors">
-              <Button size="lg" className="bg-orange-600 hover:bg-orange-700">
-                Become a Contributor
-              </Button>
+              <Button className="bg-pink-600 hover:bg-pink-700">Join as Builder →</Button>
             </Link>
           </div>
         </div>
       </section>
 
       {/* MOMM Vault Section */}
-      <section className="py-16 px-4 bg-gradient-to-br from-teal-50 via-orange-50 to-pink-50">
-        <div className="center-content max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">The MOMM Vault</h2>
-            <p className="text-xl text-muted-foreground">Your personal wealth-building tool</p>
-          </div>
+      <section id="vault" className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <h3 className="text-3xl font-bold text-center mb-4">The MOMM Vault</h3>
+          <p className="text-center text-gray-600 mb-12">Your personal rewards account. You decide how to use it.</p>
 
-          <Card className="mb-8 border-2 border-primary/20">
-            <CardContent className="p-8 text-center">
-              <div className="w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
-                <PiggyBank className="h-10 w-10 text-primary" />
-              </div>
-              <p className="text-lg mb-4 leading-relaxed">
-                Every time you purchase on MOMM, a percentage of that value goes into your personal vault. You decide
-                what to do with it:
-              </p>
-            </CardContent>
-          </Card>
+          {/* 2x2 Grid with Gradient Backgrounds */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-gradient-to-br from-teal-50 to-teal-100 p-8 rounded-lg border-l-4 border-teal-600">
+              <h4 className="text-xl font-bold mb-3">💵 Invest</h4>
+              <p className="text-gray-700">Have your vault professionally managed in markets or small businesses.</p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-teal-100 rounded-full flex items-center justify-center">
-                  <Zap className="h-8 w-8 text-teal-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">Invest</h3>
-                <p className="text-sm text-muted-foreground">
-                  Have your funds professionally managed and invested in the market or in small businesses
-                </p>
-              </CardContent>
-            </Card>
+            <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-8 rounded-lg border-l-4 border-orange-600">
+              <h4 className="text-xl font-bold mb-3">❤️ Give</h4>
+              <p className="text-gray-700">Donate to vetted nonprofits or community projects you care about.</p>
+            </div>
 
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
-                  <Heart className="h-8 w-8 text-orange-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">Give</h3>
-                <p className="text-sm text-muted-foreground">
-                  Donate to vetted nonprofits or community projects that matter to you
-                </p>
-              </CardContent>
-            </Card>
+            <div className="bg-gradient-to-br from-pink-50 to-pink-100 p-8 rounded-lg border-l-4 border-pink-600">
+              <h4 className="text-xl font-bold mb-3">🤝 Support</h4>
+              <p className="text-gray-700">Use it for essential services like health insurance or wellness.</p>
+            </div>
 
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-pink-100 rounded-full flex items-center justify-center">
-                  <Globe className="h-8 w-8 text-pink-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">Support</h3>
-                <p className="text-sm text-muted-foreground">
-                  Use it to pay for essential services like health insurance or memberships
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
-                  <Shield className="h-8 w-8 text-purple-600" />
-                </div>
-                <h3 className="text-lg font-semibold mb-3">Safety Net</h3>
-                <p className="text-sm text-muted-foreground">
-                  Set it aside for when you need it most for future purchases
-                </p>
-              </CardContent>
-            </Card>
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-lg border-l-4 border-purple-600">
+              <h4 className="text-xl font-bold mb-3">🛡️ Safety Net</h4>
+              <p className="text-gray-700">Save it for when you're low on funds and need a quick boost.</p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 px-4 bg-background">
-        <div className="center-content max-w-4xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-            <p className="text-xl text-muted-foreground">Common questions about how MOMM works</p>
-          </div>
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4">
+          <h3 className="text-3xl font-bold text-center mb-12">Common Questions</h3>
 
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-start gap-3">
-                  <HelpCircle className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
-                  How do I earn equity as a shopper?
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Every purchase you make on MOMM contributes a percentage to your personal MOMM Vault. This vault
-                  represents your equity in the platform and can be used for investing, giving, or future purchases.
-                </p>
-              </CardContent>
-            </Card>
+          {/* Accordion Layout */}
+          <div className="space-y-4">
+            <details className="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-md transition group">
+              <summary className="font-bold cursor-pointer list-none flex items-center justify-between">
+                <span>How do I start shopping?</span>
+                <span className="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <p className="mt-3 text-gray-600">
+                Sign up for the waitlist. We launch beta access to early members first.
+              </p>
+            </details>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-start gap-3">
-                  <HelpCircle className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
-                  How are products verified?
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  We use the TRUST protocol, a zero-knowledge proof system that verifies certifications on the
-                  blockchain. Brands submit documentation, we verify it cryptographically, and you see transparent proof
-                  on every product page.
-                </p>
-              </CardContent>
-            </Card>
+            <details className="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-md transition group">
+              <summary className="font-bold cursor-pointer list-none flex items-center justify-between">
+                <span>When do I get my vault money?</span>
+                <span className="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <p className="mt-3 text-gray-600">
+                It's stored in your account as credits immediately. Cash withdrawals come later as we scale.
+              </p>
+            </details>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-start gap-3">
-                  <HelpCircle className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
-                  Can I contribute without technical skills?
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  We need marketers, writers, designers, community managers, legal advisors, and more. Every skill has
-                  value in building MOMM. Check our Contributors page to see available tasks.
-                </p>
-              </CardContent>
-            </Card>
+            <details className="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-md transition group">
+              <summary className="font-bold cursor-pointer list-none flex items-center justify-between">
+                <span>How are contributions valued?</span>
+                <span className="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <p className="mt-3 text-gray-600">Based on impact, not hours. Bigger impact = bigger share of profits.</p>
+            </details>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-start gap-3">
-                  <HelpCircle className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
-                  How do brands benefit from joining MOMM?
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Brands gain access to a growing community of conscious consumers who actively seek ethical products.
-                  They also participate in the ecosystem's success through fair partnership models, not extractive
-                  marketplace fees.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-start gap-3">
-                  <HelpCircle className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
-                  Is MOMM a nonprofit or for-profit?
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  MOMM is structured as a Public Benefit Corporation (PBC), which means we're legally required to
-                  balance profit with social good. We're building a sustainable business that serves people, not just
-                  shareholders.
-                </p>
-              </CardContent>
-            </Card>
+            <details className="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-md transition group">
+              <summary className="font-bold cursor-pointer list-none flex items-center justify-between">
+                <span>Is this really happening?</span>
+                <span className="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <p className="mt-3 text-gray-600">
+                Yes. We have 2,847 products indexed, 156 certifications tracked, and 4 core team members building daily.
+                Join our Discord to see the work in progress.
+              </p>
+            </details>
           </div>
         </div>
       </section>
