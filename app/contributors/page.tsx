@@ -12,6 +12,11 @@ import {
   ArrowRight,
   DollarSign,
   Target,
+  MessageCircle,
+  Rocket,
+  Network,
+  Award,
+  Heart,
 } from "lucide-react"
 import Link from "next/link"
 
@@ -21,22 +26,283 @@ export default function ContributorsPage() {
       {/* Hero Section */}
       <section className="relative py-20 px-4 text-center bg-gradient-to-br from-teal-600 via-orange-600 to-pink-600 text-white">
         <div className="container mx-auto max-w-5xl">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-balance">Build the Future. Earn Equity.</h1>
-          <p className="text-xl leading-relaxed text-white/90 mb-8">
-            Your skills are valuable. Contribute to MOMM and earn ownership in the platform you're helping to build.
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-balance">
+            Stop Building for Billionaires. Build With Us Instead.
+          </h1>
+          <p className="text-xl md:text-2xl leading-relaxed text-white/95 mb-4 max-w-4xl mx-auto">
+            We're looking for people who are done building features to make CEOs rich.
+          </p>
+          <p className="text-xl md:text-2xl leading-relaxed text-white/95 mb-8 max-w-4xl mx-auto font-semibold">
+            Join us. Your work directly profits you. Your impact compounds. Your voice matters.
+          </p>
+          <p className="text-lg text-white/90 mb-8">
+            We're currently hiring for:{" "}
+            <strong>Data specialists, Legal help, Full-stack engineers, Community managers</strong>
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" variant="secondary">
-              <Link href="#guilds">Explore Guilds</Link>
+            <Button asChild size="lg" variant="secondary" className="text-lg px-8">
+              <Link href="#roles">See Open Roles</Link>
             </Button>
             <Button
               asChild
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-white/10 bg-transparent"
+              className="border-white text-white hover:bg-white/10 bg-transparent text-lg px-8"
             >
-              <Link href="/contact">Get Started</Link>
+              <Link href="#discord">Join Discord</Link>
             </Button>
+          </div>
+        </div>
+      </section>
+
+      <section id="roles" className="py-16 px-4 bg-background">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">We Need Your Skills</h2>
+            <p className="text-xl text-muted-foreground">These are the roles we're actively recruiting for right now</p>
+          </div>
+
+          <div className="space-y-6">
+            {/* Data Sourcing Specialists */}
+            <Card className="border-2 border-purple-200 hover:shadow-lg transition-shadow">
+              <CardHeader className="bg-purple-50">
+                <div className="flex items-center justify-between flex-wrap gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center">
+                      <Database className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl">Data Sourcing Specialists</CardTitle>
+                      <p className="text-sm text-muted-foreground">Scraping + cleaning certification data</p>
+                    </div>
+                  </div>
+                  <Badge className="bg-purple-600">High Priority</Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="p-6 space-y-4">
+                <p className="text-muted-foreground">
+                  Building data pipelines. We have 2,847 products - we need you to scale this.
+                </p>
+
+                <div>
+                  <h4 className="font-semibold mb-2">Responsibilities:</h4>
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-purple-600 flex-shrink-0 mt-0.5" />
+                      <span>Web scraping & API integration</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-purple-600 flex-shrink-0 mt-0.5" />
+                      <span>Data validation & cleaning</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-purple-600 flex-shrink-0 mt-0.5" />
+                      <span>Building reusable pipelines</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold mb-2">Skills Needed:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline">Python</Badge>
+                    <Badge variant="outline">Web Scraping</Badge>
+                    <Badge variant="outline">APIs</Badge>
+                    <Badge variant="outline">Data Quality</Badge>
+                  </div>
+                </div>
+
+                <div className="bg-purple-50 p-4 rounded-lg">
+                  <p className="text-sm font-semibold text-purple-900">Impact:</p>
+                  <p className="text-sm text-purple-700">Every certification you verify helps 10,000+ shoppers</p>
+                </div>
+
+                <Button className="bg-purple-600 hover:bg-purple-700" asChild>
+                  <Link href="/contact">
+                    I can do this <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Legal Experts */}
+            <Card className="border-2 border-blue-200 hover:shadow-lg transition-shadow">
+              <CardHeader className="bg-blue-50">
+                <div className="flex items-center justify-between flex-wrap gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                      <Scale className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl">Legal Experts</CardTitle>
+                      <p className="text-sm text-muted-foreground">Company structure + certification compliance</p>
+                    </div>
+                  </div>
+                  <Badge className="bg-blue-600">High Priority</Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="p-6 space-y-4">
+                <p className="text-muted-foreground">We're building fairly - we need legal guardians</p>
+
+                <div>
+                  <h4 className="font-semibold mb-2">Responsibilities:</h4>
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                      <span>Advise on PBC structure</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                      <span>Certification compliance</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                      <span>Data privacy & terms</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold mb-2">Skills Needed:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline">Business Law</Badge>
+                    <Badge variant="outline">Startup Experience</Badge>
+                    <Badge variant="outline">Data Privacy</Badge>
+                  </div>
+                </div>
+
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <p className="text-sm font-semibold text-blue-900">Impact:</p>
+                  <p className="text-sm text-blue-700">You help us stay ethical while we scale</p>
+                </div>
+
+                <Button className="bg-blue-600 hover:bg-blue-700" asChild>
+                  <Link href="/contact">
+                    I can help <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Full-Stack Engineers */}
+            <Card className="border-2 border-teal-200 hover:shadow-lg transition-shadow">
+              <CardHeader className="bg-teal-50">
+                <div className="flex items-center justify-between flex-wrap gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-teal-600 rounded-full flex items-center justify-center">
+                      <Code className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl">Full-Stack Engineers</CardTitle>
+                      <p className="text-sm text-muted-foreground">Building MARKET marketplace platform</p>
+                    </div>
+                  </div>
+                  <Badge className="bg-teal-600">High Priority</Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="p-6 space-y-4">
+                <p className="text-muted-foreground">React/TypeScript frontend. We need the technical foundation.</p>
+
+                <div>
+                  <h4 className="font-semibold mb-2">Responsibilities:</h4>
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-teal-600 flex-shrink-0 mt-0.5" />
+                      <span>Frontend (React/Next.js/TypeScript)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-teal-600 flex-shrink-0 mt-0.5" />
+                      <span>Backend (Node.js/Python)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-teal-600 flex-shrink-0 mt-0.5" />
+                      <span>Database design (PostgreSQL)</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold mb-2">Skills Needed:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline">TypeScript</Badge>
+                    <Badge variant="outline">React</Badge>
+                    <Badge variant="outline">Node.js</Badge>
+                    <Badge variant="outline">PostgreSQL</Badge>
+                    <Badge variant="outline">GraphQL</Badge>
+                  </div>
+                </div>
+
+                <div className="bg-teal-50 p-4 rounded-lg">
+                  <p className="text-sm font-semibold text-teal-900">Impact:</p>
+                  <p className="text-sm text-teal-700">Every feature you build = real shoppers verify claims</p>
+                </div>
+
+                <Button className="bg-teal-600 hover:bg-teal-700" asChild>
+                  <Link href="/contact">
+                    I'm interested <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Community Builders */}
+            <Card className="border-2 border-orange-200 hover:shadow-lg transition-shadow">
+              <CardHeader className="bg-orange-50">
+                <div className="flex items-center justify-between flex-wrap gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center">
+                      <Users className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl">Community Builders</CardTitle>
+                      <p className="text-sm text-muted-foreground">Discord moderation + community growth</p>
+                    </div>
+                  </div>
+                  <Badge className="bg-orange-600">High Priority</Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="p-6 space-y-4">
+                <p className="text-muted-foreground">You build the movement with people</p>
+
+                <div>
+                  <h4 className="font-semibold mb-2">Responsibilities:</h4>
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-orange-600 flex-shrink-0 mt-0.5" />
+                      <span>Community engagement</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-orange-600 flex-shrink-0 mt-0.5" />
+                      <span>Event/discussion facilitation</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-orange-600 flex-shrink-0 mt-0.5" />
+                      <span>Help new members onboard</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold mb-2">Skills Needed:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline">Community Management</Badge>
+                    <Badge variant="outline">Social Media</Badge>
+                    <Badge variant="outline">People Skills</Badge>
+                  </div>
+                </div>
+
+                <div className="bg-orange-50 p-4 rounded-lg">
+                  <p className="text-sm font-semibold text-orange-900">Impact:</p>
+                  <p className="text-sm text-orange-700">You're literally building the movement day-to-day</p>
+                </div>
+
+                <Button className="bg-orange-600 hover:bg-orange-700" asChild>
+                  <Link href="/contact">
+                    I want this <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -561,6 +827,110 @@ export default function ContributorsPage() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section id="discord" className="py-16 px-4 bg-background">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Join the Movement</h2>
+            <p className="text-xl text-muted-foreground">
+              Connect with builders, contribute to projects, and help shape the future of commerce
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            {/* Left: Discord Info */}
+            <div className="space-y-6">
+              <Card className="border-2 hover:shadow-lg transition-shadow">
+                <CardContent className="p-6 flex items-start gap-4">
+                  <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <MessageCircle className="h-6 w-6 text-teal-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-2">Real-Time Collaboration</h3>
+                    <p className="text-muted-foreground">Work directly with founding team on active projects</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 hover:shadow-lg transition-shadow">
+                <CardContent className="p-6 flex items-start gap-4">
+                  <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Rocket className="h-6 w-6 text-orange-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-2">Early Access</h3>
+                    <p className="text-muted-foreground">Know what's coming + help shape direction</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 hover:shadow-lg transition-shadow">
+                <CardContent className="p-6 flex items-start gap-4">
+                  <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Network className="h-6 w-6 text-pink-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-2">Build Your Network</h3>
+                    <p className="text-muted-foreground">Connect with people trying to change commerce</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 hover:shadow-lg transition-shadow">
+                <CardContent className="p-6 flex items-start gap-4">
+                  <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Award className="h-6 w-6 text-purple-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-2">Get Recognized</h3>
+                    <p className="text-muted-foreground">Contribute, get recognized, earn profit share</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Right: Discord CTA */}
+            <div className="bg-gradient-to-br from-teal-50 via-orange-50 to-pink-50 rounded-lg p-8 text-center">
+              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-teal-600 to-orange-600 rounded-full flex items-center justify-center">
+                <MessageCircle className="h-10 w-10 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4">Join Our Discord</h3>
+              <p className="text-muted-foreground mb-6">
+                This is where the work happens. Join the conversation, pick up tasks, and start contributing today.
+              </p>
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-teal-600 to-orange-600 hover:from-teal-700 hover:to-orange-700"
+                asChild
+              >
+                <Link href="https://discord.gg/momm" target="_blank">
+                  Join Discord <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <p className="text-sm text-muted-foreground mt-4">
+                Or email us:{" "}
+                <a href="mailto:team@momm.group" className="text-teal-600 hover:underline">
+                  team@momm.group
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 px-4 bg-gradient-to-r from-teal-600 via-pink-600 to-orange-600 text-white">
+        <div className="container mx-auto max-w-4xl text-center">
+          <div className="w-16 h-16 mx-auto mb-6 bg-white/20 rounded-full flex items-center justify-center">
+            <Heart className="h-8 w-8 text-white" />
+          </div>
+          <h2 className="text-3xl font-bold mb-4">Thank You to Our Early Builders</h2>
+          <p className="text-xl leading-relaxed text-white/95 mb-6">
+            We're incredibly grateful for the brilliant minds helping us build this. You're not just building features -
+            you're building proof that there's a better way.
+          </p>
+          <p className="text-2xl font-semibold">You're part of ending the billionaire era.</p>
         </div>
       </section>
 

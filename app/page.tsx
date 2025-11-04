@@ -110,6 +110,10 @@ export default async function HomePage() {
         <section className="py-32 px-4 text-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
           <div className="center-content max-w-5xl">
             <h1 className="text-5xl md:text-7xl font-bold mb-8 text-balance">The Era of the Billionaire is Over</h1>
+            <p className="text-xl md:text-2xl mb-4 leading-relaxed max-w-3xl mx-auto">
+              MOMM is the marketplace built for economic justice. A significant portion of the value we create goes
+              straight back to the community.
+            </p>
             <p className="text-xl md:text-2xl mb-12 leading-relaxed max-w-3xl mx-auto font-semibold">
               Stop funding the few. Join the Movement.
             </p>
@@ -133,43 +137,43 @@ export default async function HomePage() {
         </section>
 
         {/* "Here's What We're Done Accepting" Section */}
-        <section className="py-16 px-4 bg-slate-900 text-white">
+        <section className="py-16 px-4 bg-slate-50">
           <div className="center-content max-w-6xl">
             <h2 className="text-4xl font-bold text-center mb-12">Here's What We're Done Accepting</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <Card className="bg-slate-800 border-slate-700">
+              <Card className="border-2 hover:shadow-lg transition-shadow">
                 <CardContent className="p-8 text-center space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-red-900/30 rounded-full flex items-center justify-center">
-                    <XCircle className="h-8 w-8 text-red-400" />
+                  <div className="w-16 h-16 mx-auto bg-orange-100 rounded-full flex items-center justify-center">
+                    <XCircle className="h-8 w-8 text-orange-600" />
                   </div>
-                  <h3 className="text-xl font-bold text-white">WEALTH HOARDING</h3>
-                  <p className="text-slate-300 leading-relaxed">
+                  <h3 className="text-xl font-bold">WEALTH HOARDING</h3>
+                  <p className="text-muted-foreground leading-relaxed">
                     Billionaires hoard while millions struggle. CEOs make 300x what workers earn. Wealth concentrates at
                     the top while everyone else fights.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="bg-slate-800 border-slate-700">
+              <Card className="border-2 hover:shadow-lg transition-shadow">
                 <CardContent className="p-8 text-center space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-orange-900/30 rounded-full flex items-center justify-center">
-                    <Ban className="h-8 w-8 text-orange-400" />
+                  <div className="w-16 h-16 mx-auto bg-pink-100 rounded-full flex items-center justify-center">
+                    <Ban className="h-8 w-8 text-pink-600" />
                   </div>
-                  <h3 className="text-xl font-bold text-white">FALSE CHOICES</h3>
-                  <p className="text-slate-300 leading-relaxed">
+                  <h3 className="text-xl font-bold">FALSE CHOICES</h3>
+                  <p className="text-muted-foreground leading-relaxed">
                     Shop 'ethical' brands... but their CEO still hoards. Your purchases still fund predatory systems.
                     Even 'conscious' shopping feeds the billionaire class.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="bg-slate-800 border-slate-700">
+              <Card className="border-2 hover:shadow-lg transition-shadow">
                 <CardContent className="p-8 text-center space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-purple-900/30 rounded-full flex items-center justify-center">
-                    <AlertTriangle className="h-8 w-8 text-purple-400" />
+                  <div className="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center">
+                    <AlertTriangle className="h-8 w-8 text-purple-600" />
                   </div>
-                  <h3 className="text-xl font-bold text-white">BROKEN PROMISES</h3>
-                  <p className="text-slate-300 leading-relaxed">
+                  <h3 className="text-xl font-bold">BROKEN PROMISES</h3>
+                  <p className="text-muted-foreground leading-relaxed">
                     Politicians won't fix this. The wealthy won't 'give back.' We're tired of waiting. Time to take
                     action.
                   </p>
@@ -197,12 +201,12 @@ export default async function HomePage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card className="border-2 hover:shadow-lg transition-shadow">
                 <CardContent className="p-8 text-center space-y-4">
                   <div className="w-16 h-16 mx-auto bg-teal-100 rounded-full flex items-center justify-center">
                     <Coins className="h-8 w-8 text-teal-600" />
                   </div>
-                  <h3 className="text-xl font-bold">YOU GET YOUR SHARE</h3>
+                  <h3 className="text-xl font-bold text-teal-600">YOU GET YOUR SHARE</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Every dollar you spend on MOMM redirects wealth back to the community—not billionaires.
                   </p>
@@ -210,12 +214,12 @@ export default async function HomePage() {
                 </CardContent>
               </Card>
 
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card className="border-2 hover:shadow-lg transition-shadow">
                 <CardContent className="p-8 text-center space-y-4">
                   <div className="w-16 h-16 mx-auto bg-orange-100 rounded-full flex items-center justify-center">
                     <Users className="h-8 w-8 text-orange-600" />
                   </div>
-                  <h3 className="text-xl font-bold">CONTRIBUTORS ACTUALLY OWN IT</h3>
+                  <h3 className="text-xl font-bold text-orange-600">CONTRIBUTORS ACTUALLY OWN IT</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     People who build MOMM share in its success. Not through cheap equity promises—through real profit
                     sharing.
@@ -224,12 +228,12 @@ export default async function HomePage() {
                 </CardContent>
               </Card>
 
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card className="border-2 hover:shadow-lg transition-shadow">
                 <CardContent className="p-8 text-center space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center">
-                    <Handshake className="h-8 w-8 text-purple-600" />
+                  <div className="w-16 h-16 mx-auto bg-pink-100 rounded-full flex items-center justify-center">
+                    <Handshake className="h-8 w-8 text-pink-600" />
                   </div>
-                  <h3 className="text-xl font-bold">BRANDS PLAY FAIR</h3>
+                  <h3 className="text-xl font-bold text-pink-600">BRANDS PLAY FAIR</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Ethical brands reach conscious consumers. Everyone profits when values align.
                   </p>
@@ -258,7 +262,7 @@ export default async function HomePage() {
         </section>
 
         {/* "Here's How It Works" Table Section */}
-        <section className="py-16 px-4 bg-background">
+        <section className="py-16 px-4 bg-slate-50">
           <div className="center-content max-w-6xl">
             <h2 className="text-4xl font-bold text-center mb-12">Here's How It Works</h2>
 
@@ -290,7 +294,7 @@ export default async function HomePage() {
                       Equity in the movement
                     </td>
                   </tr>
-                  <tr className="border-b hover:bg-purple-50 transition-colors">
+                  <tr className="border-b hover:bg-pink-50 transition-colors">
                     <td className="p-4 font-semibold">ETHICAL BRAND</td>
                     <td className="p-4">
                       Verified products
@@ -303,7 +307,7 @@ export default async function HomePage() {
                       Fair partnership
                     </td>
                   </tr>
-                  <tr className="hover:bg-pink-50 transition-colors">
+                  <tr className="hover:bg-purple-50 transition-colors">
                     <td className="p-4 font-semibold">INVESTOR</td>
                     <td className="p-4">Capital</td>
                     <td className="p-4">
@@ -379,11 +383,7 @@ export default async function HomePage() {
                 </Button>
               </Link>
               <Link href="/contact">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="text-lg px-8 border-white text-white hover:bg-white/10 bg-transparent"
-                >
+                <Button size="lg" className="text-lg px-8 bg-pink-600 hover:bg-pink-700">
                   Let's Talk
                 </Button>
               </Link>

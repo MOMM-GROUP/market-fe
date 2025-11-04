@@ -9,6 +9,9 @@ import {
   Users,
   TrendingUp,
   Handshake,
+  CheckCircle,
+  AlertCircle,
+  Search,
   Leaf,
   Factory,
   Truck,
@@ -23,10 +26,19 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="relative py-20 px-4 text-center bg-gradient-to-br from-teal-600 via-orange-600 to-pink-600 text-white">
         <div className="container mx-auto max-w-5xl">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-balance">How We're Rebuilding Commerce</h1>
-          <p className="text-xl leading-relaxed text-white/90">
-            The foundation of our modern society—capitalism—is failing us. MOMM is the answer.
-          </p>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-balance">We Are Not Another Startup</h1>
+          <div className="text-xl md:text-2xl leading-relaxed text-white/95 space-y-4 max-w-4xl mx-auto">
+            <p>
+              Most startups are built to enrich founders at the expense of everyone else. More billionaires. More
+              hoarding. Same system.
+            </p>
+            <p className="font-semibold">MOMM is different.</p>
+            <p>
+              We're building proof that commerce can work for everyone. That workers can own what they build. That
+              shoppers can reclaim wealth from extraction.
+            </p>
+            <p className="font-semibold">Not because we're charitable. Because it's right. And because it works.</p>
+          </div>
         </div>
       </section>
 
@@ -34,49 +46,38 @@ export default function AboutPage() {
       <section className="py-16 px-4 bg-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">The Problem We're Solving</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Our economic system is broken. Wealth concentrates at the top while the majority struggles to get by.
-            </p>
+            <h2 className="text-4xl font-bold mb-4">Founding Narrative: How We're Rebuilding Commerce</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">The Problem</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card>
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
-                  <TrendingUp className="h-8 w-8 text-red-600 rotate-180" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Wealth Disparity</h3>
-                <p className="text-muted-foreground">
-                  Worse than ever before, where a handful of billionaires hoard resources while the majority struggle.
-                  The gap between rich and poor continues to widen every year.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
+            <Card className="border-2 hover:shadow-lg transition-shadow">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
-                  <Users className="h-8 w-8 text-orange-600" />
+                  <AlertCircle className="h-8 w-8 text-orange-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">People Struggling</h3>
-                <p className="text-muted-foreground">
-                  Millions juggle multiple jobs and fight to get by while wealth concentrates at the top. Working harder
-                  doesn't mean living better anymore.
-                </p>
+                <h3 className="text-xl font-semibold mb-3">Greenwashing</h3>
+                <p className="text-muted-foreground">Consumers can't verify ethical claims</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-2 hover:shadow-lg transition-shadow">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-pink-100 rounded-full flex items-center justify-center">
+                  <Search className="h-8 w-8 text-pink-600" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Fragmentation</h3>
+                <p className="text-muted-foreground">Brands get lost. Shoppers get overwhelmed</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 hover:shadow-lg transition-shadow">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
-                  <Shield className="h-8 w-8 text-purple-600" />
+                  <TrendingUp className="h-8 w-8 text-purple-600 rotate-180" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Broken Promises</h3>
-                <p className="text-muted-foreground">
-                  We got tired of waiting for politics or the super-wealthy to do the right thing. It's time to build
-                  the solution ourselves.
-                </p>
+                <h3 className="text-xl font-semibold mb-3">Extraction</h3>
+                <p className="text-muted-foreground">Billionaires profit. Everyone else struggles.</p>
               </CardContent>
             </Card>
           </div>
@@ -139,53 +140,188 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Redefining Work */}
+      {/* Our Commitment to People */}
       <section className="py-16 px-4 bg-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Our Commitment to People</h2>
-            <p className="text-xl text-muted-foreground">
-              Our dedication to economic justice starts within MOMM itself
-            </p>
+            <h2 className="text-4xl font-bold mb-4">This Is How We're Different</h2>
+            <p className="text-xl text-muted-foreground">Our Commitment to People</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card>
+            <Card className="border-2 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="w-16 h-16 mb-4 bg-green-100 rounded-full flex items-center justify-center">
                   <DollarSign className="h-8 w-8 text-green-600" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Fair Compensation</h3>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground mb-4">
                   When we are able to hire full-time, we promise never to allow the CEO salary to exceed a fair multiple
-                  of the lowest employee. We are inspired by models like Dan Price, who guarantees a high minimum salary
-                  for all roles.
+                  of the lowest employee.
+                </p>
+                <p className="text-muted-foreground">
+                  We're inspired by models like Dan Price ($70K minimum salary for all).
+                </p>
+                <p className="text-sm font-semibold mt-4 text-foreground">
+                  You don't build a just economy by hoarding.
                 </p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-2 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="w-16 h-16 mb-4 bg-blue-100 rounded-full flex items-center justify-center">
                   <Clock className="h-8 w-8 text-blue-600" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Life-Centric Work</h3>
-                <p className="text-muted-foreground">
-                  We champion the 4-Day Work Week and embed Diversity, Equity, and Inclusion (DEI) into every decision.
-                  Work should enhance life, not consume it.
+                <p className="text-muted-foreground mb-4">
+                  We champion the 4-day work week. We embed Diversity, Equity, and Inclusion (DEI) into every decision.
+                </p>
+                <p className="text-sm font-semibold mt-4 text-foreground">
+                  Not because it's trendy. Because people matter more than extraction.
                 </p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-2 hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="w-16 h-16 mb-4 bg-purple-100 rounded-full flex items-center justify-center">
                   <Users className="h-8 w-8 text-purple-600" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Contribution Over Commitment</h3>
-                <p className="text-muted-foreground">
-                  We know you are stretched thin. That's why we've designed MOMM so that even if you can only contribute
-                  'one thing here or there,' your effort still earns you equity.
+                <p className="text-muted-foreground mb-4">We know you're stretched thin.</p>
+                <p className="text-muted-foreground mb-4">
+                  That's why we've designed MOMM so that even if you can only contribute 'one thing here or there,' your
+                  effort still earns you equity.
+                </p>
+                <p className="text-sm font-semibold mt-4 text-foreground">Your time. Your choice. Your value.</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Current Status Section */}
+      <section className="py-16 px-4 bg-background">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">We're Actually Building This</h2>
+            <p className="text-xl text-muted-foreground">Current Status</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <Card className="border-2 border-teal-200 hover:shadow-lg transition-shadow">
+              <CardContent className="p-8 text-center">
+                <div className="text-5xl font-bold text-teal-600 mb-2">2,847</div>
+                <p className="text-lg font-semibold">Products Indexed</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-orange-200 hover:shadow-lg transition-shadow">
+              <CardContent className="p-8 text-center">
+                <div className="text-5xl font-bold text-orange-600 mb-2">156</div>
+                <p className="text-lg font-semibold">Certifications Tracked</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-pink-200 hover:shadow-lg transition-shadow">
+              <CardContent className="p-8 text-center">
+                <div className="text-5xl font-bold text-pink-600 mb-2">MVP</div>
+                <p className="text-lg font-semibold">Building MARKET Platform</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Simplified Timeline */}
+          <div className="max-w-3xl mx-auto">
+            <div className="space-y-4">
+              <div className="flex items-start gap-4">
+                <div className="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">
+                  <CheckCircle className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg">Phase 1: Data sourcing + legal structure</h3>
+                  <p className="text-muted-foreground">Current phase</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">
+                  →
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg">Phase 2: MARKET marketplace MVP</h3>
+                  <p className="text-muted-foreground">Next up</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">
+                  →
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg">Phase 3: Community features + scaling</h3>
+                  <p className="text-muted-foreground">Coming soon</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Vision Section */}
+      <section className="py-16 px-4 bg-gradient-to-br from-teal-50 via-orange-50 to-pink-50">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">The World We're Building</h2>
+            <p className="text-xl text-muted-foreground">The Vision</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card className="border-2 border-teal-200 hover:shadow-lg transition-shadow">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-teal-100 rounded-full flex items-center justify-center">
+                  <ShoppingCart className="h-8 w-8 text-teal-600" />
+                </div>
+                <h3 className="text-lg font-semibold mb-3">FOR SHOPPERS</h3>
+                <p className="text-sm text-muted-foreground">
+                  Verified products. Real choices. Your purchases fund YOU, not billionaires.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-orange-200 hover:shadow-lg transition-shadow">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
+                  <Users className="h-8 w-8 text-orange-600" />
+                </div>
+                <h3 className="text-lg font-semibold mb-3">FOR BUILDERS</h3>
+                <p className="text-sm text-muted-foreground">
+                  Own what you build. Profit when you profit. Your voice matters in direction.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-pink-200 hover:shadow-lg transition-shadow">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-pink-100 rounded-full flex items-center justify-center">
+                  <Handshake className="h-8 w-8 text-pink-600" />
+                </div>
+                <h3 className="text-lg font-semibold mb-3">FOR BRANDS</h3>
+                <p className="text-sm text-muted-foreground">
+                  Reach conscious consumers who value you. Fair partnership. Real impact.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-purple-200 hover:shadow-lg transition-shadow">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+                  <Heart className="h-8 w-8 text-purple-600" />
+                </div>
+                <h3 className="text-lg font-semibold mb-3">FOR EVERYONE</h3>
+                <p className="text-sm text-muted-foreground">
+                  Proof that another way is possible. That capitalism can serve people, not exploit them.
                 </p>
               </CardContent>
             </Card>
@@ -194,7 +330,7 @@ export default function AboutPage() {
       </section>
 
       {/* The MOMM Vault */}
-      <section className="py-16 px-4 bg-gradient-to-br from-teal-50 via-orange-50 to-pink-50">
+      <section className="py-16 px-4 bg-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">The MOMM Vault: The Power is Yours</h2>
