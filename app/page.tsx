@@ -15,6 +15,10 @@ import {
   PiggyBank,
   Zap,
   RotateCcw,
+  ShoppingCart,
+  Search,
+  Eye,
+  Shield,
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
@@ -123,16 +127,21 @@ export default async function HomePage() {
         <section className="py-20 px-4 text-center bg-gradient-to-br from-primary/5 via-background to-secondary/5">
           <div className="center-content max-w-5xl">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance center-text">
-              Shop Your Values. <span className="text-primary">Redefine the Economy.</span>
+              Shop Your Values. <span className="text-primary">Verifiably.</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8 text-pretty center-text max-w-3xl mx-auto">
-              The era of the billionaire is over. MOMM is the marketplace built for economic justice, where a
-              significant portion of the value we create goes straight back to the community. Stop funding the few. Join
-              the Movement.
+              The modern marketplace is full of empty promises. MOMM creates a complete ecosystem where every product is
+              connected to its ethical source through our TRUST protocol, personalized by our HEART AI, and available
+              through our curated MARKET.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="/how-it-works">
+              <Link href="/market">
                 <Button size="lg" className="text-lg px-8 bg-primary hover:bg-primary/90">
+                  Explore MARKET
+                </Button>
+              </Link>
+              <Link href="/how-it-works">
+                <Button size="lg" variant="outline" className="text-lg px-8 bg-transparent">
                   How It Works
                 </Button>
               </Link>
@@ -140,43 +149,152 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* Problem Section - The Trust Gap */}
+        <section className="py-16 px-4 bg-muted/30">
+          <div className="center-content max-w-4xl">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">The Trust Gap in Ethical Shopping</h2>
+              <p className="text-xl text-muted-foreground">
+                You want to buy products that are sustainable, fair-trade, and cruelty-free. But how can you be sure?
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              <Card>
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+                    <Search className="h-6 w-6 text-red-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">Scattered Information</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Claims are buried in dense reports, data is scattered across thousands of websites.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 mx-auto mb-4 bg-amber-100 rounded-full flex items-center justify-center">
+                    <Eye className="h-6 w-6 text-amber-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">Greenwashing Everywhere</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Empty promises and misleading claims make it impossible to trust brand statements.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                    <Shield className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">No Verification</h3>
+                  <p className="text-sm text-muted-foreground">
+                    It's impossible to verify claims or compare products meaningfully across brands.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
         {/* Core Value Proposition - 3 Pillars */}
         <section className="py-16 px-4">
           <div className="center-content">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">The Complete MOMM Ecosystem</h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                MOMM is building a complete ecosystem that transforms how you discover, evaluate, and purchase ethical
+                products through three interconnected components.
+              </p>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-              <div className="space-y-4">
-                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
-                  <Heart className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold">YOU Are the Ultimate Decider</h3>
-                <p className="text-muted-foreground">
-                  Tired of shopping someone else's version of 'good'? Our HEART AI is your personal compass. It learns
-                  what you value—from Fair Labor to style—and instantly filters the world to match your ethics, your
-                  principles, and your style.
-                </p>
-              </div>
-              <div className="space-y-4">
-                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
-                  <PiggyBank className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold">Wealth Goes to the Community</h3>
-                <p className="text-muted-foreground">
-                  The core of the movement. A portion of the profits from your verified purchases goes into The MOMM
-                  Vault—a fund you control to invest in safety nets, local communities, or causes you care about. We
-                  built a system where wealth empowers the people.
-                </p>
-              </div>
-              <div className="space-y-4">
-                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
-                  <CheckCircle className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold">The Truth. Guaranteed.</h3>
-                <p className="text-muted-foreground">
-                  No more guesswork. Our TRUST protocol does the detective work for you, vetting every single claim and
-                  supply chain fact. If it's on MOMM, it's earned the Verified checkmark. The facts are real; the choice
-                  is yours.
-                </p>
-              </div>
+              <Card className="hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-8">
+                  <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                    <CheckCircle className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2">🛡️ TRUST</h3>
+                  <p className="text-sm font-semibold text-primary mb-3">
+                    Tamper-Resistant Universal Standards Tracker
+                  </p>
+                  <p className="text-muted-foreground mb-4">
+                    <strong>The Foundation:</strong> Our decentralized protocol creates the world's first comprehensive,
+                    verifiable database of ethical product information.
+                  </p>
+                  <div className="space-y-2 text-sm text-left">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span>Zero-knowledge proof verification</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span>Open-source GraphQL API</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span>Decentralized on The Graph</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-8">
+                  <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                    <ShoppingCart className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2">🛒 MARKET</h3>
+                  <p className="text-sm font-semibold text-primary mb-3">The Marketplace</p>
+                  <p className="text-muted-foreground mb-4">
+                    <strong>The Experience:</strong> The engine for a new economy where being good is not only easy,
+                    it's incentivized. Where every product is verified by TRUST and aligned to your values.
+                  </p>
+                  <div className="space-y-2 text-sm text-left">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span>Values-based product discovery</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span>TRUST-verified credentials</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span>Direct brand partnerships</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-8">
+                  <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                    <Heart className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2">❤️ HEART</h3>
+                  <p className="text-sm font-semibold text-primary mb-3">Human-Ethical Alignment & Review Tracker</p>
+                  <p className="text-muted-foreground mb-4">
+                    <strong>The Personalization Engine:</strong> AI-powered system that learns your personal values and
+                    filters TRUST data to align products with what matters most to you.
+                  </p>
+                  <div className="space-y-2 text-sm text-left">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span>Personal values learning</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span>Real-time ethical scoring</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span>Universal product alignment</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
@@ -319,7 +437,7 @@ export default async function HomePage() {
         </section>
 
         {/* Featured Products */}
-        <section className="py-16 px-4">
+        <section className="py-16 px-4 bg-muted/30">
           <div className="center-content">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold mb-4">Editor's Picks: Good for You, Good for the World</h2>
@@ -342,12 +460,13 @@ export default async function HomePage() {
         </section>
 
         {/* Certifications Tabs Section */}
-        <section className="py-16 px-4 bg-muted/30">
+        <section className="py-16 px-4">
           <div className="center-content">
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold mb-4">Our Certifications</h2>
-              <p className="text-muted-foreground">
-                Trusted by industry leaders and certified by top organizations worldwide
+              <h2 className="text-3xl font-bold mb-4">We Index Every Major Certification</h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                From organic materials to fair labor practices, we organize certifications by what matters most to you.
+                Every certification is verified and linked to its official source.
               </p>
             </div>
             <CertificationTabs certifications={certifications || []} />
@@ -369,7 +488,6 @@ export default async function HomePage() {
 }
 
 function ProductCard({ product }: { product: Product }) {
-  
   const hasDiscount = product.compare_at_price && product.compare_at_price > product.price
   const discountPercent = hasDiscount
     ? Math.round(((product.compare_at_price - product.price) / product.compare_at_price) * 100)
