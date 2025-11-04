@@ -35,10 +35,6 @@ export default function ContributorsPage() {
           <p className="text-xl md:text-2xl leading-relaxed text-white/95 mb-8 max-w-4xl mx-auto font-semibold">
             Join us. Your work directly profits you. Your impact compounds. Your voice matters.
           </p>
-          <p className="text-lg text-white/90 mb-8">
-            We're currently hiring for:{" "}
-            <strong>Data specialists, Legal help, Full-stack engineers, Community managers</strong>
-          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" variant="secondary" className="text-lg px-8">
               <Link href="#roles">See Open Roles</Link>
@@ -59,7 +55,7 @@ export default function ContributorsPage() {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">We Need Your Skills</h2>
-            <p className="text-xl text-muted-foreground">These are the roles we're actively recruiting for right now</p>
+            <p className="text-xl text-muted-foreground">These are the skills we're actively recruiting for right now</p>
           </div>
 
           <div className="space-y-6">

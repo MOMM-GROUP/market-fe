@@ -90,9 +90,6 @@ export function Navbar() {
             <Link href="/vendors" className="text-muted-foreground hover:text-foreground transition-colors">
               Vendors
             </Link>
-            <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
-              Contact
-            </Link>
           </nav>
         </div>
 

@@ -110,10 +110,6 @@ export default async function HomePage() {
         <section className="py-32 px-4 text-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
           <div className="center-content max-w-5xl">
             <h1 className="text-5xl md:text-7xl font-bold mb-8 text-balance">The Era of the Billionaire is Over</h1>
-            <p className="text-xl md:text-2xl mb-4 leading-relaxed max-w-3xl mx-auto">
-              MOMM is the marketplace built for economic justice. A significant portion of the value we create goes
-              straight back to the community.
-            </p>
             <p className="text-xl md:text-2xl mb-12 leading-relaxed max-w-3xl mx-auto font-semibold">
               Stop funding the few. Join the Movement.
             </p>
@@ -183,20 +179,11 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Transition Text */}
-        <section className="py-12 px-4 bg-background">
-          <div className="center-content max-w-4xl text-center">
-            <p className="text-2xl md:text-3xl font-semibold text-foreground">
-              What if your purchases actually worked for YOU?
-            </p>
-          </div>
-        </section>
-
         {/* "MOMM: Economic Justice Through Commerce" Section */}
         <section className="py-16 px-4 bg-background">
           <div className="center-content max-w-6xl">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">MOMM: Economic Justice Through Commerce</h2>
+              <h2 className="text-4xl font-bold mb-4">What if your purchases actually worked for YOU?</h2>
               <p className="text-xl text-muted-foreground">Here's what changes with MOMM:</p>
             </div>
 
