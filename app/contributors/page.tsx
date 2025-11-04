@@ -71,7 +71,7 @@ export default function ContributorsPage() {
             </p>
           </div>
 
-          <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Data Sourcing Specialists */}
             <Card className="border-2 border-purple-200 hover:shadow-lg transition-shadow">
               <CardHeader className="bg-purple-50">
