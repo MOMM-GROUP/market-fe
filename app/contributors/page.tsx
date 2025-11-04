@@ -55,7 +55,9 @@ export default function ContributorsPage() {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">We Need Your Skills</h2>
-            <p className="text-xl text-muted-foreground">These are the skills we're actively recruiting for right now</p>
+            <p className="text-xl text-muted-foreground">
+              These are the skills we're actively recruiting for right now
+            </p>
           </div>
 
           <div className="space-y-6">
@@ -809,7 +811,7 @@ export default function ContributorsPage() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-teal-50 via-orange-50 to-pink-50 rounded-lg p-6">
+            <div className="bg-gradient-to-r from-teal-100 via-pink-100 to-orange-100 rounded-lg p-6">
               <h4 className="font-semibold text-lg mb-4">Real Contributor Scenarios</h4>
               <div className="space-y-4">
                 <div className="bg-white p-4 rounded-lg border-2 border-teal-200">
@@ -883,92 +885,103 @@ export default function ContributorsPage() {
         </div>
       </section>
 
-      <section id="discord" className="py-16 px-4 bg-background">
+      {/* Single Unified CTA with Discord */}
+      <section
+        id="discord"
+        className="py-20 px-4 bg-gradient-to-br from-teal-600 via-orange-600 to-pink-600 text-white"
+      >
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Join the Movement</h2>
-            <p className="text-xl text-muted-foreground">
-              Connect with builders, contribute to projects, and help shape the future of commerce
+            <h2 className="text-5xl font-bold mb-6">Ready to Build With Us?</h2>
+            <p className="text-2xl leading-relaxed text-white/95 mb-4">
+              Join our Discord community where the real work happens
+            </p>
+            <p className="text-xl text-white/90">
+              Connect with the team, pick up tasks, and start earning equity today
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            {/* Left: Discord Info */}
-            <div className="space-y-6">
-              <Card className="border-2 hover:shadow-lg transition-shadow">
-                <CardContent className="p-6 flex items-start gap-4">
-                  <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <MessageCircle className="h-6 w-6 text-teal-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2">Real-Time Collaboration</h3>
-                    <p className="text-muted-foreground">Work directly with founding team on active projects</p>
-                  </div>
-                </CardContent>
-              </Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            {/* Benefits Grid */}
+            <Card className="bg-white/10 backdrop-blur border-white/20 hover:bg-white/15 transition-all">
+              <CardContent className="p-6 flex items-start gap-4">
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <MessageCircle className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg mb-2 text-white">Real-Time Collaboration</h3>
+                  <p className="text-white/90">Work directly with founding team on active projects</p>
+                </div>
+              </CardContent>
+            </Card>
 
-              <Card className="border-2 hover:shadow-lg transition-shadow">
-                <CardContent className="p-6 flex items-start gap-4">
-                  <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Rocket className="h-6 w-6 text-orange-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2">Early Access</h3>
-                    <p className="text-muted-foreground">Know what's coming + help shape direction</p>
-                  </div>
-                </CardContent>
-              </Card>
+            <Card className="bg-white/10 backdrop-blur border-white/20 hover:bg-white/15 transition-all">
+              <CardContent className="p-6 flex items-start gap-4">
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Rocket className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg mb-2 text-white">Early Access</h3>
+                  <p className="text-white/90">Know what's coming and help shape direction</p>
+                </div>
+              </CardContent>
+            </Card>
 
-              <Card className="border-2 hover:shadow-lg transition-shadow">
-                <CardContent className="p-6 flex items-start gap-4">
-                  <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Network className="h-6 w-6 text-pink-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2">Build Your Network</h3>
-                    <p className="text-muted-foreground">Connect with people trying to change commerce</p>
-                  </div>
-                </CardContent>
-              </Card>
+            <Card className="bg-white/10 backdrop-blur border-white/20 hover:bg-white/15 transition-all">
+              <CardContent className="p-6 flex items-start gap-4">
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Network className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg mb-2 text-white">Build Your Network</h3>
+                  <p className="text-white/90">Connect with people trying to change commerce</p>
+                </div>
+              </CardContent>
+            </Card>
 
-              <Card className="border-2 hover:shadow-lg transition-shadow">
-                <CardContent className="p-6 flex items-start gap-4">
-                  <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Award className="h-6 w-6 text-purple-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2">Get Recognized</h3>
-                    <p className="text-muted-foreground">Contribute, get recognized, earn profit share</p>
-                  </div>
-                </CardContent>
-              </Card>
+            <Card className="bg-white/10 backdrop-blur border-white/20 hover:bg-white/15 transition-all">
+              <CardContent className="p-6 flex items-start gap-4">
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Award className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg mb-2 text-white">Get Recognized</h3>
+                  <p className="text-white/90">Contribute, get recognized, earn profit share</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Main CTA */}
+          <div className="text-center">
+            <div className="w-24 h-24 mx-auto mb-6 bg-white/20 backdrop-blur rounded-full flex items-center justify-center">
+              <MessageCircle className="h-12 w-12 text-white" />
             </div>
-
-            {/* Right: Discord CTA */}
-            <div className="bg-gradient-to-br from-teal-50 via-orange-50 to-pink-50 rounded-lg p-8 text-center">
-              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-teal-600 to-orange-600 rounded-full flex items-center justify-center">
-                <MessageCircle className="h-10 w-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">Join Our Discord</h3>
-              <p className="text-muted-foreground mb-6">
-                This is where the work happens. Join the conversation, pick up tasks, and start contributing today.
-              </p>
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-teal-600 to-orange-600 hover:from-teal-700 hover:to-orange-700"
-                asChild
-              >
+            <h3 className="text-3xl font-bold mb-4 text-white">Join Our Discord Community</h3>
+            <p className="text-xl text-white/95 mb-8 max-w-2xl mx-auto">
+              This is where the work happens. Join the conversation, pick up tasks, and start contributing today.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+              <Button size="lg" variant="secondary" className="text-lg px-8" asChild>
                 <Link href="https://discord.gg/momm" target="_blank">
-                  Join Discord <ArrowRight className="ml-2 h-4 w-4" />
+                  Join Discord Now <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <p className="text-sm text-muted-foreground mt-4">
-                Or email us:{" "}
-                <a href="mailto:team@momm.group" className="text-teal-600 hover:underline">
-                  team@momm.group
-                </a>
-              </p>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white/10 bg-transparent text-lg px-8"
+                asChild
+              >
+                <Link href="/contact">Email Us Instead</Link>
+              </Button>
             </div>
+            <p className="text-white/90">
+              Or reach out directly:{" "}
+              <a href="mailto:team@momm.group" className="text-white font-semibold hover:underline">
+                team@momm.group
+              </a>
+            </p>
           </div>
         </div>
       </section>
@@ -984,93 +997,6 @@ export default function ContributorsPage() {
             you're building proof that there's a better way.
           </p>
           <p className="text-2xl font-semibold">You're part of ending the billionaire era.</p>
-        </div>
-      </section>
-
-      {/* Getting Started */}
-      <section className="py-16 px-4 bg-gradient-to-br from-teal-50 via-orange-50 to-pink-50">
-        <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Ready to Start Contributing?</h2>
-            <p className="text-xl text-muted-foreground">Join the movement and start earning equity today</p>
-          </div>
-
-          <Card>
-            <CardContent className="p-8">
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-teal-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold text-lg">
-                    1
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2">Choose Your Guild</h3>
-                    <p className="text-muted-foreground">
-                      Pick the guild that matches your skills and interests. You can join multiple guilds.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-orange-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold text-lg">
-                    2
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2">Connect With Us</h3>
-                    <p className="text-muted-foreground">
-                      Fill out our contributor form or reach out directly. We'll get you set up with access and tasks.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-pink-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold text-lg">
-                    3
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2">Start Contributing</h3>
-                    <p className="text-muted-foreground">
-                      Pick up tasks, track your time, and start earning equity. It's that simple.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 text-center">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-gradient-to-r from-teal-600 to-orange-600 hover:from-teal-700 hover:to-orange-700"
-                >
-                  <Link href="/contact">
-                    Apply to Contribute <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-20 px-4 text-center bg-gradient-to-r from-teal-600 via-orange-600 to-pink-600 text-white">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-4xl font-bold mb-6">Your Skills. Your Equity. Your Future.</h2>
-          <p className="text-lg mb-8 text-white/90 leading-relaxed">
-            Join hundreds of contributors building a more equitable economy. Every contribution matters.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" variant="secondary">
-              <Link href="/contact">Start Contributing</Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white/10 bg-transparent"
-            >
-              <Link href="/about">Learn More About MOMM</Link>
-            </Button>
-          </div>
         </div>
       </section>
     </div>
