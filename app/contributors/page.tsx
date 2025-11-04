@@ -651,7 +651,7 @@ export default function ContributorsPage() {
             <div className="text-center space-y-3">
               <h3 className="text-3xl font-bold">Impact-Based Profit Sharing</h3>
               <p className="text-lg text-gray-600">
-                Every quarter, we distribute 35% of profits based on what you created, not how many hours you worked.
+                35% of profits distributed to contributors based on what you created, not how many hours you worked.
               </p>
             </div>
 
@@ -659,10 +659,13 @@ export default function ContributorsPage() {
               <div className="flex items-start gap-3">
                 <div className="text-2xl">⚠️</div>
                 <div>
-                  <h4 className="font-semibold text-yellow-900 mb-2">Pre-Profitability Disclaimer</h4>
+                  <h4 className="font-semibold text-yellow-900 mb-2">We're Not Yet Profitable</h4>
+                  <p className="text-yellow-800 mb-2">
+                    This model shows how we'll distribute profits once we reach profitability (estimated Year 2-3).
+                  </p>
                   <p className="text-yellow-800">
-                    We're not yet profitable. This model shows how we'll distribute profits once we reach profitability.
-                    Early contributors will be part of conversations around how we implement this system.
+                    Early contributors will be part of conversations around implementing this model. Your points are
+                    yours forever.
                   </p>
                 </div>
               </div>
@@ -806,6 +809,47 @@ export default function ContributorsPage() {
                   <p className="text-sm font-semibold text-green-900 mb-1">Strategy & Planning</p>
                   <p className="text-sm text-gray-600">Minimum 1.5% of profit pool every quarter</p>
                   <p className="text-xs text-green-600 mt-2">Vision and direction matter</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-teal-50 via-orange-50 to-pink-50 rounded-lg p-6">
+              <h4 className="font-semibold text-lg mb-4">Real Contributor Scenarios</h4>
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded-lg border-2 border-teal-200">
+                  <p className="font-semibold text-teal-900 mb-2">Scenario 1: Early Contributor</p>
+                  <p className="text-sm text-gray-700 mb-2">
+                    You join at launch, contribute $50K of value over 12 months
+                  </p>
+                  <div className="bg-teal-50 p-3 rounded">
+                    <p className="text-sm">
+                      <strong>At profitability (Year 2):</strong> $84,000 profit pool total
+                    </p>
+                    <p className="text-sm text-teal-600 font-semibold">
+                      Your share if you were 20% of impact: $16,800/year
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-white p-4 rounded-lg border-2 border-orange-200">
+                  <p className="font-semibold text-orange-900 mb-2">Scenario 2: Year 2 Contributor</p>
+                  <p className="text-sm text-gray-700 mb-2">You join Year 2, contribute $30K value over year</p>
+                  <div className="bg-orange-50 p-3 rounded">
+                    <p className="text-sm">
+                      <strong>At Year 3 profitability:</strong> $150,000 profit pool (more revenue)
+                    </p>
+                    <p className="text-sm text-orange-600 font-semibold">
+                      Your share if you were 10% of impact: $15,000/year
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-white p-4 rounded-lg border-2 border-pink-200">
+                  <p className="font-semibold text-pink-900 mb-2">Key Promise: Your Points Are Yours Forever</p>
+                  <p className="text-sm text-gray-700">
+                    Even if you leave, you keep earning your % share. Example: Founder who contributed early gets 5%
+                    forever.
+                  </p>
                 </div>
               </div>
             </div>

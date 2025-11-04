@@ -396,8 +396,157 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      {/* Risks & Advantages */}
       <section className="py-16 px-4 bg-background">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Profit Sharing Model</h2>
+            <p className="text-xl text-muted-foreground">
+              Once MOMM reaches profitability, investors share in the success
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-8">
+            {/* Timeline */}
+            <Card className="border-2 border-teal-500">
+              <CardHeader className="bg-teal-50">
+                <CardTitle>Return Path</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6 space-y-4">
+                <div className="space-y-3">
+                  <div className="flex items-start gap-4">
+                    <div className="w-24 flex-shrink-0 font-semibold text-teal-600">Year 0-2:</div>
+                    <div>
+                      <p className="text-muted-foreground">Company growth + equity value appreciation</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-24 flex-shrink-0 font-semibold text-orange-600">Year 2+:</div>
+                    <div>
+                      <p className="text-muted-foreground">
+                        Annual profit distribution (5% of profits allocated to investors)
+                      </p>
+                      <p className="text-muted-foreground">+ Equity appreciation from future rounds</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Conservative Estimates */}
+            <div className="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-6">
+              <div className="flex items-start gap-3">
+                <div className="text-2xl">⚠️</div>
+                <div>
+                  <h4 className="font-semibold text-yellow-900 mb-2">Conservative Timeline</h4>
+                  <p className="text-yellow-800">
+                    Most startups take 3-5 years to reach profitability. We're estimating Year 2-3 (2026-2027) for MOMM.
+                    This is not a promise of immediate returns—it's a long-term investment in building something
+                    meaningful.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Return Scenarios */}
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-center">Example Return Scenarios</h3>
+
+              <Card className="border-2 border-teal-200">
+                <CardHeader className="bg-teal-50">
+                  <CardTitle className="text-lg">Scenario 1: Early Profitability (Year 2)</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center pb-2 border-b">
+                      <span className="text-sm text-muted-foreground">Revenue</span>
+                      <span className="font-semibold">$2M ARR</span>
+                    </div>
+                    <div className="flex justify-between items-center pb-2 border-b">
+                      <span className="text-sm text-muted-foreground">Net Margin</span>
+                      <span className="font-semibold">12% ($240K profit)</span>
+                    </div>
+                    <div className="flex justify-between items-center pb-2 border-b">
+                      <span className="text-sm text-muted-foreground">Investor Pool (5%)</span>
+                      <span className="font-semibold">$12,000</span>
+                    </div>
+                    <div className="bg-teal-50 p-4 rounded-lg mt-4">
+                      <p className="text-sm font-semibold text-teal-900 mb-2">Your $1,000 Investment:</p>
+                      <p className="text-sm text-teal-700">≈ $60/year dividend</p>
+                      <p className="text-xs text-teal-600 mt-2">+ Equity value appreciation as company grows</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 border-orange-200">
+                <CardHeader className="bg-orange-50">
+                  <CardTitle className="text-lg">Scenario 2: Scaled Growth (Year 5)</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center pb-2 border-b">
+                      <span className="text-sm text-muted-foreground">Revenue</span>
+                      <span className="font-semibold">$10M ARR</span>
+                    </div>
+                    <div className="flex justify-between items-center pb-2 border-b">
+                      <span className="text-sm text-muted-foreground">Net Margin</span>
+                      <span className="font-semibold">15% ($1.5M profit)</span>
+                    </div>
+                    <div className="flex justify-between items-center pb-2 border-b">
+                      <span className="text-sm text-muted-foreground">Investor Pool (5%)</span>
+                      <span className="font-semibold">$75,000</span>
+                    </div>
+                    <div className="bg-orange-50 p-4 rounded-lg mt-4">
+                      <p className="text-sm font-semibold text-orange-900 mb-2">Your $1,000 Investment:</p>
+                      <p className="text-sm text-orange-700">≈ $375/year dividend</p>
+                      <p className="text-xs text-orange-600 mt-2">
+                        + Company value appreciation (potential 10x+ from initial valuation)
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Why This Works */}
+            <Card className="bg-gradient-to-r from-teal-50 via-orange-50 to-pink-50 border-2">
+              <CardContent className="p-6">
+                <h4 className="font-semibold text-lg mb-4">Why We're Conservative</h4>
+                <div className="space-y-3 text-sm text-muted-foreground">
+                  <p>
+                    ✓ <strong>Honest Timeline:</strong> Most startups fail or take 5+ years to profitability. We're
+                    being realistic about the journey.
+                  </p>
+                  <p>
+                    ✓ <strong>Dual Returns:</strong> You benefit from both profit-sharing AND equity appreciation as the
+                    company grows.
+                  </p>
+                  <p>
+                    ✓ <strong>Sustainable Model:</strong> We only distribute what we can afford, ensuring long-term
+                    viability.
+                  </p>
+                  <p>
+                    ✓ <strong>Community-First:</strong> Unlike traditional startups that only reward founders and VCs,
+                    we share success with everyone who helped build it.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* The Promise */}
+            <div className="border-4 border-purple-500 rounded-lg p-6 bg-purple-50 text-center">
+              <p className="text-lg font-bold text-purple-900 mb-3">💎 Our Promise to Investors</p>
+              <p className="text-gray-700">
+                We're not promising overnight returns. We're promising fairness, transparency, and the opportunity to be
+                part of something that actually changes commerce for the better. When we succeed, you succeed.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Risks & Advantages */}
+      <section className="py-16 px-4 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">Risk Transparency</h2>
