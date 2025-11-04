@@ -180,71 +180,65 @@ export default async function HomePage() {
         </section>
 
         {/* "MOMM: Economic Justice Through Commerce" Section */}
-        <section className="py-16 px-4 bg-background">
+        <section className="py-20 px-4 bg-gradient-to-r from-teal-600 via-orange-600 to-pink-600 text-white">
           <div className="center-content max-w-6xl">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">What if your purchases actually worked for YOU?</h2>
-              <p className="text-xl text-muted-foreground">Here's what changes with MOMM:</p>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">What if your purchases actually worked for YOU?</h2>
+              <p className="text-xl md:text-2xl mb-8 leading-relaxed">
+                We are not building another company that enriches a few founders while workers fight for scraps.
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <Card className="border-2 hover:shadow-lg transition-shadow">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              <Card className="border-2 bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all">
                 <CardContent className="p-8 text-center space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-teal-100 rounded-full flex items-center justify-center">
-                    <Coins className="h-8 w-8 text-teal-600" />
+                  <div className="w-16 h-16 mx-auto bg-white/20 rounded-full flex items-center justify-center">
+                    <Coins className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-teal-600">YOU GET YOUR SHARE</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Every dollar you spend on MOMM redirects wealth back to the community—not billionaires.
+                  <h3 className="text-xl font-bold">YOU GET YOUR SHARE</h3>
+                  <p className="leading-relaxed">
+                    Every dollar you spend on MOMM redirects wealth back to the community—not billionaires. You shop.
+                    You build. You profit.
                   </p>
-                  <p className="font-semibold">You shop. You build. You profit.</p>
                 </CardContent>
               </Card>
 
-              <Card className="border-2 hover:shadow-lg transition-shadow">
+              <Card className="border-2 bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all">
                 <CardContent className="p-8 text-center space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-orange-100 rounded-full flex items-center justify-center">
-                    <Users className="h-8 w-8 text-orange-600" />
+                  <div className="w-16 h-16 mx-auto bg-white/20 rounded-full flex items-center justify-center">
+                    <Users className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-orange-600">CONTRIBUTORS ACTUALLY OWN IT</h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <h3 className="text-xl font-bold">CONTRIBUTORS ACTUALLY OWN IT</h3>
+                  <p className="leading-relaxed">
                     People who build MOMM share in its success. Not through cheap equity promises—through real profit
-                    sharing.
+                    sharing. You build value. You keep value.
                   </p>
-                  <p className="font-semibold">You build value. You keep value.</p>
                 </CardContent>
               </Card>
 
-              <Card className="border-2 hover:shadow-lg transition-shadow">
+              <Card className="border-2 bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all">
                 <CardContent className="p-8 text-center space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-pink-100 rounded-full flex items-center justify-center">
-                    <Handshake className="h-8 w-8 text-pink-600" />
+                  <div className="w-16 h-16 mx-auto bg-white/20 rounded-full flex items-center justify-center">
+                    <Handshake className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-pink-600">BRANDS PLAY FAIR</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Ethical brands reach conscious consumers. Everyone profits when values align.
+                  <h3 className="text-xl font-bold">BRANDS PLAY FAIR</h3>
+                  <p className="leading-relaxed">
+                    Ethical brands reach conscious consumers. Everyone profits when values align. No middlemen taking
+                    40% cuts. Real partnerships.
                   </p>
-                  <p className="font-semibold">No middlemen taking 40% cuts. Real partnerships.</p>
                 </CardContent>
               </Card>
             </div>
-          </div>
-        </section>
 
-        {/* "Our Commitment to You" Gradient Section */}
-        <section className="py-20 px-4 bg-gradient-to-r from-teal-600 via-orange-600 to-pink-600 text-white">
-          <div className="center-content max-w-4xl text-center">
-            <h2 className="text-4xl font-bold mb-8">Our Commitment to You</h2>
-            <p className="text-2xl md:text-3xl mb-8 leading-relaxed font-semibold">
-              We are not building another company that enriches a few founders while workers fight for scraps.
-            </p>
-            <div className="space-y-4 text-lg md:text-xl mb-8">
-              <p>35% of our profits go directly to contributors.</p>
-              <p>CEO salaries capped at fair multiples.</p>
-              <p>4-day work week. Full transparency.</p>
+            <div className="text-center space-y-6 max-w-4xl mx-auto">
+              <div className="space-y-4 text-lg md:text-xl">
+                <p className="font-semibold">35% of our profits go directly to contributors.</p>
+                <p className="font-semibold">CEO salaries capped at fair multiples.</p>
+                <p className="font-semibold">4-day work week. Full transparency.</p>
+              </div>
+              <p className="text-2xl md:text-3xl font-bold mt-8">We're proving there's another way.</p>
+              <p className="text-lg">This isn't charity. This is how business should work.</p>
             </div>
-            <p className="text-2xl font-semibold mb-4">We're proving there's another way.</p>
-            <p className="text-lg text-white/90">This isn't charity. This is how business should work.</p>
           </div>
         </section>
 
