@@ -400,12 +400,29 @@ export default function VendorsPage() {
           <h2 className="text-4xl font-bold mb-6">Fair Commission Structure</h2>
           <Card className="border-2 border-green-200 bg-gradient-to-r from-green-50 to-teal-50">
             <CardContent className="p-12">
-              <div className="text-6xl font-bold text-green-600 mb-4">Lower Than 5%</div>
+              <div className="text-5xl font-bold text-green-600 mb-4">5% or We Match Your Lowest Rate</div>
               <p className="text-xl text-muted-foreground mb-6">
-                We're building a fair marketplace. Our commission is significantly lower than traditional platforms.
+                Pay just 5% commission, or if you have a lower rate on another platform, we'll match it. We believe in
+                fair partnerships, not extractive fees.
               </p>
-              <p className="text-lg font-semibold">Plus access to everything above.</p>
-              <Badge className="mt-4 bg-green-600 text-white">Final rate coming soon</Badge>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto mt-8 text-left">
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">5% standard commission rate</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Or we match your lowest platform rate</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">No hidden fees or surprises</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Plus access to all services above</span>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </div>
