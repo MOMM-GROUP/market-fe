@@ -2,22 +2,7 @@ import { createClient } from "@/lib/supabase/server"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import {
-  Star,
-  Heart,
-  CheckCircle,
-  Leaf,
-  Handshake,
-  Globe,
-  Recycle,
-  FlaskConical,
-  Users,
-  PiggyBank,
-  Zap,
-  RotateCcw,
-  TrendingDown,
-  AlertCircle,
-} from "lucide-react"
+import { Star, Heart, Handshake, Users, XCircle, Ban, AlertTriangle, Coins } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import CertificationsShowcase from "@/components/certifications-showcase"
@@ -122,15 +107,17 @@ export default async function HomePage() {
     return (
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <section className="py-20 px-4 text-center bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50">
+        <section className="py-32 px-4 text-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
           <div className="center-content max-w-5xl">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance center-text">
-              How We're Rebuilding Commerce
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8 text-pretty center-text max-w-3xl mx-auto leading-relaxed">
-              The foundation of our modern society—capitalism—is failing us. MOMM is the answer. We are building a
-              platform that uses the power of commerce to redirect wealth, ensuring that the people who support the
-              community are the ones who benefit from it.
+            <h1 className="text-5xl md:text-7xl font-bold mb-8 text-balance">The Era of the Billionaire is Over</h1>
+            <p className="text-xl md:text-2xl mb-4 leading-relaxed max-w-3xl mx-auto">
+              MOMM is the marketplace built for economic justice.
+            </p>
+            <p className="text-xl md:text-2xl mb-4 leading-relaxed max-w-3xl mx-auto">
+              A significant portion of the value we create goes straight back to the community.
+            </p>
+            <p className="text-xl md:text-2xl mb-12 leading-relaxed max-w-3xl mx-auto font-semibold">
+              Stop funding the few. Join the Movement.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link href="/products">
@@ -138,139 +125,197 @@ export default async function HomePage() {
                   Start Shopping
                 </Button>
               </Link>
-              <Link href="/journey">
+              <Link href="/contributors">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="text-lg px-8 border-orange-600 text-orange-600 hover:bg-orange-50 bg-transparent"
+                  className="text-lg px-8 border-white text-white hover:bg-white/10 bg-transparent"
                 >
-                  Join the Movement
+                  Help Us Build This
                 </Button>
               </Link>
             </div>
           </div>
         </section>
 
-        {/* The Problem Section */}
+        {/* "Here's What We're Done Accepting" Section */}
+        <section className="py-16 px-4 bg-slate-900 text-white">
+          <div className="center-content max-w-6xl">
+            <h2 className="text-4xl font-bold text-center mb-12">Here's What We're Done Accepting</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <Card className="bg-slate-800 border-slate-700">
+                <CardContent className="p-8 text-center space-y-4">
+                  <div className="w-16 h-16 mx-auto bg-red-900/30 rounded-full flex items-center justify-center">
+                    <XCircle className="h-8 w-8 text-red-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white">WEALTH HOARDING</h3>
+                  <p className="text-slate-300 leading-relaxed">
+                    Billionaires hoard while millions struggle. CEOs make 300x what workers earn. Wealth concentrates at
+                    the top while everyone else fights.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-slate-800 border-slate-700">
+                <CardContent className="p-8 text-center space-y-4">
+                  <div className="w-16 h-16 mx-auto bg-orange-900/30 rounded-full flex items-center justify-center">
+                    <Ban className="h-8 w-8 text-orange-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white">FALSE CHOICES</h3>
+                  <p className="text-slate-300 leading-relaxed">
+                    Shop 'ethical' brands... but their CEO still hoards. Your purchases still fund predatory systems.
+                    Even 'conscious' shopping feeds the billionaire class.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-slate-800 border-slate-700">
+                <CardContent className="p-8 text-center space-y-4">
+                  <div className="w-16 h-16 mx-auto bg-purple-900/30 rounded-full flex items-center justify-center">
+                    <AlertTriangle className="h-8 w-8 text-purple-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white">BROKEN PROMISES</h3>
+                  <p className="text-slate-300 leading-relaxed">
+                    Politicians won't fix this. The wealthy won't 'give back.' We're tired of waiting. Time to take
+                    action.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Transition Text */}
+        <section className="py-12 px-4 bg-background">
+          <div className="center-content max-w-4xl text-center">
+            <p className="text-2xl md:text-3xl font-semibold text-foreground">
+              What if your purchases actually worked for YOU?
+            </p>
+          </div>
+        </section>
+
+        {/* "MOMM: Economic Justice Through Commerce" Section */}
         <section className="py-16 px-4 bg-background">
           <div className="center-content max-w-6xl">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 mx-auto bg-red-100 rounded-full flex items-center justify-center">
-                  <TrendingDown className="h-8 w-8 text-red-600" />
-                </div>
-                <h3 className="text-xl font-semibold">Wealth Disparity</h3>
-                <p className="text-muted-foreground">
-                  Worse than ever before, where a handful of billionaires hoard resources while the majority struggle.
-                </p>
-              </div>
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 mx-auto bg-orange-100 rounded-full flex items-center justify-center">
-                  <Users className="h-8 w-8 text-orange-600" />
-                </div>
-                <h3 className="text-xl font-semibold">People Struggling</h3>
-                <p className="text-muted-foreground">
-                  Millions juggle multiple jobs and fight to get by while wealth concentrates at the top.
-                </p>
-              </div>
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center">
-                  <AlertCircle className="h-8 w-8 text-purple-600" />
-                </div>
-                <h3 className="text-xl font-semibold">Broken Promises</h3>
-                <p className="text-muted-foreground">
-                  We got tired of waiting for politics or the super-wealthy to do the right thing.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Core Value Proposition - 3 Pillars */}
-        <section className="py-16 px-4">
-          <div className="center-content">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-              <div className="space-y-4">
-                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
-                  <Heart className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold">YOU Are the Ultimate Decider</h3>
-                <p className="text-muted-foreground">
-                  Tired of shopping someone else's version of 'good'? Our HEART AI is your personal compass. It learns
-                  what you value—from Fair Labor to style—and instantly filters the world to match your ethics, your
-                  principles, and your style.
-                </p>
-              </div>
-              <div className="space-y-4">
-                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
-                  <PiggyBank className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold">Wealth Goes to the Community</h3>
-                <p className="text-muted-foreground">
-                  The core of the movement. A portion of the profits from your verified purchases goes into The MOMM
-                  Vault—a fund you control to invest in safety nets, local communities, or causes you care about. We
-                  built a system where wealth empowers the people.
-                </p>
-              </div>
-              <div className="space-y-4">
-                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
-                  <CheckCircle className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold">The Truth. Guaranteed.</h3>
-                <p className="text-muted-foreground">
-                  No more guesswork. Our TRUST protocol does the detective work for you, vetting every single claim and
-                  supply chain fact. If it's on MOMM, it's earned the Verified checkmark. The facts are real; the choice
-                  is yours.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Economic Model Table Section */}
-        <section className="py-16 px-4 bg-gradient-to-br from-teal-50 via-orange-50 to-pink-50">
-          <div className="center-content max-w-6xl">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Everyone Gets a Piece of the Pie</h2>
-              <p className="text-xl text-muted-foreground">Four ways to participate in the MOMM economy</p>
+              <h2 className="text-4xl font-bold mb-4">MOMM: Economic Justice Through Commerce</h2>
+              <p className="text-xl text-muted-foreground">Here's what changes with MOMM:</p>
             </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-8 text-center space-y-4">
+                  <div className="w-16 h-16 mx-auto bg-teal-100 rounded-full flex items-center justify-center">
+                    <Coins className="h-8 w-8 text-teal-600" />
+                  </div>
+                  <h3 className="text-xl font-bold">YOU GET YOUR SHARE</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Every dollar you spend on MOMM redirects wealth back to the community—not billionaires.
+                  </p>
+                  <p className="font-semibold">You shop. You build. You profit.</p>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-8 text-center space-y-4">
+                  <div className="w-16 h-16 mx-auto bg-orange-100 rounded-full flex items-center justify-center">
+                    <Users className="h-8 w-8 text-orange-600" />
+                  </div>
+                  <h3 className="text-xl font-bold">CONTRIBUTORS ACTUALLY OWN IT</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    People who build MOMM share in its success. Not through cheap equity promises—through real profit
+                    sharing.
+                  </p>
+                  <p className="font-semibold">You build value. You keep value.</p>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-8 text-center space-y-4">
+                  <div className="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center">
+                    <Handshake className="h-8 w-8 text-purple-600" />
+                  </div>
+                  <h3 className="text-xl font-bold">BRANDS PLAY FAIR</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Ethical brands reach conscious consumers. Everyone profits when values align.
+                  </p>
+                  <p className="font-semibold">No middlemen taking 40% cuts. Real partnerships.</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* "Our Commitment to You" Gradient Section */}
+        <section className="py-20 px-4 bg-gradient-to-r from-teal-600 via-orange-600 to-pink-600 text-white">
+          <div className="center-content max-w-4xl text-center">
+            <h2 className="text-4xl font-bold mb-8">Our Commitment to You</h2>
+            <p className="text-2xl md:text-3xl mb-8 leading-relaxed font-semibold">
+              We are not building another company that enriches a few founders while workers fight for scraps.
+            </p>
+            <div className="space-y-4 text-lg md:text-xl mb-8">
+              <p>35% of our profits go directly to contributors.</p>
+              <p>CEO salaries capped at fair multiples.</p>
+              <p>4-day work week. Full transparency.</p>
+            </div>
+            <p className="text-2xl font-semibold mb-4">We're proving there's another way.</p>
+            <p className="text-lg text-white/90">This isn't charity. This is how business should work.</p>
+          </div>
+        </section>
+
+        {/* "Here's How It Works" Table Section */}
+        <section className="py-16 px-4 bg-background">
+          <div className="center-content max-w-6xl">
+            <h2 className="text-4xl font-bold text-center mb-12">Here's How It Works</h2>
 
             <div className="overflow-x-auto">
               <table className="w-full border-collapse bg-white rounded-lg shadow-lg overflow-hidden">
                 <thead>
-                  <tr className="bg-gradient-to-r from-teal-600 to-orange-600 text-white">
-                    <th className="p-4 text-left font-semibold">WHO YOU ARE</th>
-                    <th className="p-4 text-left font-semibold">HOW YOU EARN EQUITY & PROFIT</th>
-                    <th className="p-4 text-left font-semibold">WHY THIS MATTERS</th>
+                  <tr className="bg-slate-900 text-white">
+                    <th className="p-4 text-left font-bold">WHO YOU ARE</th>
+                    <th className="p-4 text-left font-bold">WHAT YOU CONTRIBUTE</th>
+                    <th className="p-4 text-left font-bold">WHAT YOU GET BACK</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b hover:bg-teal-50 transition-colors">
-                    <td className="p-4 font-medium">Investor</td>
-                    <td className="p-4">Invest as little as $100 to help us build.</td>
-                    <td className="p-4 text-muted-foreground">Fund the movement and share in its growth.</td>
+                    <td className="p-4 font-semibold">SHOPPER</td>
+                    <td className="p-4">Your purchases</td>
+                    <td className="p-4">
+                      Wealth redirected to you
+                      <br />
+                      Personal rewards fund
+                    </td>
                   </tr>
                   <tr className="border-b hover:bg-orange-50 transition-colors">
-                    <td className="p-4 font-medium">Community Builder</td>
+                    <td className="p-4 font-semibold">BUILDER/CONTRIBUTOR</td>
+                    <td className="p-4">Your skills + time</td>
                     <td className="p-4">
-                      Contribute your skills: data analysis, marketing, engineering, legal, or social media.
-                    </td>
-                    <td className="p-4 text-muted-foreground">
-                      Your time is valuable. Get profit share for the essential work of building the platform.
-                    </td>
-                  </tr>
-                  <tr className="border-b hover:bg-pink-50 transition-colors">
-                    <td className="p-4 font-medium">Vendor/Brand</td>
-                    <td className="p-4">Sell your verified ethical products on our platform.</td>
-                    <td className="p-4 text-muted-foreground">
-                      Share in the overall success of the market you help create, and benefit from our community-driven initiatives.
+                      Profit share
+                      <br />
+                      Equity in the movement
                     </td>
                   </tr>
-                  <tr className="hover:bg-purple-50 transition-colors">
-                    <td className="p-4 font-medium">Shopper</td>
-                    <td className="p-4">Purchase through our platform.</td>
-                    <td className="p-4 text-muted-foreground">
-                      Every dollar spent is a vote for change, and a percentage of the value is redirected back to you.
+                  <tr className="border-b hover:bg-purple-50 transition-colors">
+                    <td className="p-4 font-semibold">ETHICAL BRAND</td>
+                    <td className="p-4">
+                      Verified products
+                      <br />
+                      Transparency
+                    </td>
+                    <td className="p-4">
+                      Access to conscious market
+                      <br />
+                      Fair partnership
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-pink-50 transition-colors">
+                    <td className="p-4 font-semibold">INVESTOR</td>
+                    <td className="p-4">Capital</td>
+                    <td className="p-4">
+                      Share in success
+                      <br />
+                      Fund the revolution
                     </td>
                   </tr>
                 </tbody>
@@ -278,148 +323,9 @@ export default async function HomePage() {
             </div>
 
             <div className="mt-8 text-center">
-              <Link href="/how-it-works">
-                <Button size="lg" variant="outline">
-                  Learn How It Works
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Revolutionary Features Section */}
-        <section className="py-16 px-4 bg-muted/30">
-          <div className="center-content">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Revolutionary Features</h2>
-              <p className="text-xl text-muted-foreground">
-                Built for a new economy where your values drive real change
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                Not another wealth grab disguised as progress. MOMM is different because we actually redistribute value.
               </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <Card className="hover:shadow-md transition-all duration-200">
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                    <PiggyBank className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-4">Community-Owned Rewards</h3>
-                  <p className="text-muted-foreground">
-                    The MOMM Vault is not cash back. A percentage of the value created by your purchase helps fund the
-                    Vault, which you can use to invest in ethical brands, donate to vetted nonprofits, or build your own
-                    personal safety net. Redistribute power and wealth.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-md transition-all duration-200">
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                    <Zap className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-4">AI-Powered Personal Styling</h3>
-                  <p className="text-muted-foreground">
-                    Beyond ethics. Our AI also matches products to your unique style, body shape, and color season. Shop
-                    your principles and your perfect fit.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-md transition-all duration-200">
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                    <RotateCcw className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-4">The Complete Lifecycle</h3>
-                  <p className="text-muted-foreground">
-                    Buy new, sell used, and recycle—all in one place. With End-of-Life Guidance built-in, you finally
-                    have total control over your product's journey. Zero waste, zero worries.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* Featured Values Section */}
-        <section className="py-16 px-4">
-          <div className="center-content">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Explore by What Matters Most</h2>
-              <p className="text-xl text-muted-foreground">
-                Your values are your guide. Start your search based on the principles you care about.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Link href="/products?values=organic" className="group">
-                <Card className="hover:shadow-md transition-all duration-200 cursor-pointer hover:scale-105">
-                  <CardContent className="p-6 text-center">
-                    <div className="w-12 h-12 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
-                      <Leaf className="h-6 w-6 text-green-600" />
-                    </div>
-                    <h3 className="font-semibold mb-2">Organic & Natural</h3>
-                    <p className="text-sm text-muted-foreground">Pure ingredients, responsibly grown.</p>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Link href="/products?values=fair-labor" className="group">
-                <Card className="hover:shadow-md transition-all duration-200 cursor-pointer hover:scale-105">
-                  <CardContent className="p-6 text-center">
-                    <div className="w-12 h-12 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
-                      <Handshake className="h-6 w-6 text-blue-600" />
-                    </div>
-                    <h3 className="font-semibold mb-2">Fair Labor</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Brands committed to living wages and ethical treatment.
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Link href="/products?values=climate" className="group">
-                <Card className="hover:shadow-md transition-all duration-200 cursor-pointer hover:scale-105">
-                  <CardContent className="p-6 text-center">
-                    <div className="w-12 h-12 mx-auto mb-4 bg-teal-100 rounded-full flex items-center justify-center">
-                      <Globe className="h-6 w-6 text-teal-600" />
-                    </div>
-                    <h3 className="font-semibold mb-2">Climate Conscious</h3>
-                    <p className="text-sm text-muted-foreground">Products that protect and restore our planet.</p>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Link href="/products?values=diverse" className="group">
-                <Card className="hover:shadow-md transition-all duration-200 cursor-pointer hover:scale-105">
-                  <CardContent className="p-6 text-center">
-                    <div className="w-12 h-12 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
-                      <Users className="h-6 w-6 text-purple-600" />
-                    </div>
-                    <h3 className="font-semibold mb-2">Diverse & Inclusive</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Support women-owned, minority-owned, and inclusive brands.
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Link href="/products?values=circular" className="group">
-                <Card className="hover:shadow-md transition-all duration-200 cursor-pointer hover:scale-105">
-                  <CardContent className="p-6 text-center">
-                    <div className="w-12 h-12 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
-                      <Recycle className="h-6 w-6 text-orange-600" />
-                    </div>
-                    <h3 className="font-semibold mb-2">Circular & Low-Waste</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Beautiful products designed to last and leave a smaller footprint.
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Link href="/products?values=healthy" className="group">
-                <Card className="hover:shadow-md transition-all duration-200 cursor-pointer hover:scale-105">
-                  <CardContent className="p-6 text-center">
-                    <div className="w-12 h-12 mx-auto mb-4 bg-pink-100 rounded-full flex items-center justify-center">
-                      <FlaskConical className="h-6 w-6 text-pink-600" />
-                    </div>
-                    <h3 className="font-semibold mb-2">Healthy & Non-Toxic</h3>
-                    <p className="text-sm text-muted-foreground">Clean formulas for your body and home.</p>
-                  </CardContent>
-                </Card>
-              </Link>
             </div>
           </div>
         </section>
@@ -455,26 +361,36 @@ export default async function HomePage() {
         </section>
 
         {/* Final CTA Section */}
-        <section className="py-20 px-4 text-center bg-gradient-to-r from-teal-600 via-orange-600 to-pink-600 text-white">
+        <section className="py-20 px-4 text-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
           <div className="center-content max-w-4xl">
-            <h2 className="text-4xl font-bold mb-6">Ready to Join the Movement?</h2>
-            <p className="text-lg mb-8 text-white/90 leading-relaxed">
-              Every purchase, every contribution, every interaction helps build a more equitable economy. The time for
-              change is now.
+            <h2 className="text-4xl md:text-5xl font-bold mb-8">The Time for Change is Now</h2>
+            <p className="text-xl md:text-2xl mb-6 leading-relaxed">
+              The system isn't broken—it's working exactly as designed. For the few.
+            </p>
+            <p className="text-xl md:text-2xl mb-6 leading-relaxed">
+              We're building something different. Something that works for everyone who creates the value.
+            </p>
+            <p className="text-xl md:text-2xl mb-12 leading-relaxed font-semibold">
+              Join us. Not as customers. As owners.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link href="/products">
-                <Button size="lg" variant="secondary" className="text-lg px-8">
+                <Button size="lg" className="text-lg px-8 bg-teal-600 hover:bg-teal-700">
                   Start Shopping
                 </Button>
               </Link>
-              <Link href="/investors">
+              <Link href="/contributors">
+                <Button size="lg" className="text-lg px-8 bg-orange-600 hover:bg-orange-700">
+                  Join as Builder
+                </Button>
+              </Link>
+              <Link href="/contact">
                 <Button
                   size="lg"
                   variant="outline"
                   className="text-lg px-8 border-white text-white hover:bg-white/10 bg-transparent"
                 >
-                  Invest
+                  Let's Talk
                 </Button>
               </Link>
             </div>
