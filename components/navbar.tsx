@@ -78,9 +78,6 @@ export function Navbar() {
             <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
               About
             </Link>
-            <Link href="/how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">
-              How It Works
-            </Link>
             <Link href="/products" className="text-muted-foreground hover:text-foreground transition-colors">
               Marketplace
             </Link>
