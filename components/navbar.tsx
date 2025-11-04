@@ -81,11 +81,20 @@ export function Navbar() {
             <Link href="/how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">
               How It Works
             </Link>
-            <Link href="/roadmap" className="text-muted-foreground hover:text-foreground transition-colors">
-              Roadmap
+            <Link href="/products" className="text-muted-foreground hover:text-foreground transition-colors">
+              Marketplace
             </Link>
-            <Link href="/journey" className="text-muted-foreground hover:text-foreground transition-colors">
-              Get Started
+            <Link href="/investors" className="text-muted-foreground hover:text-foreground transition-colors">
+              Investors
+            </Link>
+            <Link href="/contributors" className="text-muted-foreground hover:text-foreground transition-colors">
+              Contributors
+            </Link>
+            <Link href="/brands" className="text-muted-foreground hover:text-foreground transition-colors">
+              Brands
+            </Link>
+            <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
+              Contact
             </Link>
           </nav>
         </div>

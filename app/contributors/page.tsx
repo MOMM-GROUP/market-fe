@@ -655,6 +655,19 @@ export default function ContributorsPage() {
               </p>
             </div>
 
+            <div className="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-6">
+              <div className="flex items-start gap-3">
+                <div className="text-2xl">⚠️</div>
+                <div>
+                  <h4 className="font-semibold text-yellow-900 mb-2">Pre-Profitability Disclaimer</h4>
+                  <p className="text-yellow-800">
+                    We're not yet profitable. This model shows how we'll distribute profits once we reach profitability.
+                    Early contributors will be part of conversations around how we implement this system.
+                  </p>
+                </div>
+              </div>
+            </div>
+
             {/* Step 1: Calculate Available Profits */}
             <div className="border-2 border-teal-500 rounded-lg p-6 bg-teal-50">
               <div className="flex items-start gap-4">
