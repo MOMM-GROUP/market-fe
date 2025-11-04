@@ -168,157 +168,173 @@ export default function VendorsPage() {
             <p className="text-xl text-muted-foreground">Comprehensive support for vendor success</p>
           </div>
 
-          {/* Category 1: Verification & Trust Services */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-bold mb-6 text-teal-600">Verification & Trust Services</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="border-2 hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-12 h-12 mb-3 bg-teal-100 rounded-lg flex items-center justify-center">
-                    <Award className="h-6 w-6 text-teal-600" />
-                  </div>
-                  <CardTitle className="text-lg">Automated Certification Verification</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground space-y-2">
-                  <p>• One-click certification submission</p>
-                  <p>• Cryptographic proof generation</p>
-                  <p>• Real-time verification status</p>
-                  <p>• Shareable verification badges</p>
-                </CardContent>
-              </Card>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse bg-background rounded-lg overflow-hidden shadow-sm">
+              <thead>
+                <tr className="bg-muted">
+                  <th className="text-left p-4 font-semibold border-b">Service</th>
+                  <th className="text-left p-4 font-semibold border-b">Category</th>
+                  <th className="text-left p-4 font-semibold border-b">Key Features</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* Verification & Trust Services */}
+                <tr className="border-b hover:bg-muted/50 transition-colors">
+                  <td className="p-4 font-medium">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Award className="h-5 w-5 text-teal-600" />
+                      </div>
+                      <span>Automated Certification Verification</span>
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <Badge className="bg-teal-100 text-teal-700 border-teal-200">Verification & Trust</Badge>
+                  </td>
+                  <td className="p-4 text-sm text-muted-foreground">
+                    One-click submission, cryptographic proof, real-time status, shareable badges
+                  </td>
+                </tr>
 
-              <Card className="border-2 hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-12 h-12 mb-3 bg-teal-100 rounded-lg flex items-center justify-center">
-                    <TrendingUp className="h-6 w-6 text-teal-600" />
-                  </div>
-                  <CardTitle className="text-lg">In-Progress Certification Tracking</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground space-y-2">
-                  <p>• Track certifications you're working toward</p>
-                  <p>• Public progress display</p>
-                  <p>• Community support access</p>
-                  <p>• Achievement celebration</p>
-                </CardContent>
-              </Card>
+                <tr className="border-b hover:bg-muted/50 transition-colors">
+                  <td className="p-4 font-medium">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <TrendingUp className="h-5 w-5 text-teal-600" />
+                      </div>
+                      <span>In-Progress Certification Tracking</span>
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <Badge className="bg-teal-100 text-teal-700 border-teal-200">Verification & Trust</Badge>
+                  </td>
+                  <td className="p-4 text-sm text-muted-foreground">
+                    Track progress, public display, community support, achievement celebration
+                  </td>
+                </tr>
 
-              <Card className="border-2 hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-12 h-12 mb-3 bg-teal-100 rounded-lg flex items-center justify-center">
-                    <Lightbulb className="h-6 w-6 text-teal-600" />
-                  </div>
-                  <CardTitle className="text-lg">Pipeline Improvement Consulting</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground space-y-2">
-                  <p>• Supply chain gap analysis</p>
-                  <p>• Certification roadmap planning</p>
-                  <p>• Expert network connections</p>
-                  <p>• Implementation support</p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
+                <tr className="border-b hover:bg-muted/50 transition-colors">
+                  <td className="p-4 font-medium">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Lightbulb className="h-5 w-5 text-teal-600" />
+                      </div>
+                      <span>Pipeline Improvement Consulting</span>
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <Badge className="bg-teal-100 text-teal-700 border-teal-200">Verification & Trust</Badge>
+                  </td>
+                  <td className="p-4 text-sm text-muted-foreground">
+                    Gap analysis, roadmap planning, expert connections, implementation support
+                  </td>
+                </tr>
 
-          {/* Category 2: Growth & Insights Services */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-bold mb-6 text-orange-600">Growth & Insights Services</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="border-2 hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-12 h-12 mb-3 bg-orange-100 rounded-lg flex items-center justify-center">
-                    <Users className="h-6 w-6 text-orange-600" />
-                  </div>
-                  <CardTitle className="text-lg">Early User Testing</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground space-y-2">
-                  <p>• Direct feedback from engaged consumers</p>
-                  <p>• Pre-launch product validation</p>
-                  <p>• Iterative improvement cycles</p>
-                  <p>• Community-driven development</p>
-                </CardContent>
-              </Card>
+                {/* Growth & Insights Services */}
+                <tr className="border-b hover:bg-muted/50 transition-colors">
+                  <td className="p-4 font-medium">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Users className="h-5 w-5 text-orange-600" />
+                      </div>
+                      <span>Early User Testing</span>
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <Badge className="bg-orange-100 text-orange-700 border-orange-200">Growth & Insights</Badge>
+                  </td>
+                  <td className="p-4 text-sm text-muted-foreground">
+                    Direct feedback, pre-launch validation, iterative cycles, community-driven development
+                  </td>
+                </tr>
 
-              <Card className="border-2 hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-12 h-12 mb-3 bg-orange-100 rounded-lg flex items-center justify-center">
-                    <Star className="h-6 w-6 text-orange-600" />
-                  </div>
-                  <CardTitle className="text-lg">Targeted Influencer Matching</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground space-y-2">
-                  <p>• HEART AI matches influencers to vendors</p>
-                  <p>• Authentic creator partnerships</p>
-                  <p>• Values-based alignment</p>
-                  <p>• Performance tracking</p>
-                </CardContent>
-              </Card>
+                <tr className="border-b hover:bg-muted/50 transition-colors">
+                  <td className="p-4 font-medium">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Star className="h-5 w-5 text-orange-600" />
+                      </div>
+                      <span>Targeted Influencer Matching</span>
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <Badge className="bg-orange-100 text-orange-700 border-orange-200">Growth & Insights</Badge>
+                  </td>
+                  <td className="p-4 text-sm text-muted-foreground">
+                    AI matching, authentic partnerships, values alignment, performance tracking
+                  </td>
+                </tr>
 
-              <Card className="border-2 hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-12 h-12 mb-3 bg-orange-100 rounded-lg flex items-center justify-center">
-                    <BarChart className="h-6 w-6 text-orange-600" />
-                  </div>
-                  <CardTitle className="text-lg">Data & Analytics Dashboard</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground space-y-2">
-                  <p>• Performance tracking</p>
-                  <p>• HEART score insights by segment</p>
-                  <p>• Industry benchmarks (anonymized)</p>
-                  <p>• FREE vendor dashboard included</p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
+                <tr className="border-b hover:bg-muted/50 transition-colors">
+                  <td className="p-4 font-medium">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <BarChart className="h-5 w-5 text-orange-600" />
+                      </div>
+                      <span>Data & Analytics Dashboard</span>
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <Badge className="bg-orange-100 text-orange-700 border-orange-200">Growth & Insights</Badge>
+                  </td>
+                  <td className="p-4 text-sm text-muted-foreground">
+                    Performance tracking, HEART insights, industry benchmarks, FREE vendor dashboard
+                  </td>
+                </tr>
 
-          {/* Category 3: Ecosystem & Connections */}
-          <div>
-            <h3 className="text-2xl font-bold mb-6 text-pink-600">Ecosystem & Connections</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="border-2 hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-12 h-12 mb-3 bg-pink-100 rounded-lg flex items-center justify-center">
-                    <Handshake className="h-6 w-6 text-pink-600" />
-                  </div>
-                  <CardTitle className="text-lg">B2B Partner Network</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground space-y-2">
-                  <p>• Expert service provider network</p>
-                  <p>• Discounted partner services</p>
-                  <p>• Digital marketing support</p>
-                  <p>• Sustainable packaging solutions</p>
-                </CardContent>
-              </Card>
+                {/* Ecosystem & Connections */}
+                <tr className="border-b hover:bg-muted/50 transition-colors">
+                  <td className="p-4 font-medium">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Handshake className="h-5 w-5 text-pink-600" />
+                      </div>
+                      <span>B2B Partner Network</span>
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <Badge className="bg-pink-100 text-pink-700 border-pink-200">Ecosystem & Connections</Badge>
+                  </td>
+                  <td className="p-4 text-sm text-muted-foreground">
+                    Expert providers, discounted services, marketing support, sustainable packaging
+                  </td>
+                </tr>
 
-              <Card className="border-2 hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-12 h-12 mb-3 bg-pink-100 rounded-lg flex items-center justify-center">
-                    <Zap className="h-6 w-6 text-pink-600" />
-                  </div>
-                  <CardTitle className="text-lg">Co-Marketing & Bundling</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground space-y-2">
-                  <p>• Partner with complementary vendors</p>
-                  <p>• Joint marketing campaigns</p>
-                  <p>• Product bundles & giveaways</p>
-                  <p>• Cross-promotion opportunities</p>
-                </CardContent>
-              </Card>
+                <tr className="border-b hover:bg-muted/50 transition-colors">
+                  <td className="p-4 font-medium">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Zap className="h-5 w-5 text-pink-600" />
+                      </div>
+                      <span>Co-Marketing & Bundling</span>
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <Badge className="bg-pink-100 text-pink-700 border-pink-200">Ecosystem & Connections</Badge>
+                  </td>
+                  <td className="p-4 text-sm text-muted-foreground">
+                    Partner vendors, joint campaigns, product bundles, cross-promotion
+                  </td>
+                </tr>
 
-              <Card className="border-2 hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-12 h-12 mb-3 bg-pink-100 rounded-lg flex items-center justify-center">
-                    <DollarSign className="h-6 w-6 text-pink-600" />
-                  </div>
-                  <CardTitle className="text-lg">Investor Access</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground space-y-2">
-                  <p>• Introductions to impact investors</p>
-                  <p>• Sustainability-focused VCs</p>
-                  <p>• Angel networks</p>
-                  <p>• For high-potential vendors</p>
-                </CardContent>
-              </Card>
-            </div>
+                <tr className="hover:bg-muted/50 transition-colors">
+                  <td className="p-4 font-medium">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <DollarSign className="h-5 w-5 text-pink-600" />
+                      </div>
+                      <span>Investor Access</span>
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <Badge className="bg-pink-100 text-pink-700 border-pink-200">Ecosystem & Connections</Badge>
+                  </td>
+                  <td className="p-4 text-sm text-muted-foreground">
+                    Impact investors, sustainability VCs, angel networks (for high-potential vendors)
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
