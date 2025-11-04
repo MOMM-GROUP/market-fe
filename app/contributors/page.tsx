@@ -98,9 +98,9 @@ export default function ContributorsPage() {
       <section id="guilds" className="py-16 px-4 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">The Guild System</h2>
+            <h2 className="text-4xl font-bold mb-4">The System</h2>
             <p className="text-xl text-muted-foreground">
-              Find your place in the MOMM community. Every guild is essential to our success.
+              Find your place in the MOMM community. Every contributor is essential to our success.
             </p>
           </div>
 
@@ -114,7 +114,7 @@ export default function ContributorsPage() {
                       <Code className="h-6 w-6 text-white" />
                     </div>
                     <div>
-                      <CardTitle className="text-2xl">Engineering Guild</CardTitle>
+                      <CardTitle className="text-2xl">Engineering</CardTitle>
                       <p className="text-sm text-muted-foreground">Build the platform</p>
                     </div>
                   </div>
@@ -154,7 +154,7 @@ export default function ContributorsPage() {
                   </ul>
                 </div>
                 <Button className="bg-teal-600 hover:bg-teal-700">
-                  Join Engineering Guild <ArrowRight className="ml-2 h-4 w-4" />
+                  Join Engineering <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </CardContent>
             </Card>
@@ -168,7 +168,7 @@ export default function ContributorsPage() {
                       <Megaphone className="h-6 w-6 text-white" />
                     </div>
                     <div>
-                      <CardTitle className="text-2xl">Marketing Guild</CardTitle>
+                      <CardTitle className="text-2xl">Marketing</CardTitle>
                       <p className="text-sm text-muted-foreground">Spread the word</p>
                     </div>
                   </div>
@@ -406,7 +406,7 @@ export default function ContributorsPage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Earn Points</h3>
                 <p className="text-muted-foreground">
-                  Contributions are converted to equity points based on skill level and impact.
+                  Contributions are converted to points based on skill level and impact.
                 </p>
               </CardContent>
             </Card>
@@ -416,9 +416,9 @@ export default function ContributorsPage() {
                 <div className="w-16 h-16 mx-auto mb-4 bg-pink-100 rounded-full flex items-center justify-center">
                   <DollarSign className="h-8 w-8 text-pink-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Convert to Equity</h3>
+                <h3 className="text-xl font-semibold mb-3">Convert to Profit Share</h3>
                 <p className="text-muted-foreground">
-                  Points convert to actual equity ownership when we formalize the structure.
+                  Points convert to actual profit share when we formalize the structure.
                 </p>
               </CardContent>
             </Card>

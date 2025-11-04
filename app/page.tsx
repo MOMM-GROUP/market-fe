@@ -256,14 +256,14 @@ export default async function HomePage() {
                       Contribute your skills: data analysis, marketing, engineering, legal, or social media.
                     </td>
                     <td className="p-4 text-muted-foreground">
-                      Your time is valuable. Get equity for the essential work of building the platform.
+                      Your time is valuable. Get profit share for the essential work of building the platform.
                     </td>
                   </tr>
                   <tr className="border-b hover:bg-pink-50 transition-colors">
                     <td className="p-4 font-medium">Vendor/Brand</td>
                     <td className="p-4">Sell your verified ethical products on our platform.</td>
                     <td className="p-4 text-muted-foreground">
-                      Share in the overall success of the market you help create.
+                      Share in the overall success of the market you help create, and benefit from our community-driven initiatives.
                     </td>
                   </tr>
                   <tr className="hover:bg-purple-50 transition-colors">
@@ -450,12 +450,6 @@ export default async function HomePage() {
         {/* Certifications Tabs Section */}
         <section className="py-16 px-4 bg-muted/30">
           <div className="center-content">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold mb-4">Our Certifications</h2>
-              <p className="text-xl text-muted-foreground">
-                Trusted by industry leaders and certified by top organizations worldwide
-              </p>
-            </div>
             <CertificationsShowcase />
           </div>
         </section>
