@@ -74,7 +74,20 @@ export function Navbar() {
             </div>
             <span className="font-bold text-xl">MOMM Market</span>
           </Link>
-          <nav className="hidden md:flex items-center space-x-6 text-sm font-medium"></nav>
+          <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+            <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
+              About
+            </Link>
+            <Link href="/how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">
+              How It Works
+            </Link>
+            <Link href="/roadmap" className="text-muted-foreground hover:text-foreground transition-colors">
+              Roadmap
+            </Link>
+            <Link href="/journey" className="text-muted-foreground hover:text-foreground transition-colors">
+              Get Started
+            </Link>
+          </nav>
         </div>
 
         {profile?.role !== "vendor" && (

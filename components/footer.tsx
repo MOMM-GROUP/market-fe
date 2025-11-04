@@ -13,13 +13,47 @@ export function Footer() {
               </div>
               <span className="font-bold text-xl">MOMM Market</span>
             </div>
-            <p className="text-muted-foreground">
-              Your trusted marketplace connecting customers with verified vendors worldwide.
-            </p>
+            <p className="text-muted-foreground">Building a marketplace where values matter and everyone benefits.</p>
           </div>
 
           <div className="space-y-4">
-            <h4 className="font-semibold">Get In Touch</h4>
+            <h4 className="font-semibold">Company</h4>
+            <div className="space-y-2 text-sm">
+              <Link href="/about" className="block text-muted-foreground hover:text-foreground">
+                About Us
+              </Link>
+              <Link href="/how-it-works" className="block text-muted-foreground hover:text-foreground">
+                How It Works
+              </Link>
+              <Link href="/roadmap" className="block text-muted-foreground hover:text-foreground">
+                Roadmap
+              </Link>
+              <Link href="/contact" className="block text-muted-foreground hover:text-foreground">
+                Contact
+              </Link>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="font-semibold">Get Involved</h4>
+            <div className="space-y-2 text-sm">
+              <Link href="/journey" className="block text-muted-foreground hover:text-foreground">
+                Get Started
+              </Link>
+              <Link href="/investors" className="block text-muted-foreground hover:text-foreground">
+                Invest
+              </Link>
+              <Link href="/contributors" className="block text-muted-foreground hover:text-foreground">
+                Contribute
+              </Link>
+              <Link href="/vendor/register" className="block text-muted-foreground hover:text-foreground">
+                Become a Vendor
+              </Link>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="font-semibold">Connect</h4>
             <div className="space-y-2 text-sm">
               <a
                 href="https://discord.gg/PptvudG7jb"
@@ -45,54 +79,6 @@ export function Footer() {
               >
                 Instagram
               </a>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="font-semibold">Quick Links</h4>
-            <div className="space-y-2 text-sm">
-              <a
-                href="https://momm.group/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-muted-foreground hover:text-foreground"
-              >
-                About MOMM
-              </a>
-              <a
-                href="https://wefunder.com/momm"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-muted-foreground hover:text-foreground"
-              >
-                Investment
-              </a>
-              <a
-                href="https://momm.group/contributors"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-muted-foreground hover:text-foreground"
-              >
-                Contribute
-              </a>
-              <Link href="/certifications" className="block text-muted-foreground hover:text-foreground">
-                View Certifications
-              </Link>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="font-semibold">Vendors</h4>
-            <div className="space-y-2 text-sm">
-              <Link href="/vendor/register" className="block text-muted-foreground hover:text-foreground">
-                Become a Vendor
-              </Link>
-              <Link href="/vendor/login" className="block text-muted-foreground hover:text-foreground">
-                Vendor Login
-              </Link>
-              <Link href="/vendor/help" className="block text-muted-foreground hover:text-foreground">
-                Vendor Help
-              </Link>
             </div>
           </div>
         </div>
