@@ -114,9 +114,9 @@ export default async function HomePage() {
               Stop funding the few. Join the Movement.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="/products">
+              <Link href="/early-access">
                 <Button size="lg" className="text-lg px-8 bg-teal-600 hover:bg-teal-700">
-                  Start Shopping
+                  Join Early Access
                 </Button>
               </Link>
               <Link href="/contributors">
@@ -248,91 +248,24 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* "Here's How It Works" Table Section */}
-        <section className="py-16 px-4 bg-slate-50">
-          <div className="center-content max-w-6xl">
-            <h2 className="text-4xl font-bold text-center mb-12">Here's How It Works</h2>
-
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse bg-white rounded-lg shadow-lg overflow-hidden">
-                <thead>
-                  <tr className="bg-slate-900 text-white">
-                    <th className="p-4 text-left font-bold">WHO YOU ARE</th>
-                    <th className="p-4 text-left font-bold">WHAT YOU CONTRIBUTE</th>
-                    <th className="p-4 text-left font-bold">WHAT YOU GET BACK</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b hover:bg-teal-50 transition-colors">
-                    <td className="p-4 font-semibold">SHOPPER</td>
-                    <td className="p-4">Your purchases</td>
-                    <td className="p-4">
-                      Wealth redirected to you
-                      <br />
-                      Personal rewards fund
-                    </td>
-                  </tr>
-                  <tr className="border-b hover:bg-orange-50 transition-colors">
-                    <td className="p-4 font-semibold">BUILDER/CONTRIBUTOR</td>
-                    <td className="p-4">Your skills + time</td>
-                    <td className="p-4">
-                      Profit share
-                      <br />
-                      Equity in the movement
-                    </td>
-                  </tr>
-                  <tr className="border-b hover:bg-pink-50 transition-colors">
-                    <td className="p-4 font-semibold">ETHICAL BRAND</td>
-                    <td className="p-4">
-                      Verified products
-                      <br />
-                      Transparency
-                    </td>
-                    <td className="p-4">
-                      Access to conscious market
-                      <br />
-                      Fair partnership
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-purple-50 transition-colors">
-                    <td className="p-4 font-semibold">INVESTOR</td>
-                    <td className="p-4">Capital</td>
-                    <td className="p-4">
-                      Share in success
-                      <br />
-                      Fund the revolution
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="mt-8 text-center">
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Not another wealth grab disguised as progress. MOMM is different because we actually redistribute value.
-              </p>
-            </div>
-          </div>
-        </section>
-
         {/* Featured Products */}
         <section className="py-16 px-4">
           <div className="center-content">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold mb-4">Editor's Picks: Good for You, Good for the World</h2>
-              <Link href="/products">
-                <Button variant="outline">View All Products</Button>
+              <Link href="/early-access">
+                <Button variant="outline">Join to View Products</Button>
               </Link>
             </div>
             {products && products.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
-                {products.map((product) => (
+                {products.slice(0, 4).map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             ) : (
               <div className="text-center py-12">
-                <p className="text-muted-foreground">No products available at the moment.</p>
+                <p className="text-muted-foreground">Products coming soon. Join our early access waitlist!</p>
               </div>
             )}
           </div>
@@ -359,9 +292,9 @@ export default async function HomePage() {
               Join us. Not as customers. As owners.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="/products">
+              <Link href="/early-access">
                 <Button size="lg" className="text-lg px-8 bg-teal-600 hover:bg-teal-700">
-                  Start Shopping
+                  Join Early Access
                 </Button>
               </Link>
               <Link href="/contributors">
