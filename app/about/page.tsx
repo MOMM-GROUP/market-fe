@@ -231,41 +231,6 @@ export default function AboutPage() {
               </CardContent>
             </Card>
           </div>
-
-          {/* Simplified Timeline */}
-          <div className="max-w-3xl mx-auto">
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">
-                  <CheckCircle className="h-5 w-5" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg">Phase 1: Data sourcing + legal structure</h3>
-                  <p className="text-muted-foreground">Current phase</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">
-                  →
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg">Phase 2: MARKET marketplace MVP</h3>
-                  <p className="text-muted-foreground">Next up</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">
-                  →
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg">Phase 3: Community features + scaling</h3>
-                  <p className="text-muted-foreground">Coming soon</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
