@@ -15,6 +15,8 @@ import {
   PiggyBank,
   Zap,
   RotateCcw,
+  TrendingDown,
+  AlertCircle,
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
@@ -120,22 +122,66 @@ export default async function HomePage() {
     return (
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <section className="py-20 px-4 text-center bg-gradient-to-br from-primary/5 via-background to-secondary/5">
+        <section className="py-20 px-4 text-center bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50">
           <div className="center-content max-w-5xl">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance center-text">
-              Shop Your Values. <span className="text-primary">Redefine the Economy.</span>
+              How We're Rebuilding Commerce
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 text-pretty center-text max-w-3xl mx-auto">
-              The era of the billionaire is over. MOMM is the marketplace built for economic justice, where a
-              significant portion of the value we create goes straight back to the community. Stop funding the few. Join
-              the Movement.
+            <p className="text-xl text-muted-foreground mb-8 text-pretty center-text max-w-3xl mx-auto leading-relaxed">
+              The foundation of our modern society—capitalism—is failing us. MOMM is the answer. We are building a
+              platform that uses the power of commerce to redirect wealth, ensuring that the people who support the
+              community are the ones who benefit from it.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="/how-it-works">
-                <Button size="lg" className="text-lg px-8 bg-primary hover:bg-primary/90">
-                  How It Works
+              <Link href="/products">
+                <Button size="lg" className="text-lg px-8 bg-teal-600 hover:bg-teal-700">
+                  Start Shopping
                 </Button>
               </Link>
+              <Link href="/journey">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="text-lg px-8 border-orange-600 text-orange-600 hover:bg-orange-50 bg-transparent"
+                >
+                  Join the Movement
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* The Problem Section */}
+        <section className="py-16 px-4 bg-background">
+          <div className="center-content max-w-6xl">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="text-center space-y-4">
+                <div className="w-16 h-16 mx-auto bg-red-100 rounded-full flex items-center justify-center">
+                  <TrendingDown className="h-8 w-8 text-red-600" />
+                </div>
+                <h3 className="text-xl font-semibold">Wealth Disparity</h3>
+                <p className="text-muted-foreground">
+                  Worse than ever before, where a handful of billionaires hoard resources while the majority struggle.
+                </p>
+              </div>
+              <div className="text-center space-y-4">
+                <div className="w-16 h-16 mx-auto bg-orange-100 rounded-full flex items-center justify-center">
+                  <Users className="h-8 w-8 text-orange-600" />
+                </div>
+                <h3 className="text-xl font-semibold">People Struggling</h3>
+                <p className="text-muted-foreground">
+                  Millions juggle multiple jobs and fight to get by while wealth concentrates at the top.
+                </p>
+              </div>
+              <div className="text-center space-y-4">
+                <div className="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center">
+                  <AlertCircle className="h-8 w-8 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-semibold">Broken Promises</h3>
+                <p className="text-muted-foreground">
+                  We got tired of waiting for politics or the super-wealthy to do the right thing.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -177,6 +223,66 @@ export default async function HomePage() {
                   is yours.
                 </p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Economic Model Table Section */}
+        <section className="py-16 px-4 bg-gradient-to-br from-teal-50 via-orange-50 to-pink-50">
+          <div className="center-content max-w-6xl">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4">Everyone Gets a Piece of the Pie</h2>
+              <p className="text-xl text-muted-foreground">Four ways to participate in the MOMM economy</p>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse bg-white rounded-lg shadow-lg overflow-hidden">
+                <thead>
+                  <tr className="bg-gradient-to-r from-teal-600 to-orange-600 text-white">
+                    <th className="p-4 text-left font-semibold">WHO YOU ARE</th>
+                    <th className="p-4 text-left font-semibold">HOW YOU EARN EQUITY & PROFIT</th>
+                    <th className="p-4 text-left font-semibold">WHY THIS MATTERS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b hover:bg-teal-50 transition-colors">
+                    <td className="p-4 font-medium">Investor</td>
+                    <td className="p-4">Invest as little as $100 to help us build.</td>
+                    <td className="p-4 text-muted-foreground">Fund the movement and share in its growth.</td>
+                  </tr>
+                  <tr className="border-b hover:bg-orange-50 transition-colors">
+                    <td className="p-4 font-medium">Community Builder</td>
+                    <td className="p-4">
+                      Contribute your skills: data analysis, marketing, engineering, legal, or social media.
+                    </td>
+                    <td className="p-4 text-muted-foreground">
+                      Your time is valuable. Get equity for the essential work of building the platform.
+                    </td>
+                  </tr>
+                  <tr className="border-b hover:bg-pink-50 transition-colors">
+                    <td className="p-4 font-medium">Vendor/Brand</td>
+                    <td className="p-4">Sell your verified ethical products on our platform.</td>
+                    <td className="p-4 text-muted-foreground">
+                      Share in the overall success of the market you help create.
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-purple-50 transition-colors">
+                    <td className="p-4 font-medium">Shopper</td>
+                    <td className="p-4">Purchase through our platform.</td>
+                    <td className="p-4 text-muted-foreground">
+                      Every dollar spent is a vote for change, and a percentage of the value is redirected back to you.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="mt-8 text-center">
+              <Link href="/how-it-works">
+                <Button size="lg" variant="outline">
+                  Learn How It Works
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
@@ -351,6 +457,33 @@ export default async function HomePage() {
               </p>
             </div>
             <CertificationsShowcase />
+          </div>
+        </section>
+
+        {/* Final CTA Section */}
+        <section className="py-20 px-4 text-center bg-gradient-to-r from-teal-600 via-orange-600 to-pink-600 text-white">
+          <div className="center-content max-w-4xl">
+            <h2 className="text-4xl font-bold mb-6">Ready to Join the Movement?</h2>
+            <p className="text-lg mb-8 text-white/90 leading-relaxed">
+              Every purchase, every contribution, every interaction helps build a more equitable economy. The time for
+              change is now.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link href="/products">
+                <Button size="lg" variant="secondary" className="text-lg px-8">
+                  Start Shopping
+                </Button>
+              </Link>
+              <Link href="/investors">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="text-lg px-8 border-white text-white hover:bg-white/10 bg-transparent"
+                >
+                  Invest
+                </Button>
+              </Link>
+            </div>
           </div>
         </section>
       </div>
