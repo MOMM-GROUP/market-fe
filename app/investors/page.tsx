@@ -16,7 +16,7 @@ import Link from "next/link"
 export default function InvestorsPage() {
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
+      {/* Hero Section - KEEPING EXISTING BLUE GRADIENT */}
       <section className="relative py-20 px-4 text-center bg-gradient-to-br from-purple-600 via-blue-600 to-teal-600 text-white">
         <div className="container mx-auto max-w-5xl">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-balance">Invest in the Future of Ethical Commerce</h1>
@@ -73,7 +73,7 @@ export default function InvestorsPage() {
                 <div className="text-5xl font-bold text-pink-600 mb-2">Unique</div>
                 <div className="text-sm font-semibold mb-2">Positioning</div>
                 <p className="text-sm text-muted-foreground">
-                  Only platform combining verification + personalization + equity
+                  Only platform combining verification + marketplace + community ownership in one platform
                 </p>
               </CardContent>
             </Card>
@@ -82,24 +82,21 @@ export default function InvestorsPage() {
               <CardContent className="p-6">
                 <div className="text-5xl font-bold text-purple-600 mb-2">5+</div>
                 <div className="text-sm font-semibold mb-2">Revenue Streams</div>
-                <p className="text-sm text-muted-foreground">
-                  Diversified income from marketplace, API, premium, licensing
-                </p>
+                <p className="text-sm text-muted-foreground">Diversified income from marketplace, data, services</p>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Market Opportunity */}
+      {/* Why Now? */}
       <section className="py-16 px-4 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">Why Now?</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              The market for ethical commerce is massive and underserved. Consumers want to shop ethically but they
-              don't trust the claims. Brands want to reach conscious consumers but they're fragmented. MOMM is the
-              bridge.
+              The market for ethical commerce is massive and underserved. Consumers want to shop ethically but don't
+              trust claims. Vendors want to reach conscious consumers but are fragmented. MOMM is the bridge.
             </p>
           </div>
 
@@ -141,8 +138,8 @@ export default function InvestorsPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Blue ocean opportunity - no competitor offers blockchain verification + AI personalization + community
-                  ownership
+                  Blue ocean opportunity - no competitor offers verification + marketplace + community ownership in one
+                  platform
                 </p>
               </CardContent>
             </Card>
@@ -156,8 +153,7 @@ export default function InvestorsPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Market ready for consolidation NOW - consumer trust at all-time low, demand for transparency at
-                  all-time high
+                  Market ready NOW - consumer trust at all-time low, demand for transparency at all-time high
                 </p>
               </CardContent>
             </Card>
@@ -165,7 +161,7 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      {/* Revenue Model */}
+      {/* How We Make Money */}
       <section className="py-16 px-4 bg-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
@@ -181,7 +177,7 @@ export default function InvestorsPage() {
                 </div>
                 <div className="text-3xl font-bold text-teal-600 mb-2">40%</div>
                 <h3 className="font-semibold mb-2">Marketplace Commission</h3>
-                <p className="text-sm text-muted-foreground">Transaction fees from product sales</p>
+                <p className="text-sm text-muted-foreground">Transaction fees from vendor sales</p>
               </CardContent>
             </Card>
 
@@ -191,8 +187,8 @@ export default function InvestorsPage() {
                   <Zap className="h-8 w-8 text-orange-600" />
                 </div>
                 <div className="text-3xl font-bold text-orange-600 mb-2">25%</div>
-                <h3 className="font-semibold mb-2">B2B API</h3>
-                <p className="text-sm text-muted-foreground">Enterprise access to TRUST protocol for brands</p>
+                <h3 className="font-semibold mb-2">Vendor Services</h3>
+                <p className="text-sm text-muted-foreground">Management dashboard, analytics, verification services</p>
               </CardContent>
             </Card>
 
@@ -202,8 +198,8 @@ export default function InvestorsPage() {
                   <TrendingUp className="h-8 w-8 text-pink-600" />
                 </div>
                 <div className="text-3xl font-bold text-pink-600 mb-2">20%</div>
-                <h3 className="font-semibold mb-2">Premium Features</h3>
-                <p className="text-sm text-muted-foreground">Advanced personalization and analytics for shoppers</p>
+                <h3 className="font-semibold mb-2">B2B API Access</h3>
+                <p className="text-sm text-muted-foreground">Enterprise access to verification data for brands</p>
               </CardContent>
             </Card>
 
@@ -226,15 +222,15 @@ export default function InvestorsPage() {
                   <Users className="h-8 w-8 text-blue-600" />
                 </div>
                 <div className="text-3xl font-bold text-blue-600 mb-2">5%</div>
-                <h3 className="font-semibold mb-2">Community Rewards</h3>
-                <p className="text-sm text-muted-foreground">Optional premium tier of MOMM Vault service</p>
+                <h3 className="font-semibold mb-2">Premium Features</h3>
+                <p className="text-sm text-muted-foreground">Advanced tools for shoppers and vendors</p>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Financial Projections */}
+      {/* Growth Trajectory */}
       <section className="py-16 px-4 bg-gradient-to-br from-teal-50 via-orange-50 to-pink-50">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
@@ -249,27 +245,27 @@ export default function InvestorsPage() {
               <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
                 <div>
                   <div className="text-sm text-muted-foreground mb-2">2025</div>
-                  <div className="text-3xl font-bold text-teal-600">$2M</div>
+                  <div className="text-3xl font-bold text-teal-600">$500K</div>
                   <div className="text-xs text-muted-foreground mt-1">ARR</div>
                 </div>
                 <div>
                   <div className="text-sm text-muted-foreground mb-2">2026</div>
-                  <div className="text-3xl font-bold text-orange-600">$8M</div>
+                  <div className="text-3xl font-bold text-orange-600">$3M</div>
                   <div className="text-xs text-muted-foreground mt-1">ARR</div>
                 </div>
                 <div>
                   <div className="text-sm text-muted-foreground mb-2">2027</div>
-                  <div className="text-3xl font-bold text-pink-600">$25M</div>
+                  <div className="text-3xl font-bold text-pink-600">$10M</div>
                   <div className="text-xs text-muted-foreground mt-1">ARR</div>
                 </div>
                 <div>
                   <div className="text-sm text-muted-foreground mb-2">2028</div>
-                  <div className="text-3xl font-bold text-purple-600">$60M</div>
+                  <div className="text-3xl font-bold text-purple-600">$25M</div>
                   <div className="text-xs text-muted-foreground mt-1">ARR</div>
                 </div>
                 <div>
                   <div className="text-sm text-muted-foreground mb-2">2029</div>
-                  <div className="text-3xl font-bold text-blue-600">$120M</div>
+                  <div className="text-3xl font-bold text-blue-600">$60M</div>
                   <div className="text-xs text-muted-foreground mt-1">ARR</div>
                 </div>
               </div>
@@ -278,13 +274,13 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      {/* Team & Advisors */}
+      {/* Led by Experts */}
       <section className="py-16 px-4 bg-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">Led by Experts</h2>
             <p className="text-xl text-muted-foreground">
-              Building with a core team of Web3, sustainability, and commerce experts
+              Building with a core team of commerce, data, and community experts
             </p>
           </div>
 
@@ -292,16 +288,15 @@ export default function InvestorsPage() {
             <CardContent className="p-8 text-center">
               <Users className="h-16 w-16 mx-auto mb-4 text-primary" />
               <p className="text-lg text-muted-foreground">
-                Our founding team brings decades of combined experience in blockchain technology, ethical commerce,
-                marketplace platforms, and AI/ML systems. We're backed by advisors from leading sustainability
-                organizations and Web3 projects.
+                Our founding team brings experience in marketplace platforms, data engineering, ethical commerce, and
+                community building. We're backed by advisors from leading sustainability organizations.
               </p>
             </CardContent>
           </Card>
         </div>
       </section>
 
-      {/* Investment Terms */}
+      {/* Investment Opportunity */}
       <section id="terms" className="py-16 px-4 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
@@ -353,7 +348,7 @@ export default function InvestorsPage() {
                 </div>
                 <div>
                   <div className="flex justify-between mb-2">
-                    <span className="text-sm">Brand Partnerships</span>
+                    <span className="text-sm">Vendor Partnerships</span>
                     <span className="text-sm font-semibold">25%</span>
                   </div>
                   <div className="w-full bg-muted rounded-full h-2">
@@ -372,10 +367,10 @@ export default function InvestorsPage() {
                 <div>
                   <div className="flex justify-between mb-2">
                     <span className="text-sm">Legal & Compliance</span>
-                    <span className="text-sm font-semibold">10%</span>
+                    <span className="text-sm font-semibold">5%</span>
                   </div>
                   <div className="w-full bg-muted rounded-full h-2">
-                    <div className="bg-purple-600 h-2 rounded-full" style={{ width: "10%" }} />
+                    <div className="bg-purple-600 h-2 rounded-full" style={{ width: "5%" }} />
                   </div>
                 </div>
               </CardContent>
@@ -396,17 +391,18 @@ export default function InvestorsPage() {
         </div>
       </section>
 
+      {/* Profit Sharing Model */}
       <section className="py-16 px-4 bg-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">Profit Sharing Model</h2>
             <p className="text-xl text-muted-foreground">
-              Once MOMM reaches profitability, investors share in the success
+              Once MOMM reaches profitability (estimated 2026-2027), investors share in the success
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto space-y-8">
-            {/* Timeline */}
+            {/* Return Path Timeline */}
             <Card className="border-2 border-teal-500">
               <CardHeader className="bg-teal-50">
                 <CardTitle>Return Path</CardTitle>
@@ -423,16 +419,15 @@ export default function InvestorsPage() {
                     <div className="w-24 flex-shrink-0 font-semibold text-orange-600">Year 2+:</div>
                     <div>
                       <p className="text-muted-foreground">
-                        Annual profit distribution (5% of profits allocated to investors)
+                        Annual profit distribution (5% of profits) + Equity appreciation from future rounds
                       </p>
-                      <p className="text-muted-foreground">+ Equity appreciation from future rounds</p>
                     </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Conservative Estimates */}
+            {/* Conservative Warning */}
             <div className="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-6">
               <div className="flex items-start gap-3">
                 <div className="text-2xl">⚠️</div>
@@ -451,6 +446,7 @@ export default function InvestorsPage() {
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-center">Example Return Scenarios</h3>
 
+              {/* Scenario 1 */}
               <Card className="border-2 border-teal-200">
                 <CardHeader className="bg-teal-50">
                   <CardTitle className="text-lg">Scenario 1: Early Profitability (Year 2)</CardTitle>
@@ -472,12 +468,13 @@ export default function InvestorsPage() {
                     <div className="bg-teal-50 p-4 rounded-lg mt-4">
                       <p className="text-sm font-semibold text-teal-900 mb-2">Your $1,000 Investment:</p>
                       <p className="text-sm text-teal-700">≈ $60/year dividend</p>
-                      <p className="text-xs text-teal-600 mt-2">+ Equity value appreciation as company grows</p>
+                      <p className="text-xs text-teal-600 mt-2">+ Equity value appreciation</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
+              {/* Scenario 2 */}
               <Card className="border-2 border-orange-200">
                 <CardHeader className="bg-orange-50">
                   <CardTitle className="text-lg">Scenario 2: Scaled Growth (Year 5)</CardTitle>
@@ -499,16 +496,14 @@ export default function InvestorsPage() {
                     <div className="bg-orange-50 p-4 rounded-lg mt-4">
                       <p className="text-sm font-semibold text-orange-900 mb-2">Your $1,000 Investment:</p>
                       <p className="text-sm text-orange-700">≈ $375/year dividend</p>
-                      <p className="text-xs text-orange-600 mt-2">
-                        + Company value appreciation (potential 10x+ from initial valuation)
-                      </p>
+                      <p className="text-xs text-orange-600 mt-2">+ Company value appreciation (potential 10x+)</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
             </div>
 
-            {/* Why This Works */}
+            {/* Why We're Conservative */}
             <Card className="bg-gradient-to-r from-teal-50 via-orange-50 to-pink-50 border-2">
               <CardContent className="p-6">
                 <h4 className="font-semibold text-lg mb-4">Why We're Conservative</h4>
@@ -526,8 +521,7 @@ export default function InvestorsPage() {
                     viability.
                   </p>
                   <p>
-                    ✓ <strong>Community-First:</strong> Unlike traditional startups that only reward founders and VCs,
-                    we share success with everyone who helped build it.
+                    ✓ <strong>Community-First:</strong> Share success with everyone who built it.
                   </p>
                 </div>
               </CardContent>
@@ -545,7 +539,7 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      {/* Risks & Advantages */}
+      {/* Risk Transparency */}
       <section className="py-16 px-4 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
@@ -568,59 +562,13 @@ export default function InvestorsPage() {
                   <div>
                     <h4 className="font-semibold mb-2 text-red-600">Risk</h4>
                     <p className="text-sm text-muted-foreground">
-                      Building a complex multi-layer system is technically challenging
+                      Building a complex marketplace with verification is technically challenging
                     </p>
                   </div>
                   <div>
                     <h4 className="font-semibold mb-2 text-green-600">Mitigation</h4>
                     <p className="text-sm text-muted-foreground">
-                      Phased rollout, experienced Web3 team, open source community support
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <AlertTriangle className="h-5 w-5 text-orange-600" />
-                  Regulatory Uncertainty
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-semibold mb-2 text-red-600">Risk</h4>
-                    <p className="text-sm text-muted-foreground">Crypto/blockchain regulations are still evolving</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2 text-green-600">Mitigation</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Legal advisors embedded from day 1, jurisdiction-flexible architecture
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <AlertTriangle className="h-5 w-5 text-orange-600" />
-                  Data Dependency
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-semibold mb-2 text-red-600">Risk</h4>
-                    <p className="text-sm text-muted-foreground">Certification data quality is critical to success</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2 text-green-600">Mitigation</h4>
-                    <p className="text-sm text-muted-foreground">
-                      TRUST protocol verification, automated scraping with manual review
+                      Phased rollout, experienced team, community support, proven tech stack
                     </p>
                   </div>
                 </div>
@@ -643,7 +591,55 @@ export default function InvestorsPage() {
                   <div>
                     <h4 className="font-semibold mb-2 text-green-600">Mitigation</h4>
                     <p className="text-sm text-muted-foreground">
-                      Community-owned model is unique, first-mover advantage in verification
+                      Community-owned model is unique, verification advantage, vendor dashboard differentiator
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <AlertTriangle className="h-5 w-5 text-orange-600" />
+                  Data Dependency
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="font-semibold mb-2 text-red-600">Risk</h4>
+                    <p className="text-sm text-muted-foreground">Certification data quality is critical to success</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-2 text-green-600">Mitigation</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Verification process, automated + manual review, vendor self-reporting with badges
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <AlertTriangle className="h-5 w-5 text-orange-600" />
+                  Adoption Risk
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="font-semibold mb-2 text-red-600">Risk</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Getting vendors and shoppers to adopt simultaneously
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-2 text-green-600">Mitigation</h4>
+                    <p className="text-sm text-muted-foreground">
+                      2,847 products already indexed, free vendor tools, low-cost entry, community-first approach
                     </p>
                   </div>
                 </div>
@@ -653,12 +649,12 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-20 px-4 text-center bg-gradient-to-r from-purple-600 via-blue-600 to-teal-600 text-white">
+      {/* Final CTA - KEEPING EXISTING BLUE GRADIENT */}
+      <section className="py-20 px-4 text-center bg-gradient-to-br from-purple-600 via-blue-600 to-teal-600 text-white">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-4xl font-bold mb-6">Ready to join the movement?</h2>
           <p className="text-lg mb-8 text-white/90 leading-relaxed">
-            Invest in a platform that's building a more equitable economy for everyone
+            Invest in a platform that's building economic justice through commerce
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" variant="secondary">
@@ -672,7 +668,7 @@ export default function InvestorsPage() {
               variant="outline"
               className="border-white text-white hover:bg-white/10 bg-transparent"
             >
-              <a href="mailto:invest@momm.com">
+              <a href="mailto:team@momm.group">
                 Schedule Call <Calendar className="ml-2 h-4 w-4" />
               </a>
             </Button>
