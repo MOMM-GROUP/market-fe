@@ -110,12 +110,6 @@ export default async function HomePage() {
         <section className="py-32 px-4 text-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
           <div className="center-content max-w-5xl">
             <h1 className="text-5xl md:text-7xl font-bold mb-8 text-balance">The Era of the Billionaire is Over</h1>
-            <p className="text-xl md:text-2xl mb-4 leading-relaxed max-w-3xl mx-auto">
-              MOMM is the marketplace built for economic justice.
-            </p>
-            <p className="text-xl md:text-2xl mb-4 leading-relaxed max-w-3xl mx-auto">
-              A significant portion of the value we create goes straight back to the community.
-            </p>
             <p className="text-xl md:text-2xl mb-12 leading-relaxed max-w-3xl mx-auto font-semibold">
               Stop funding the few. Join the Movement.
             </p>
