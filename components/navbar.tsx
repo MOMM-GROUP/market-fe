@@ -90,8 +90,8 @@ export function Navbar() {
             <Link href="/contributors" className="text-muted-foreground hover:text-foreground transition-colors">
               Contributors
             </Link>
-            <Link href="/brands" className="text-muted-foreground hover:text-foreground transition-colors">
-              Brands
+            <Link href="/vendors" className="text-muted-foreground hover:text-foreground transition-colors">
+              Vendors
             </Link>
             <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
               Contact

@@ -149,7 +149,7 @@ export default function ContributorsPage() {
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
-                      <span>Advise on PBC structure</span>
+                      <span>Advise on becoming a PBC</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />

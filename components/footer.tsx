@@ -43,8 +43,8 @@ export function Footer() {
               <Link href="/contributors" className="block text-gray-400 hover:text-white transition-colors">
                 Contribute
               </Link>
-              <Link href="/brands" className="block text-gray-400 hover:text-white transition-colors">
-                Brand Partnerships
+              <Link href="/vendors" className="block text-gray-400 hover:text-white transition-colors">
+                Sell With Us
               </Link>
             </div>
           </div>
