@@ -647,9 +647,9 @@ export default function ContributorsPage() {
           {/* Heading */}
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center space-y-3">
-              <h3 className="text-3xl font-bold">Impact-Based Profit Sharing</h3>
+              <h3 className="text-3xl font-bold">Impact-Based Revenue Sharing</h3>
               <p className="text-lg text-gray-600">
-                35% of profits distributed to contributors based on what you created, not how many hours you worked.
+                A portion of quarterly profits distributed based on what you built, not how many hours you logged.
               </p>
             </div>
 
@@ -669,190 +669,207 @@ export default function ContributorsPage() {
               </div>
             </div>
 
-            {/* Step 1: Calculate Available Profits */}
-            <div className="border-2 border-teal-500 rounded-lg p-6 bg-teal-50">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-teal-500 text-white flex items-center justify-center font-bold">
-                  1
+            <div className="text-center mb-12">
+              <h4 className="text-2xl font-bold mb-8">How Your Share Grows Over Time</h4>
+              <div className="grid grid-cols-4 gap-4 relative">
+                {/* Connecting line */}
+                <div className="absolute top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-teal-500 via-orange-500 via-pink-500 to-purple-500 z-0" />
+
+                {/* Step 1 */}
+                <div className="relative z-10">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-teal-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                    1
+                  </div>
+                  <h5 className="font-semibold mb-2 text-teal-900">Calculate Pool</h5>
+                  <p className="text-sm text-gray-600">Quarterly profit share</p>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-lg mb-2">Calculate Profit Pool</h4>
+
+                {/* Step 2 */}
+                <div className="relative z-10">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                    2
+                  </div>
+                  <h5 className="font-semibold mb-2 text-orange-900">Measure Impact</h5>
+                  <p className="text-sm text-gray-600">Shipped features not hours</p>
+                </div>
+
+                {/* Step 3 */}
+                <div className="relative z-10">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                    3
+                  </div>
+                  <h5 className="font-semibold mb-2 text-pink-900">Distribute by Weight</h5>
+                  <p className="text-sm text-gray-600">Impact determines your share</p>
+                </div>
+
+                {/* Step 4 */}
+                <div className="relative z-10">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                    ∞
+                  </div>
+                  <h5 className="font-semibold mb-2 text-purple-900">Forever Yours</h5>
+                  <p className="text-sm text-gray-600">Points never expire</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* LEFT COLUMN - How It Works */}
+              <div className="space-y-6">
+                <h4 className="text-2xl font-bold mb-6">How It Works</h4>
+
+                <div className="border-2 border-gray-200 rounded-lg p-6 bg-white">
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="w-8 h-8 rounded-full bg-teal-500 text-white flex items-center justify-center font-bold flex-shrink-0">
+                      1
+                    </div>
+                    <h5 className="font-semibold text-lg">Calculate Profit Pool</h5>
+                  </div>
+                  <p className="text-gray-700">
+                    At the end of each quarter, we set aside a portion of profits for contributors. This becomes the
+                    pool we distribute based on impact.
+                  </p>
+                </div>
+
+                <div className="border-2 border-gray-200 rounded-lg p-6 bg-white">
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="w-8 h-8 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold flex-shrink-0">
+                      2
+                    </div>
+                    <h5 className="font-semibold text-lg">Measure Impact (Not Hours)</h5>
+                  </div>
+                  <p className="text-gray-700 mb-3">We assess what was actually shipped and accomplished:</p>
+                  <ul className="space-y-2 text-sm text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-orange-600 flex-shrink-0 mt-0.5" />
+                      <span>Features that launched</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-orange-600 flex-shrink-0 mt-0.5" />
+                      <span>Infrastructure improvements</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-orange-600 flex-shrink-0 mt-0.5" />
+                      <span>Documentation and tools created</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-orange-600 flex-shrink-0 mt-0.5" />
+                      <span>Problems solved</span>
+                    </li>
+                  </ul>
+                  <p className="text-gray-700 mt-3">
+                    Your impact is measured by what you delivered, not how long it took.
+                  </p>
+                </div>
+
+                <div className="border-2 border-gray-200 rounded-lg p-6 bg-white">
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="w-8 h-8 rounded-full bg-pink-500 text-white flex items-center justify-center font-bold flex-shrink-0">
+                      3
+                    </div>
+                    <h5 className="font-semibold text-lg">Distribute Based on Impact Weight</h5>
+                  </div>
+                  <p className="text-gray-700 mb-2">
+                    Contributors receive points proportional to their impact. Larger impact = more points = larger share
+                    of profit pool.
+                  </p>
+                  <p className="text-gray-700 font-semibold">Points earned are permanent. They're yours forever.</p>
+                </div>
+
+                <div className="border-2 border-gray-200 rounded-lg p-6 bg-white">
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold flex-shrink-0">
+                      4
+                    </div>
+                    <h5 className="font-semibold text-lg">Your Share Is Calculated</h5>
+                  </div>
+                  <p className="text-gray-700 mb-2">Your payout each quarter is determined by:</p>
+                  <p className="text-center font-mono text-lg font-semibold text-purple-900 my-3">
+                    Your points ÷ Total points in circulation
+                  </p>
+                  <p className="text-gray-700">
+                    Work on multiple features? Your points add up across all contributions.
+                  </p>
+                </div>
+              </div>
+
+              {/* RIGHT COLUMN - Key Principles */}
+              <div className="space-y-6">
+                <h4 className="text-2xl font-bold mb-6">Key Principles</h4>
+
+                <div className="border-2 border-gray-200 rounded-lg p-6 bg-white">
+                  <h5 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                    <span className="text-2xl">♾️</span> Your Points Never Expire
+                  </h5>
+                  <p className="text-gray-700">
+                    Once you earn a point, it's yours forever. You'll always have a stake in the success you helped
+                    create.
+                  </p>
+                </div>
+
+                <div className="border-2 border-gray-200 rounded-lg p-6 bg-white">
+                  <h5 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                    <span className="text-2xl">📈</span> Your Share Evolves
+                  </h5>
+                  <p className="text-gray-700 mb-3">Each quarter, new points are issued to active contributors.</p>
+                  <ul className="space-y-2 text-sm text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span>Stay active → earn new points → grow your share</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" />
+                      <span>Go inactive → keep your points → share dilutes as new contributors earn their points</span>
+                    </li>
+                  </ul>
+                  <p className="text-gray-700 mt-3">
+                    Your points are permanent, but your percentage changes based on the total point pool.
+                  </p>
+                </div>
+
+                <div className="border-2 border-gray-200 rounded-lg p-6 bg-white">
+                  <h5 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                    <span className="text-2xl">🎯</span> Role-Based Minimums
+                  </h5>
                   <p className="text-gray-700 mb-3">
-                    At the end of each quarter, we calculate total profits after operational costs.
+                    Critical roles that enable everything else receive guaranteed minimum shares regardless of quarterly
+                    variance:
                   </p>
-                  <div className="bg-white p-3 rounded border border-teal-200">
-                    <p className="text-sm">
-                      <strong>Example:</strong> $100,000 in profits
-                    </p>
-                    <p className="text-sm text-teal-600 font-semibold mt-1">→ 35% to contributors = $35,000</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Step 2: Identify Impact */}
-            <div className="border-2 border-orange-500 rounded-lg p-6 bg-orange-50">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold">
-                  2
-                </div>
-                <div>
-                  <h4 className="font-semibold text-lg mb-2">Measure Impact (Not Hours)</h4>
-                  <p className="text-gray-700 mb-3">
-                    We assess what was actually accomplished. What features shipped? What milestones hit? What metrics
-                    improved?
+                  <ul className="space-y-2 text-sm text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                      <span>DevOps & Infrastructure</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                      <span>Operations & Legal</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                      <span>Community Management</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                      <span>Strategy & Planning</span>
+                    </li>
+                  </ul>
+                  <p className="text-gray-700 mt-3 text-sm">
+                    These roles keep the platform running and the community thriving.
                   </p>
-                  <div className="bg-white p-3 rounded border border-orange-200 space-y-2">
-                    <p className="text-sm">
-                      ✓ <strong>Direct:</strong> "Shipped new marketplace search algorithm"
-                    </p>
-                    <p className="text-sm">
-                      ✓ <strong>Enabling:</strong> "Built infrastructure that unblocked 3 teams"
-                    </p>
-                    <p className="text-sm">
-                      ✓ <strong>Compound:</strong> "Created documentation that saved 100+ hours"
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Step 3: Allocate Based on Impact */}
-            <div className="border-2 border-pink-500 rounded-lg p-6 bg-pink-50">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-pink-500 text-white flex items-center justify-center font-bold">
-                  3
-                </div>
-                <div>
-                  <h4 className="font-semibold text-lg mb-2">Distribute Based on Impact Weight</h4>
-                  <p className="text-gray-700 mb-3">Larger impact = larger share of the profit pool. Simple as that.</p>
-                  <div className="bg-white p-4 rounded border border-pink-200 space-y-3">
-                    <div className="flex justify-between items-center pb-2 border-b">
-                      <span className="text-sm">Feature A (60% of total impact)</span>
-                      <span className="font-bold text-pink-600">$21,000</span>
-                    </div>
-                    <div className="flex justify-between items-center pb-2 border-b">
-                      <span className="text-sm">Feature B (25% of total impact)</span>
-                      <span className="font-bold text-pink-600">$8,750</span>
-                    </div>
-                    <div className="flex justify-between items-center pb-2 border-b">
-                      <span className="text-sm">Operations & Infrastructure (15% of total impact)</span>
-                      <span className="font-bold text-pink-600">$5,250</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Step 4: Split Among Contributors */}
-            <div className="border-2 border-purple-500 rounded-lg p-6 bg-purple-50">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold">
-                  4
-                </div>
-                <div>
-                  <h4 className="font-semibold text-lg mb-2">Team Gets Their Share</h4>
-                  <p className="text-gray-700 mb-3">
-                    Each feature/work area is split among the people who contributed. Your role on the team determines
-                    your share.
-                  </p>
-                  <div className="bg-white p-4 rounded border border-purple-200 space-y-2">
-                    <p className="text-sm">
-                      <strong>Example - Feature A ($21,000):</strong>
-                    </p>
-                    <div className="ml-4 space-y-1">
-                      <div className="flex justify-between text-sm">
-                        <span>Lead Engineer</span>
-                        <span className="font-bold">$10,500 (50%)</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span>Support Engineer</span>
-                        <span className="font-bold">$6,300 (30%)</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span>Designer</span>
-                        <span className="font-bold">$4,200 (20%)</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Role Minimums */}
-            <div className="border-2 border-green-500 rounded-lg p-6 bg-green-50">
-              <h4 className="font-semibold text-lg mb-4 flex items-center gap-2">
-                <span className="text-green-600">✓</span> Role Minimums (We Always Pay These)
-              </h4>
-              <p className="text-gray-700 mb-4">
-                Some roles enable everything else. So we guarantee minimums regardless of quarterly impact:
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-white p-4 rounded border border-green-200">
-                  <p className="text-sm font-semibold text-green-900 mb-1">Community Managers</p>
-                  <p className="text-sm text-gray-600">Minimum 2% of profit pool every quarter</p>
-                  <p className="text-xs text-green-600 mt-2">Ensures community always has dedicated support</p>
-                </div>
-                <div className="bg-white p-4 rounded border border-green-200">
-                  <p className="text-sm font-semibold text-green-900 mb-1">Operations & Legal</p>
-                  <p className="text-sm text-gray-600">Minimum 1.5% of profit pool every quarter</p>
-                  <p className="text-xs text-green-600 mt-2">Keeps the ship running</p>
-                </div>
-                <div className="bg-white p-4 rounded border border-green-200">
-                  <p className="text-sm font-semibold text-green-900 mb-1">DevOps & Infrastructure</p>
-                  <p className="text-sm text-gray-600">Minimum 2% of profit pool every quarter</p>
-                  <p className="text-xs text-green-600 mt-2">Platform reliability never takes a back seat</p>
-                </div>
-                <div className="bg-white p-4 rounded border border-green-200">
-                  <p className="text-sm font-semibold text-green-900 mb-1">Strategy & Planning</p>
-                  <p className="text-sm text-gray-600">Minimum 1.5% of profit pool every quarter</p>
-                  <p className="text-xs text-green-600 mt-2">Vision and direction matter</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-r from-teal-100 via-pink-100 to-orange-100 rounded-lg p-6">
-              <h4 className="font-semibold text-lg mb-4">Real Contributor Scenarios</h4>
-              <div className="space-y-4">
-                <div className="bg-white p-4 rounded-lg border-2 border-teal-200">
-                  <p className="font-semibold text-teal-900 mb-2">Scenario 1: Early Contributor</p>
-                  <p className="text-sm text-gray-700 mb-2">
-                    You join at launch, contribute $50K of value over 12 months
-                  </p>
-                  <div className="bg-teal-50 p-3 rounded">
-                    <p className="text-sm">
-                      <strong>At profitability (Year 2):</strong> $84,000 profit pool total
-                    </p>
-                    <p className="text-sm text-teal-600 font-semibold">
-                      Your share if you were 20% of impact: $16,800/year
-                    </p>
-                  </div>
                 </div>
 
-                <div className="bg-white p-4 rounded-lg border-2 border-orange-200">
-                  <p className="font-semibold text-orange-900 mb-2">Scenario 2: Year 2 Contributor</p>
-                  <p className="text-sm text-gray-700 mb-2">You join Year 2, contribute $30K value over year</p>
-                  <div className="bg-orange-50 p-3 rounded">
-                    <p className="text-sm">
-                      <strong>At Year 3 profitability:</strong> $150,000 profit pool (more revenue)
-                    </p>
-                    <p className="text-sm text-orange-600 font-semibold">
-                      Your share if you were 10% of impact: $15,000/year
-                    </p>
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 rounded-lg border-2 border-pink-200">
-                  <p className="font-semibold text-pink-900 mb-2">Key Promise: Your Points Are Yours Forever</p>
-                  <p className="text-sm text-gray-700">
-                    Even if you leave, you keep earning your % share. Example: Founder who contributed early gets 5%
-                    forever.
+                <div className="border-2 border-gray-200 rounded-lg p-6 bg-white">
+                  <h5 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                    <span className="text-2xl">🔍</span> Transparent & Auditable
+                  </h5>
+                  <p className="text-gray-700">
+                    All point allocations and profit distributions are visible to the community. The system is open and
+                    governed collectively.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Why This Works */}
             <div className="bg-gradient-to-r from-teal-100 via-pink-100 to-orange-100 rounded-lg p-6">
               <h4 className="font-semibold text-lg mb-4">Why This Model Works</h4>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
@@ -867,18 +884,20 @@ export default function ContributorsPage() {
                   </p>
                 </div>
                 <div>
-                  <p className="font-semibold text-orange-900 mb-2">🔒 Sustainable</p>
-                  <p className="text-gray-700">Tied to actual profits means we only pay what we can truly afford.</p>
+                  <p className="font-semibold text-orange-900 mb-2">💰 Sustainable</p>
+                  <p className="text-gray-700">Tied to actual profits. We only pay what we can afford.</p>
                 </div>
               </div>
             </div>
 
-            {/* The Promise */}
             <div className="border-4 border-teal-500 rounded-lg p-6 bg-teal-50">
               <p className="text-lg font-bold text-teal-900 mb-3">💎 Our Promise</p>
-              <p className="text-gray-700">
-                You're not trading your time for a salary. You're building something, and when it succeeds, you share in
-                that success. The bigger the impact you create, the more you earn. No limits. No caps.
+              <p className="text-gray-700 mb-3">
+                You're not trading time for salary. You're building something. When it succeeds, you share in that
+                success proportionally to the impact you created.
+              </p>
+              <p className="text-gray-700 font-semibold">
+                The bigger the impact you create, the more you earn. No limits. No caps.
               </p>
             </div>
           </div>
