@@ -374,7 +374,7 @@ export default function InvestorsPage() {
               className="bg-gradient-to-r from-teal-600 to-orange-600 hover:from-teal-700 hover:to-orange-700"
             >
               <a href="https://wefunder.com/momm" target="_blank" rel="noopener noreferrer">
-                Invest on Wefunder <ExternalLink className="ml-2 h-4 w-4" />
+                Invest Now <ExternalLink className="ml-2 h-4 w-4" />
               </a>
             </Button>
           </div>
@@ -430,67 +430,6 @@ export default function InvestorsPage() {
                   </p>
                 </div>
               </div>
-            </div>
-
-            {/* Return Scenarios */}
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-center">Example Return Scenarios</h3>
-
-              {/* Scenario 1 */}
-              <Card className="border-2 border-teal-200">
-                <CardHeader className="bg-teal-50">
-                  <CardTitle className="text-lg">Scenario 1: Early Profitability (Year 2)</CardTitle>
-                </CardHeader>
-                <CardContent className="p-6">
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center pb-2 border-b">
-                      <span className="text-sm text-muted-foreground">Revenue</span>
-                      <span className="font-semibold">$2M ARR</span>
-                    </div>
-                    <div className="flex justify-between items-center pb-2 border-b">
-                      <span className="text-sm text-muted-foreground">Net Margin</span>
-                      <span className="font-semibold">12% ($240K profit)</span>
-                    </div>
-                    <div className="flex justify-between items-center pb-2 border-b">
-                      <span className="text-sm text-muted-foreground">Investor Pool (5%)</span>
-                      <span className="font-semibold">$12,000</span>
-                    </div>
-                    <div className="bg-teal-50 p-4 rounded-lg mt-4">
-                      <p className="text-sm font-semibold text-teal-900 mb-2">Your $1,000 Investment:</p>
-                      <p className="text-sm text-teal-700">≈ $60/year dividend</p>
-                      <p className="text-xs text-teal-600 mt-2">+ Equity value appreciation</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Scenario 2 */}
-              <Card className="border-2 border-orange-200">
-                <CardHeader className="bg-orange-50">
-                  <CardTitle className="text-lg">Scenario 2: Scaled Growth (Year 5)</CardTitle>
-                </CardHeader>
-                <CardContent className="p-6">
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center pb-2 border-b">
-                      <span className="text-sm text-muted-foreground">Revenue</span>
-                      <span className="font-semibold">$10M ARR</span>
-                    </div>
-                    <div className="flex justify-between items-center pb-2 border-b">
-                      <span className="text-sm text-muted-foreground">Net Margin</span>
-                      <span className="font-semibold">15% ($1.5M profit)</span>
-                    </div>
-                    <div className="flex justify-between items-center pb-2 border-b">
-                      <span className="text-sm text-muted-foreground">Investor Pool (5%)</span>
-                      <span className="font-semibold">$75,000</span>
-                    </div>
-                    <div className="bg-orange-50 p-4 rounded-lg mt-4">
-                      <p className="text-sm font-semibold text-orange-900 mb-2">Your $1,000 Investment:</p>
-                      <p className="text-sm text-orange-700">≈ $375/year dividend</p>
-                      <p className="text-xs text-orange-600 mt-2">+ Company value appreciation (potential 10x+)</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
 
             {/* Why We're Conservative */}
