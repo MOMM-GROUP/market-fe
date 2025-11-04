@@ -26,11 +26,13 @@ export default function ContributorsPage() {
       {/* Hero Section */}
       <section className="relative py-20 px-4 text-center bg-gradient-to-br from-teal-600 via-orange-600 to-pink-600 text-white">
         <div className="container mx-auto max-w-5xl">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-balance">
-            Stop Building for Billionaires. Build With Us Instead.
-          </h1>
+          <div className="w-16 h-16 mx-auto mb-6 bg-white/20 rounded-full flex items-center justify-center">
+            <Heart className="h-8 w-8 text-white" />
+          </div>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-balance">Thank You to Our Early Builders</h1>
           <p className="text-xl md:text-2xl leading-relaxed text-white/95 mb-4 max-w-4xl mx-auto">
-            We're looking for people who are done building features to make CEOs rich.
+            We're incredibly grateful for the brilliant minds helping us build this. You're not just building features -
+            you're building proof that there's a better way.
           </p>
           <p className="text-xl md:text-2xl leading-relaxed text-white/95 mb-8 max-w-4xl mx-auto font-semibold">
             Join us. Your work directly profits you. Your impact compounds. Your voice matters.
@@ -1002,20 +1004,6 @@ export default function ContributorsPage() {
               </a>
             </p>
           </div>
-        </div>
-      </section>
-
-      <section className="py-16 px-4 bg-gradient-to-r from-teal-600 via-pink-600 to-orange-600 text-white">
-        <div className="container mx-auto max-w-4xl text-center">
-          <div className="w-16 h-16 mx-auto mb-6 bg-white/20 rounded-full flex items-center justify-center">
-            <Heart className="h-8 w-8 text-white" />
-          </div>
-          <h2 className="text-3xl font-bold mb-4">Thank You to Our Early Builders</h2>
-          <p className="text-xl leading-relaxed text-white/95 mb-6">
-            We're incredibly grateful for the brilliant minds helping us build this. You're not just building features -
-            you're building proof that there's a better way.
-          </p>
-          <p className="text-2xl font-semibold">You're part of ending the billionaire era.</p>
         </div>
       </section>
     </div>
