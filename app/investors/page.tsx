@@ -1,16 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import {
-  DollarSign,
-  TrendingUp,
-  Users,
-  Zap,
-  AlertTriangle,
-  CheckCircle,
-  ExternalLink,
-  Calendar,
-  Target,
-} from "lucide-react"
+import { DollarSign, TrendingUp, Users, Zap, AlertTriangle, CheckCircle, ExternalLink, Target } from "lucide-react"
 import Link from "next/link"
 
 export default function InvestorsPage() {
@@ -668,17 +658,7 @@ export default function InvestorsPage() {
               variant="outline"
               className="border-white text-white hover:bg-white/10 bg-transparent"
             >
-              <a href="mailto:team@momm.group">
-                Schedule Call <Calendar className="ml-2 h-4 w-4" />
-              </a>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white/10 bg-transparent"
-            >
-              <Link href="/contact">Questions?</Link>
+              <Link href="/contact">Questions? Join Discord</Link>
             </Button>
           </div>
         </div>

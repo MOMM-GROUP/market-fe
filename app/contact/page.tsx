@@ -1,14 +1,9 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Linkedin, Instagram, Users, Mail, Send } from "lucide-react"
+import { Linkedin, Instagram, Users } from "lucide-react"
 
 // A simple component for social links to avoid repetition
 const SocialLink = ({
@@ -37,47 +32,6 @@ const SocialLink = ({
 )
 
 export default function ContactPage() {
-  const [inquiryType, setInquiryType] = useState("")
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-
-    try {
-      // Simulate form submission - in production, this would send to different endpoints
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // Route to different email addresses based on inquiry type
-      const emailRoutes = {
-        investor: "invest@momm.com",
-        brand: "brands@momm.com",
-        contributor: "contribute@momm.com",
-        general: "hello@momm.com",
-      }
-
-      console.log("Form submitted:", {
-        ...formData,
-        inquiryType,
-        routeTo: emailRoutes[inquiryType as keyof typeof emailRoutes],
-      })
-
-      setSubmitStatus("success")
-      setFormData({ name: "", email: "", message: "" })
-      setInquiryType("")
-    } catch (error) {
-      setSubmitStatus("error")
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -85,150 +39,84 @@ export default function ContactPage() {
         <div className="container mx-auto max-w-5xl">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance">Get in Touch</h1>
           <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-            Whether you're an investor, brand, contributor, or just curious—we'd love to hear from you.
+            Join our Discord community to connect with the team, ask questions, and be part of the conversation.
           </p>
         </div>
       </section>
 
       <div className="container py-12 md:py-16">
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {/* Contact Form */}
-          <Card>
+          {/* Discord CTA */}
+          <Card className="border-2 border-teal-500">
             <CardHeader>
-              <CardTitle>Send Us a Message</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <Users className="h-6 w-6 text-teal-600" />
+                Join Our Discord Community
+              </CardTitle>
             </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="inquiry-type">I'm interested in...</Label>
-                  <Select value={inquiryType} onValueChange={setInquiryType} required>
-                    <SelectTrigger id="inquiry-type">
-                      <SelectValue placeholder="Select inquiry type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="investor">Investing in MOMM</SelectItem>
-                      <SelectItem value="brand">Brand Partnership</SelectItem>
-                      <SelectItem value="contributor">Contributing to MOMM</SelectItem>
-                      <SelectItem value="general">General Inquiry</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+            <CardContent className="space-y-6">
+              <p className="text-muted-foreground">
+                Discord is where the real conversations happen. Connect directly with our founding team, ask questions,
+                share ideas, and be part of building MOMM.
+              </p>
 
-                <div className="space-y-2">
-                  <Label htmlFor="name">Name</Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    placeholder="Your name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="your@email.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea
-                    id="message"
-                    placeholder="Tell us more about your inquiry..."
-                    rows={5}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    required
-                  />
-                </div>
-
-                {submitStatus === "success" && (
-                  <div className="p-4 bg-green-50 text-green-800 rounded-lg text-sm">
-                    Thanks for reaching out! We'll get back to you within 48 hours.
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Users className="h-4 w-4 text-teal-600" />
                   </div>
-                )}
-
-                {submitStatus === "error" && (
-                  <div className="p-4 bg-red-50 text-red-800 rounded-lg text-sm">
-                    Something went wrong. Please try again or email us directly.
+                  <div>
+                    <p className="font-semibold">For Investors</p>
+                    <p className="text-sm text-muted-foreground">Ask about investment opportunities and financials</p>
                   </div>
-                )}
+                </div>
 
-                <Button type="submit" className="w-full" disabled={isSubmitting}>
-                  {isSubmitting ? (
-                    "Sending..."
-                  ) : (
-                    <>
-                      Send Message <Send className="ml-2 h-4 w-4" />
-                    </>
-                  )}
-                </Button>
-              </form>
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Users className="h-4 w-4 text-orange-600" />
+                  </div>
+                  <div>
+                    <p className="font-semibold">For Vendors</p>
+                    <p className="text-sm text-muted-foreground">Learn about selling on MOMM and partnership options</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Users className="h-4 w-4 text-pink-600" />
+                  </div>
+                  <div>
+                    <p className="font-semibold">For Contributors</p>
+                    <p className="text-sm text-muted-foreground">
+                      Explore open roles and start contributing to the platform
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Users className="h-4 w-4 text-purple-600" />
+                  </div>
+                  <div>
+                    <p className="font-semibold">General Inquiries</p>
+                    <p className="text-sm text-muted-foreground">Ask anything about MOMM and our mission</p>
+                  </div>
+                </div>
+              </div>
+
+              <Button asChild size="lg" className="w-full bg-teal-600 hover:bg-teal-700">
+                <a href="https://discord.gg/PptvudG7jb" target="_blank" rel="noopener noreferrer">
+                  Join Discord Now
+                </a>
+              </Button>
             </CardContent>
           </Card>
 
-          {/* Contact Info & Social */}
+          {/* Social Links */}
           <div className="space-y-6">
-            {/* Direct Email */}
             <Card>
               <CardHeader>
-                <CardTitle>Email Us Directly</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <Mail className="h-5 w-5 text-teal-600 flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="font-semibold">Investors</p>
-                    <a href="mailto:invest@momm.com" className="text-sm text-primary hover:underline">
-                      invest@momm.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <Mail className="h-5 w-5 text-orange-600 flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="font-semibold">Brand Partnerships</p>
-                    <a href="mailto:brands@momm.com" className="text-sm text-primary hover:underline">
-                      brands@momm.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <Mail className="h-5 w-5 text-pink-600 flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="font-semibold">Contributors</p>
-                    <a href="mailto:contribute@momm.com" className="text-sm text-primary hover:underline">
-                      contribute@momm.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <Mail className="h-5 w-5 text-purple-600 flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="font-semibold">General Inquiries</p>
-                    <a href="mailto:hello@momm.com" className="text-sm text-primary hover:underline">
-                      hello@momm.com
-                    </a>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Social Links */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Join the Conversation</CardTitle>
+                <CardTitle>Follow Our Journey</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <SocialLink
@@ -249,6 +137,19 @@ export default function ContactPage() {
                   title="Connect on LinkedIn"
                   description="For official announcements, partnership inquiries, and professional updates."
                 />
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-r from-teal-50 to-orange-50 border-2 border-teal-200">
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-lg mb-3">Why Discord?</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  We believe in transparent, community-driven communication. Discord allows us to have real-time
+                  conversations, share updates instantly, and build together as a community.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  No waiting for email responses—just direct access to the people building MOMM.
+                </p>
               </CardContent>
             </Card>
           </div>

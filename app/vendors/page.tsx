@@ -459,7 +459,9 @@ export default function VendorsPage() {
               </Button>
             </Link>
             <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 bg-transparent">
-              <a href="mailto:vendors@momm.com">Email Us</a>
+              <a href="https://discord.gg/PptvudG7jb" target="_blank" rel="noopener noreferrer">
+                Join Discord
+              </a>
             </Button>
           </div>
         </div>

@@ -912,27 +912,13 @@ export default function ContributorsPage() {
             <p className="text-xl text-white/95 mb-8 max-w-2xl mx-auto">
               This is where the work happens. Join the conversation, pick up tasks, and start contributing today.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="secondary" className="text-lg px-8" asChild>
                 <Link href="https://discord.gg/momm" target="_blank">
                   Join Discord Now <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white/10 bg-transparent text-lg px-8"
-                asChild
-              >
-                <Link href="/contact">Email Us Instead</Link>
-              </Button>
             </div>
-            <p className="text-white/90">
-              Or reach out directly:{" "}
-              <a href="mailto:team@momm.group" className="text-white font-semibold hover:underline">
-                team@momm.group
-              </a>
-            </p>
           </div>
         </div>
       </section>
