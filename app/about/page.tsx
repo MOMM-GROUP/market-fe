@@ -363,10 +363,6 @@ export default function AboutPage() {
       {/* Certifications Showcase */}
       <section className="py-16 px-4 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Verifying Ethical Commerce</h2>
-            <p className="text-xl text-muted-foreground">We track 156+ certifications across 8 categories</p>
-          </div>
           <CertificationsShowcase />
         </div>
       </section>
