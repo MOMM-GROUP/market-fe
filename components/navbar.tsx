@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useAuth } from "@/context/AuthContext"
 
-export function Navbar() {
+export function Navbar({ hasAccess = false }: { hasAccess?: boolean }) {
   const { user, profile, loading, cartCount, setCartCount } = useAuth()
   const [searchQuery, setSearchQuery] = useState("")
   const router = useRouter()
@@ -74,10 +74,23 @@ export function Navbar() {
             </div>
             <span className="font-bold text-xl">MOMM Market</span>
           </Link>
-          <nav className="hidden md:flex items-center space-x-6 text-sm font-medium"></nav>
+          <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+            <Link href="/products" className="text-muted-foreground hover:text-foreground transition-colors">
+              Marketplace
+            </Link>
+            <Link href="/investors" className="text-muted-foreground hover:text-foreground transition-colors">
+              Investors
+            </Link>
+            <Link href="/contributors" className="text-muted-foreground hover:text-foreground transition-colors">
+              Contributors
+            </Link>
+            <Link href="/vendors" className="text-muted-foreground hover:text-foreground transition-colors">
+              Vendors
+            </Link>
+          </nav>
         </div>
 
-        {profile?.role !== "vendor" && (
+        {user && profile?.role !== "vendor" && hasAccess && (
           <form onSubmit={handleSearch} className="flex-1 max-w-md mx-6">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
@@ -212,7 +225,7 @@ export function Navbar() {
               <Link href="/auth/login">
                 <Button variant="outline">Sign In</Button>
               </Link>
-              <Link href="/auth/register">
+              <Link href="/early-access">
                 <Button className="bg-primary hover:bg-primary/90">Join Now</Button>
               </Link>
             </>
