@@ -75,9 +75,6 @@ export function Navbar() {
             <span className="font-bold text-xl">MOMM Market</span>
           </Link>
           <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
-            <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
-              About
-            </Link>
             <Link href="/products" className="text-muted-foreground hover:text-foreground transition-colors">
               Marketplace
             </Link>

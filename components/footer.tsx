@@ -19,9 +19,6 @@ export function Footer() {
           <div className="space-y-4">
             <h4 className="font-semibold text-white">About MOMM</h4>
             <div className="space-y-2 text-sm">
-              <Link href="/about" className="block text-gray-400 hover:text-white transition-colors">
-                About Us
-              </Link>
               <Link href="/contact" className="block text-gray-400 hover:text-white transition-colors">
                 Contact
               </Link>
