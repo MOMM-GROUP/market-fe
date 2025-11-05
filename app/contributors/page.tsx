@@ -607,29 +607,7 @@ export default function ContributorsPage() {
               </div>
             </div>
           </div>
-        </div> 
-
-
-
-        {/* Join Our Community Section */}
-        <section className="py-20 rounded-lg shadow-sm">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center space-y-4 mb-16">
-                <h2 className="text-2xl font-bold" style={{ color: '#0F172A' }}>
-                  <a 
-                        href="https://discord.gg/PptvudG7jb" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex-1 text-white px-6 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center"
-                        style={{ backgroundColor: '#5865F2' }}
-                      >
-                        <MessageCircle className="mr-2 h-5 w-5" />
-                        Join Our Community
-                    </a>
-                  </h2>
-              </div>
-          </div>
-        </section>
+        </div>
 
       </section>
     </div>
