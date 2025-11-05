@@ -106,7 +106,7 @@ export default async function RootLayout({
         <Providers serverSession={user}>
           <div className="min-h-screen flex flex-col">
             <Suspense fallback={<div>Loading...</div>}>
-              <Navbar />
+              <Navbar hasAccess={hasAccess} />
               <CategoryNav
                 initialUser={user ? user.profile : null}
                 initialCategories={categories}
