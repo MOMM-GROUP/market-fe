@@ -7,26 +7,17 @@ import {
   Heart,
   Handshake,
   Users,
-  XCircle,
   Ban,
   Eye,
   DollarSign,
   Wallet,
-  Vote,
   Filter,
   UserCheck,
-  Lock,
-  Brain,
-  CheckCircle2,
   TrendingUp,
   Package,
-  Award,
-  MessageCircle,
-  HelpCircle,
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import CertificationsShowcase from "@/components/certifications-showcase"
 
 interface Product {
   id: string
@@ -154,218 +145,95 @@ export default async function HomePage() {
         </section>
 
         {/* How MOMM Works For You */}
-        <section className="py-20 px-4">
+        <section className="py-20 px-4 bg-gradient-to-br from-teal-50 via-orange-50 to-pink-50">
           <div className="center-content max-w-6xl">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">How MOMM Works For You</h2>
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4">How MOMM Works For You</h2>
+              <p className="text-xl text-muted-foreground">Six ways MOMM puts power back in your hands</p>
+            </div>
 
-            {/* Feature 1: Never See Brands You're Boycotting */}
-            <div className="mb-16">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Ban className="h-6 w-6 text-red-600" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-2">1. Never See Brands You're Boycotting</h3>
-                  <p className="text-lg text-muted-foreground mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Feature 1: Never See Brands You're Boycotting */}
+              <Card className="border-2 border-red-200 hover:shadow-lg transition-shadow">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+                    <Ban className="h-8 w-8 text-red-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-3">NEVER SEE BRANDS YOU'RE BOYCOTTING</h3>
+                  <p className="text-sm text-muted-foreground">
                     Tell us who you're boycotting—Nestlé, Amazon, whoever—and they disappear from your search. No
                     accidental purchases. No supporting companies you oppose.
                   </p>
-                  <p className="text-sm font-semibold text-teal-600">Your boycott list is yours. Private. Permanent.</p>
-                </div>
-              </div>
-            </div>
+                </CardContent>
+              </Card>
 
-            {/* Feature 2: See Political Donations */}
-            <div className="mb-16">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Eye className="h-6 w-6 text-blue-600" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-2">2. See Exactly Who Companies Donate To</h3>
-                  <p className="text-lg text-muted-foreground mb-4">
-                    Every brand shows political donations. Right there. No research needed.
-                  </p>
-                  <p className="text-sm font-semibold text-blue-600">
-                    Filter out brands that fund politicians you don't support.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Feature 3: Get Paid */}
-            <div className="mb-16">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <DollarSign className="h-6 w-6 text-green-600" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-2">3. Get Paid For Shopping, Selling & Building</h3>
-                  <p className="text-lg text-muted-foreground mb-4">
-                    Every purchase puts money into your MOMM Vault—your personal profit share.
-                  </p>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <Card>
-                      <CardContent className="p-4">
-                        <p className="font-semibold mb-2">🛒 Buy</p>
-                        <p className="text-sm text-muted-foreground">You get a share of platform profits</p>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardContent className="p-4">
-                        <p className="font-semibold mb-2">💼 Sell</p>
-                        <p className="text-sm text-muted-foreground">Keep more of your revenue than on Amazon</p>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardContent className="p-4">
-                        <p className="font-semibold mb-2">🔨 Build</p>
-                        <p className="text-sm text-muted-foreground">Contributors own what they create</p>
-                      </CardContent>
-                    </Card>
+              {/* Feature 2: See Political Donations */}
+              <Card className="border-2 border-blue-200 hover:shadow-lg transition-shadow">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                    <Eye className="h-8 w-8 text-blue-600" />
                   </div>
-                  <p className="text-sm font-semibold text-green-600">
-                    Not points. Not credits. Real money. In your vault.
+                  <h3 className="text-lg font-semibold mb-3">SEE EXACTLY WHO COMPANIES DONATE TO</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Every brand shows political donations. Right there. No research needed. Filter out brands that fund
+                    politicians you don't support.
                   </p>
-                </div>
-              </div>
-            </div>
+                </CardContent>
+              </Card>
 
-            {/* Feature 4: Use Your Vault */}
-            <div className="mb-16">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Wallet className="h-6 w-6 text-purple-600" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-2">4. Use Your Vault However You Want</h3>
-                  <p className="text-lg text-muted-foreground mb-4">Your money. Your choice. Use it for:</p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-                    <Card className="border-2">
-                      <CardContent className="p-4 text-center">
-                        <p className="text-2xl mb-2">💰</p>
-                        <p className="font-semibold mb-2">Invest</p>
-                        <p className="text-xs text-muted-foreground">
-                          Professionally managed investments in the market or small businesses
-                        </p>
-                      </CardContent>
-                    </Card>
-                    <Card className="border-2">
-                      <CardContent className="p-4 text-center">
-                        <p className="text-2xl mb-2">💚</p>
-                        <p className="font-semibold mb-2">Give</p>
-                        <p className="text-xs text-muted-foreground">
-                          Donate to vetted nonprofits or community projects
-                        </p>
-                      </CardContent>
-                    </Card>
-                    <Card className="border-2">
-                      <CardContent className="p-4 text-center">
-                        <p className="text-2xl mb-2">🏥</p>
-                        <p className="font-semibold mb-2">Live</p>
-                        <p className="text-xs text-muted-foreground">
-                          Pay for health insurance, ClassPass, or essentials
-                        </p>
-                      </CardContent>
-                    </Card>
-                    <Card className="border-2">
-                      <CardContent className="p-4 text-center">
-                        <p className="text-2xl mb-2">🛡️</p>
-                        <p className="font-semibold mb-2">Save</p>
-                        <p className="text-xs text-muted-foreground">Emergency fund when you need it</p>
-                      </CardContent>
-                    </Card>
+              {/* Feature 3: Get Paid */}
+              <Card className="border-2 border-green-200 hover:shadow-lg transition-shadow">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+                    <DollarSign className="h-8 w-8 text-green-600" />
                   </div>
-                  <p className="text-sm font-semibold text-purple-600">
-                    Got a better idea? Tell us. MOMM is built by the people who use it.
+                  <h3 className="text-lg font-semibold mb-3">GET PAID FOR SHOPPING, SELLING & BUILDING</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Every purchase puts money into your MOMM Vault. Not points. Not credits. Real money. In your vault.
                   </p>
-                </div>
-              </div>
-            </div>
+                </CardContent>
+              </Card>
 
-            {/* Feature 5: Filter By Values */}
-            <div className="mb-16">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Filter className="h-6 w-6 text-pink-600" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-2">5. Filter By What Actually Matters To You</h3>
-                  <p className="text-lg text-muted-foreground mb-4">
-                    Everyone has different values. MOMM lets you filter by yours:
-                  </p>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
-                    <Badge variant="outline" className="justify-start p-2">
-                      🌍 Local
-                    </Badge>
-                    <Badge variant="outline" className="justify-start p-2">
-                      🏳️‍🌈 LGBTQ+ Owned
-                    </Badge>
-                    <Badge variant="outline" className="justify-start p-2">
-                      👩🏾‍💼 BIPOC Owned
-                    </Badge>
-                    <Badge variant="outline" className="justify-start p-2">
-                      ♿ Disability-Owned
-                    </Badge>
-                    <Badge variant="outline" className="justify-start p-2">
-                      ♻️ Sustainable
-                    </Badge>
-                    <Badge variant="outline" className="justify-start p-2">
-                      🤝 Fair Labor
-                    </Badge>
-                    <Badge variant="outline" className="justify-start p-2">
-                      🌱 Organic
-                    </Badge>
-                    <Badge variant="outline" className="justify-start p-2">
-                      🏢 B Corp
-                    </Badge>
-                    <Badge variant="outline" className="justify-start p-2">
-                      🔬 Cruelty-Free
-                    </Badge>
+              {/* Feature 4: Use Your Vault */}
+              <Card className="border-2 border-purple-200 hover:shadow-lg transition-shadow">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+                    <Wallet className="h-8 w-8 text-purple-600" />
                   </div>
-                  <p className="text-sm font-semibold text-pink-600">
-                    Set your values once. Every search respects them.
+                  <h3 className="text-lg font-semibold mb-3">USE YOUR VAULT HOWEVER YOU WANT</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Your money. Your choice. Invest it, donate it, pay for essentials, or save it for emergencies.
                   </p>
-                </div>
-              </div>
-            </div>
+                </CardContent>
+              </Card>
 
-            {/* Feature 6: Get Matched */}
-            <div className="mb-0">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <UserCheck className="h-6 w-6 text-teal-600" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-2">6. Get Matched With Real People Like You</h3>
-                  <p className="text-lg text-muted-foreground mb-4">
-                    Tired of influencers who don't look like you? Don't share your values? Are clearly just paid to
-                    promote?
+              {/* Feature 5: Filter By Values */}
+              <Card className="border-2 border-pink-200 hover:shadow-lg transition-shadow">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-pink-100 rounded-full flex items-center justify-center">
+                    <Filter className="h-8 w-8 text-pink-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-3">FILTER BY WHAT ACTUALLY MATTERS TO YOU</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Local, LGBTQ+ Owned, BIPOC Owned, Sustainable, Fair Labor, Organic, B Corp, Cruelty-Free. Set your
+                    values once. Every search respects them.
                   </p>
-                  <p className="text-lg font-semibold mb-3">MOMM matches you with:</p>
-                  <ul className="space-y-2 mb-4">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-teal-600 flex-shrink-0 mt-0.5" />
-                      <span>Reviewers who share your ethical values</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-teal-600 flex-shrink-0 mt-0.5" />
-                      <span>People with similar measurements and body types</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-teal-600 flex-shrink-0 mt-0.5" />
-                      <span>Real community members (not paid shills)</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-teal-600 flex-shrink-0 mt-0.5" />
-                      <span>Influencers who actually use the products</span>
-                    </li>
-                  </ul>
-                  <p className="text-sm font-semibold text-teal-600">
-                    See how products look on bodies like yours. From people who believe what you believe.
+                </CardContent>
+              </Card>
+
+              {/* Feature 6: Get Matched */}
+              <Card className="border-2 border-teal-200 hover:shadow-lg transition-shadow">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-teal-100 rounded-full flex items-center justify-center">
+                    <UserCheck className="h-8 w-8 text-teal-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-3">GET MATCHED WITH REAL PEOPLE LIKE YOU</h3>
+                  <p className="text-sm text-muted-foreground">
+                    See how products look on bodies like yours. From people who believe what you believe. Real community
+                    members, not paid shills.
                   </p>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
