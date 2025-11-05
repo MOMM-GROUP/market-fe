@@ -344,7 +344,7 @@ export default async function HomePage() {
                   </div>
                   <h3 className="text-xl font-bold">FOR SHOPPERS</h3>
                   <p className="text-sm text-muted-foreground">
-                    Start shopping verified ethical products. Your purchases build your equity.
+                    Shopping products. Build Profit.
                   </p>
                   <Link href="/early-access">
                     <Button className="w-full bg-teal-600 hover:bg-teal-700">Start Shopping →</Button>
@@ -359,7 +359,7 @@ export default async function HomePage() {
                   </div>
                   <h3 className="text-xl font-bold">FOR SELLERS</h3>
                   <p className="text-sm text-muted-foreground">
-                    List your products. Reach conscious consumers. Keep more of your money.
+                    List products. Reach consumers. Keep more of your money.
                   </p>
                   <Link href="/vendors">
                     <Button className="w-full bg-blue-600 hover:bg-blue-700">Become a Vendor →</Button>
@@ -374,7 +374,7 @@ export default async function HomePage() {
                   </div>
                   <h3 className="text-xl font-bold">FOR BUILDERS</h3>
                   <p className="text-sm text-muted-foreground">
-                    Help build the platform. Own what you create. Profit when we profit.
+                    Help build the platform. Profit when we profit.
                   </p>
                   <Link href="/contributors">
                     <Button className="w-full bg-orange-600 hover:bg-orange-700">Join Contributors →</Button>
