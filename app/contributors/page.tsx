@@ -2,7 +2,30 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import {
+  Github, 
+  ExternalLink,
+  Zap,
+  Handshake,
+  Shield,
+  Brain,
+  Globe,
+  Coins,
+  Trophy,
+  Star,
+  Clock,
+  Eye,
+  Crown,
+  Mail,
   Code,
+  Calendar,
+  MapPin,
+  Sparkles,
+  Building2,
+  Bot,
+  Wrench,
+  BarChart3,
+  BookOpen,
+  Lightbulb,
   Megaphone,
   Scale,
   Palette,
@@ -28,8 +51,40 @@ import {
   UserPlus,
 } from "lucide-react"
 import Link from "next/link"
+import { useState } from "react"
 
-
+  const benefits = [
+    {
+      icon: Coins,
+      title: 'Equity Opportunity',
+      description: 'Earn equity for contributing to both open-source core and revenue features'
+    },
+    {
+      icon: Trophy,
+      title: 'Ground Floor Opportunity',
+      description: 'Join as a founding contributor and help shape the entire system'
+    },
+    {
+      icon: Network,
+      title: 'Network Access',
+      description: 'Connect with leading Web3 and sustainability experts'
+    },
+    {
+      icon: Rocket,
+      title: 'Career Growth',
+      description: 'Build your portfolio with cutting-edge technology'
+    },
+    {
+      icon: Globe,
+      title: 'Global Impact',
+      description: 'Help transform commerce for a more ethical world'
+    },
+    {
+      icon: Award,
+      title: 'Build Your Portfolio',
+      description: 'Work on cutting-edge Web3 and AI technology'
+    }
+  ];
   const requirements = [
     'Passion for ethical commerce and building something from the ground up',
     'Strong communication skills and excitement about remote collaboration', 
@@ -112,7 +167,7 @@ export default function ContributorsPage() {
                   </p>
                 </div>
                 
-                <div className="bg-white bg-opacity-20 p-4 rounded-lg">
+                <div className="bg-white bg-opacity-10 p-4 rounded-lg">
                   <p className="text-sm">
                     <strong>💡 New to Web3 or Sustainability? Perfect!</strong><br/>
                     We believe passion and willingness to learn beats experience every time. This is your chance to break into an exciting new space!
@@ -964,6 +1019,291 @@ export default function ContributorsPage() {
               </CardContent>
             </Card>
           </div>
+
+
+           {/* Dynamic Equity Model - Full Width with Example */}
+      <section className="py-20" style={{ backgroundColor: '#F1F5F9' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Introduction / Manifesto */}
+          <div className="mb-16 text-center">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6" style={{ color: '#0F172A' }}>
+              A Fairer Model of Ownership
+            </h2>
+            <div className="flex justify-center">
+              <p className="text-2xl leading-relaxed font-medium pl-8 border-l-4 text-left max-w-3xl" style={{ color: '#0F172A', borderColor: '#0D9488' }}>
+                <strong>Value should be rewarded.</strong> Companies built on the backs of their community while wealth stays at the top have <strong>got to go</strong>. We are building a truly community-owned ecosystem where the people who create the value share in the success.
+              </p>
+            </div>
+          </div>
+
+          {/* How It Works Section */}
+          <div className="grid md:grid-cols-3 gap-8 text-center mb-16">
+            <div className="space-y-6">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto" style={{ backgroundColor: '#F0FDFA', color: '#0D9488' }}>
+                <Users className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-semibold" style={{ color: '#0F172A' }}>1. Contribute</h3>
+              <p style={{ color: '#64748B' }}>Contribute code, design, or community growth to the MOMM ecosystem.</p>
+            </div>
+            <div className="space-y-6">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto" style={{ backgroundColor: '#FFF7ED', color: '#F97316' }}>
+                <BarChart3 className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-semibold" style={{ color: '#0F172A' }}>2. Earn Points</h3>
+              <p style={{ color: '#64748B' }}>Receive "Contribution Points" representing your stake in the ecosystem.</p>
+            </div>
+            <div className="space-y-6">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto" style={{ backgroundColor: '#FDF2F8', color: '#EC4899' }}>
+                <Coins className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-semibold" style={{ color: '#0F172A' }}>3. Share Success</h3>
+              <p style={{ color: '#64748B' }}>A percentage of all revenue is distributed to you based on your points.</p>
+            </div>
+          </div>
+
+          {/* Dynamic Equity Model Section */}
+          <div className="bg-white p-8 rounded-2xl shadow-lg mb-16">
+            <h3 className="text-3xl font-bold mb-4 text-center" style={{ color: '#0F172A' }}>The Dynamic Equity Model</h3>
+            <p className="text-center max-w-2xl mx-auto mb-8" style={{ color: '#64748B' }}>
+              Our system is designed to reward both early believers and ongoing, active contributors fairly.
+            </p>
+            
+            {/* Visual Timeline */}
+            <div className="mb-8">
+              <h4 className="text-xl font-semibold mb-6 text-center" style={{ color: '#0F172A' }}>How Your Equity Grows Over Time</h4>
+              <div className="relative max-w-4xl mx-auto">
+                {/* Timeline Line */}
+                <div className="absolute top-1/2 left-0 right-0 h-1 transform -translate-y-1/2" style={{ backgroundColor: '#E2E8F0' }}></div>
+                
+                {/* Timeline Points */}
+                <div className="relative flex justify-between items-center">
+                  <div className="flex flex-col items-center">
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold mb-2" style={{ backgroundColor: '#0D9488' }}>
+                      1
+                    </div>
+                    <div className="text-center">
+                      <p className="font-semibold text-sm" style={{ color: '#0F172A' }}>Join & Contribute</p>
+                      <p className="text-xs" style={{ color: '#64748B' }}>Earn your first points</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col items-center">
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold mb-2" style={{ backgroundColor: '#F97316' }}>
+                      2
+                    </div>
+                    <div className="text-center">
+                      <p className="font-semibold text-sm" style={{ color: '#0F172A' }}>Build & Grow</p>
+                      <p className="text-xs" style={{ color: '#64748B' }}>Points accumulate</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col items-center">
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold mb-2" style={{ backgroundColor: '#EC4899' }}>
+                      3
+                    </div>
+                    <div className="text-center">
+                      <p className="font-semibold text-sm" style={{ color: '#0F172A' }}>Revenue Sharing</p>
+                      <p className="text-xs" style={{ color: '#64748B' }}>Earn from success</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col items-center">
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold mb-2" style={{ backgroundColor: '#7C3AED' }}>
+                      ∞
+                    </div>
+                    <div className="text-center">
+                      <p className="font-semibold text-sm" style={{ color: '#0F172A' }}>Forever Yours</p>
+                      <p className="text-xs" style={{ color: '#64748B' }}>Points never expire</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <CheckCircle className="w-8 h-8 flex-shrink-0 mt-1" style={{ color: '#059669' }} />
+                  <div>
+                    <h4 className="font-semibold mb-2" style={{ color: '#0F172A' }}>Your Points Never Expire</h4>
+                    <p style={{ color: '#64748B' }}>Once you earn a point, it is yours forever. You will always have a stake in the success you helped create.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <TrendingUp className="w-8 h-8 flex-shrink-0 mt-1" style={{ color: '#F97316' }} />
+                  <div>
+                    <h4 className="font-semibold mb-2" style={{ color: '#0F172A' }}>Your Share Evolves</h4>
+                    <p style={{ color: '#64748B' }}>Each year, new points are issued to active contributors. Your percentage may dilute over time if you become inactive, but your points remain yours.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <Eye className="w-8 h-8 flex-shrink-0 mt-1" style={{ color: '#0D9488' }} />
+                  <div>
+                    <h4 className="font-semibold mb-2" style={{ color: '#0F172A' }}>Fair & Transparent</h4>
+                    <p style={{ color: '#64748B' }}>All point allocations and distributions are transparent and governed by the community.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6 rounded-lg border-2 h-fit" style={{ backgroundColor: '#F8FAFC', borderColor: '#E2E8F0' }}>
+                <h4 className="font-semibold mb-4" style={{ color: '#0F172A' }}>A Simple Example:</h4>
+                <div className="space-y-3">
+                  <div className="p-3 rounded-lg" style={{ backgroundColor: '#F0FDFA' }}>
+                    <p className="text-sm" style={{ color: '#0F172A' }}>
+                      <strong style={{ color: '#0D9488' }}>Year 1:</strong> 3 contributors each earn 1 point (3 total). Profits split 3 ways.
+                    </p>
+                  </div>
+                  <div className="p-3 rounded-lg" style={{ backgroundColor: '#FFF7ED' }}>
+                    <p className="text-sm" style={{ color: '#0F172A' }}>
+                      <strong style={{ color: '#F97316' }}>Year 2:</strong> 1 original contributor earns another point, 4 new contributors join. Profit pool now split 8 ways, with the most active member receiving the largest share.
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-4 p-3 rounded-lg" style={{ backgroundColor: '#EFF6FF' }}>
+                  <p className="text-sm font-medium" style={{ color: '#0F172A' }}>
+                    💡 <strong>Key Insight:</strong> Stay active to maintain and grow your share, but your earned points are always yours.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Key Principles Highlight */}
+            <div className="mt-8 p-6 rounded-xl" style={{ backgroundColor: '#F0FDFA' }}>
+              <h4 className="text-lg font-semibold mb-4 text-center" style={{ color: '#0D9488' }}>Why This Model Works</h4>
+              <div className="grid md:grid-cols-3 gap-4 text-center">
+                <div>
+                  <Eye className="h-6 w-6 mx-auto mb-2" style={{ color: '#0D9488' }} />
+                  <p className="font-medium text-sm" style={{ color: '#0F172A' }}>Transparent</p>
+                  <p className="text-xs" style={{ color: '#64748B' }}>All allocations are visible</p>
+                </div>
+                <div>
+                  <Award className="h-6 w-6 mx-auto mb-2" style={{ color: '#0D9488' }} />
+                  <p className="font-medium text-sm" style={{ color: '#0F172A' }}>Fair</p>
+                  <p className="text-xs" style={{ color: '#64748B' }}>Rewards actual contribution</p>
+                </div>
+                <div>
+                  <Crown className="h-6 w-6 mx-auto mb-2" style={{ color: '#0D9488' }} />
+                  <p className="font-medium text-sm" style={{ color: '#0F172A' }}>Permanent</p>
+                  <p className="text-xs" style={{ color: '#64748B' }}>Your points are yours forever</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </section>
+
+
+      {/* Join Our Community Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-8 mb-16">
+            <h2 className="text-4xl font-bold" style={{ color: '#0F172A' }}>
+              Join Our Community
+            </h2>
+            <p className="text-xl max-w-3xl mx-auto" style={{ color: '#475569' }}>
+              Connect with other contributors, get real-time updates, and collaborate on building the future of ethical commerce.
+            </p>
+          </div>
+          
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Discord Widget */}
+            <div className="space-y-6">
+              <div className="text-center">
+                <h3 className="text-2xl font-bold mb-4" style={{ color: '#0F172A' }}>Live Discord Community</h3>
+                <p className="text-lg" style={{ color: '#475569' }}>
+                  See who's online and join the conversation right now
+                </p>
+              </div>
+              
+              <div className="flex justify-center">
+                <div className="bg-gray-900 p-4 rounded-2xl shadow-xl">
+                  <iframe 
+                    src="https://discord.com/widget?id=1394439416742809732&theme=dark" 
+                    width="350" 
+                    height="500" 
+                    frameBorder="0" 
+                    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                    className="rounded-lg"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Community Benefits */}
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-2xl font-bold mb-6" style={{ color: '#0F172A' }}>Why Join Our Discord?</h3>
+                <div className="space-y-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#F0FDFA' }}>
+                      <MessageCircle className="h-6 w-6" style={{ color: '#0D9488' }} />
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2" style={{ color: '#0F172A' }}>Real-Time Collaboration</h4>
+                      <p style={{ color: '#475569' }}>
+                        Work directly with the founding team and other contributors on active projects. Help shape our community as a potential guild leader or individual contributor.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#FFF7ED' }}>
+                      <Rocket className="h-6 w-6" style={{ color: '#F97316' }} />
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2" style={{ color: '#0F172A' }}>Early Access & Updates</h4>
+                      <p style={{ color: '#475569' }}>
+                        Get the latest news, feature previews, and be first to know about new opportunities. Join at the ground floor as we build our guilds and community structure.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#FDF2F8' }}>
+                      <Users className="h-6 w-6" style={{ color: '#EC4899' }} />
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2" style={{ color: '#0F172A' }}>Network & Learn</h4>
+                      <p style={{ color: '#475569' }}>
+                        Connect with like-minded builders and learn from experienced Web3 and sustainability experts. Early contributors often become guild leaders and key decision makers.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#F3F4F6' }}>
+                      <Award className="h-6 w-6" style={{ color: '#7C3AED' }} />
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2" style={{ color: '#0F172A' }}>Contribution Recognition</h4>
+                      <p style={{ color: '#475569' }}>
+                        Get recognized for your contributions and track your equity points in real-time.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl">
+                <h4 className="text-lg font-semibold mb-4" style={{ color: '#0F172A' }}>Ready to Join?</h4>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a 
+                    href="https://discord.gg/PptvudG7jb" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex-1 text-white px-6 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center"
+                    style={{ backgroundColor: '#5865F2' }}
+                    // onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#4752C4'}
+                    // onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#5865F2'}
+                  >
+                    <MessageCircle className="mr-2 h-5 w-5" />
+                    Join Discord
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
           {/* Main CTA */}
           <div className="text-center">
