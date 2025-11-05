@@ -1,5 +1,7 @@
 # Multi vendor platform
 
+## PLEASE VISIT OUR WEBSITE FOR INFORMATION WHILE WE WORK ON A MORE UPDATED REPO DESCRIPTION <3
+
 *Automatically synced with your [v0.app](https://v0.app) deployments*
 
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/purcell3as-projects/v0-multi-vendor-platform)
