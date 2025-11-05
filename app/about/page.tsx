@@ -131,73 +131,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Our Commitment to People */}
-      <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">This Is How We're Different</h2>
-            <p className="text-xl text-muted-foreground">Our Commitment to People</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <div className="w-16 h-16 mb-4 bg-green-100 rounded-full flex items-center justify-center">
-                  <DollarSign className="h-8 w-8 text-green-600" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Fair Compensation</h3>
-                <p className="text-muted-foreground mb-4">
-                  When we are able to hire full-time, we promise never to allow the CEO salary to exceed a fair multiple
-                  of the lowest employee.
-                </p>
-                <p className="text-muted-foreground">
-                  We're inspired by models like Dan Price ($70K minimum salary for all).
-                </p>
-                <p className="text-sm font-semibold mt-4 text-foreground">
-                  You don't build a just economy by hoarding.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <div className="w-16 h-16 mb-4 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Clock className="h-8 w-8 text-blue-600" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Life-Centric Work</h3>
-                <p className="text-muted-foreground mb-4">
-                  We champion the 4-day work week. We embed Diversity, Equity, and Inclusion (DEI) into every decision.
-                </p>
-                <p className="text-sm font-semibold mt-4 text-foreground">
-                  Not because it's trendy. Because people matter more than extraction.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <div className="w-16 h-16 mb-4 bg-purple-100 rounded-full flex items-center justify-center">
-                  <Users className="h-8 w-8 text-purple-600" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Contribution Over Commitment</h3>
-                <p className="text-muted-foreground mb-4">We know you're stretched thin.</p>
-                <p className="text-muted-foreground mb-4">
-                  That's why we've designed MOMM so that even if you can only contribute 'one thing here or there,' your
-                  effort still earns you equity.
-                </p>
-                <p className="text-sm font-semibold mt-4 text-foreground">Your time. Your choice. Your value.</p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
       {/* Current Status Section */}
       <section className="py-16 px-4 bg-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">We're Actually Building This</h2>
-            <p className="text-xl text-muted-foreground">Current Status</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
@@ -230,7 +168,6 @@ export default function AboutPage() {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">The World We're Building</h2>
-            <p className="text-xl text-muted-foreground">The Vision</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
