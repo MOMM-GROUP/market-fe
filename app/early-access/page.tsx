@@ -41,15 +41,25 @@ export default async function EarlyAccessPage() {
     const lastName = formData.get("lastName") as string
     const interestedIn: string[] = []
 
-    if (formData.get("shopping")) interestedIn.push("shopping")
-    if (formData.get("selling")) interestedIn.push("selling")
-    if (formData.get("building")) interestedIn.push("building")
+    if (formData.get("shopping")) interestedIn.push("products")
+    if (formData.get("selling")) interestedIn.push("products")
+    if (formData.get("building")) interestedIn.push("build")
+
+    let role = "other"
+    if (formData.get("selling")) {
+      role = "vendor"
+    } else if (formData.get("building")) {
+      role = "contributor"
+    } else if (formData.get("shopping")) {
+      role = "shopper"
+    }
 
     // Insert into waitlist
     const { error } = await supabase.from("early_access_waitlist").insert({
       email,
       first_name: firstName,
       last_name: lastName,
+      role, // Added role field
       interested_in: interestedIn,
       access_granted: false,
     })
@@ -136,6 +146,15 @@ export default async function EarlyAccessPage() {
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
                     Selling my products as a vendor
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox id="building" name="building" />
+                  <label
+                    htmlFor="building"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Building MOMM as a contributor
                   </label>
                 </div>
               </div>
