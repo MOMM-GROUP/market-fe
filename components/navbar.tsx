@@ -90,7 +90,7 @@ export function Navbar({ hasAccess = false }: { hasAccess?: boolean }) {
           </nav>
         </div>
 
-        {profile?.role !== "vendor" && hasAccess && (
+        {user && profile?.role !== "vendor" && hasAccess && (
           <form onSubmit={handleSearch} className="flex-1 max-w-md mx-6">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
