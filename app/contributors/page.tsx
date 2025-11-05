@@ -29,6 +29,13 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 
+
+  const requirements = [
+    'Passion for ethical commerce and building something from the ground up',
+    'Strong communication skills and excitement about remote collaboration', 
+    'Willingness to learn, contribute, and help shape our community (experience is a plus, not required!)'
+  ];
+
 export default function ContributorsPage() {
   return (
     <div className="min-h-screen">
@@ -58,6 +65,61 @@ export default function ContributorsPage() {
             >
               <Link href="#discord">Join Discord</Link>
             </Button>
+          </div>
+        </div>
+      </section>
+
+
+      {/* Requirements Section */}
+      <section className="py-20" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left side - Requirements */}
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <h2 className="text-4xl font-bold text-white">
+                  What We're Looking For
+                </h2>
+                <p className="text-xl text-gray-300">
+                  Passion and drive matter more than perfect experience
+                </p>
+              </div>
+              
+              <div className="space-y-4">
+                {requirements.map((requirement, index) => (
+                  <div key={index} className="flex items-start space-x-3 p-4 rounded-lg bg-white bg-opacity-10 backdrop-blur-sm">
+                    <CheckCircle className="h-5 w-5 mt-0.5 flex-shrink-0" style={{ color: '#0D9488' }} />
+                    <span className="text-white text-sm">{requirement}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right side - Success Story */}
+            <div className="bg-gradient-to-br from-teal-500 to-orange-500 p-8 rounded-2xl text-white">
+              <div className="space-y-6">
+                <div className="flex items-center space-x-3">
+                  <Rocket className="h-8 w-8" />
+                  <h3 className="text-2xl font-bold">From Zero to Hero</h3>
+                </div>
+                
+                <div className="space-y-4">
+                  <p className="text-lg leading-relaxed">
+                    "I launched my first Web3 contract with Boys Club with <strong>zero Web3 experience</strong> and generated over <strong>120 ETH</strong>."
+                  </p>
+                  <p className="text-sm opacity-90">
+                    — MOMM Founder
+                  </p>
+                </div>
+                
+                <div className="bg-white bg-opacity-20 p-4 rounded-lg">
+                  <p className="text-sm">
+                    <strong>💡 New to Web3 or Sustainability? Perfect!</strong><br/>
+                    We believe passion and willingness to learn beats experience every time. This is your chance to break into an exciting new space!
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
