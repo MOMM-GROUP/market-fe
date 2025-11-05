@@ -66,8 +66,8 @@ import { useState } from "react"
     },
     {
       icon: Network,
-      title: 'Network Access',
-      description: 'Connect with leading Web3 and sustainability experts'
+      title: 'Grow Your Network',
+      description: 'Connect with people trying to change commerce'
     },
     {
       icon: Rocket,
@@ -130,10 +130,10 @@ export default function ContributorsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-8 mb-16">
             <h2 className="text-4xl font-bold" style={{ color: '#0F172A' }}>
-              Why Join the MOMM Community?
+              Join the MOMM Community
             </h2>
             <p className="text-xl max-w-3xl mx-auto" style={{ color: '#475569' }}>
-              Be part of a revolutionary project that's transforming how the world shops ethically
+              Be part of a revolutionary project that's transforming how the world shops, lives and thrives.
             </p>
           </div>
           
@@ -647,17 +647,12 @@ export default function ContributorsPage() {
                 This is not an exhaustive list of what we need. We value all kinds of contributions and perspectives.
               </p>
               <p className="text-lg text-gray-700 mb-6 max-w-2xl mx-auto font-semibold">
-                If you believe you can help us build a more equitable economy, please reach out anyway!
+                Please reach out anyway!
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" className="bg-teal-600 hover:bg-teal-700" asChild>
-                  <Link href="/contact">
-                    Tell Us About Your Skills <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild>
                   <Link href="https://discord.gg/momm" target="_blank">
-                    Join Discord Community
+                    Please reach out anyway!
                   </Link>
                 </Button>
               </div>
@@ -945,58 +940,6 @@ export default function ContributorsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            {/* Benefits Grid */}
-            <Card className="bg-white/10 backdrop-blur border-white/20 hover:bg-white/15 transition-all">
-              <CardContent className="p-6 flex items-start gap-4">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <MessageCircle className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg mb-2 text-white">Real-Time Collaboration</h3>
-                  <p className="text-white/90">Work directly with founding team on active projects</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/10 backdrop-blur border-white/20 hover:bg-white/15 transition-all">
-              <CardContent className="p-6 flex items-start gap-4">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Rocket className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg mb-2 text-white">Early Access</h3>
-                  <p className="text-white/90">Know what's coming and help shape direction</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/10 backdrop-blur border-white/20 hover:bg-white/15 transition-all">
-              <CardContent className="p-6 flex items-start gap-4">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Network className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg mb-2 text-white">Build Your Network</h3>
-                  <p className="text-white/90">Connect with people trying to change commerce</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/10 backdrop-blur border-white/20 hover:bg-white/15 transition-all">
-              <CardContent className="p-6 flex items-start gap-4">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Award className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg mb-2 text-white">Get Recognized</h3>
-                  <p className="text-white/90">Contribute, get recognized, earn profit share</p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-
            {/* Dynamic Equity Model - Full Width with Example */}
       <section className="py-20" style={{ backgroundColor: '#F1F5F9' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1184,7 +1127,6 @@ export default function ContributorsPage() {
             {/* Discord Widget */}
             <div className="space-y-6">
               <div className="text-center">
-                <h3 className="text-2xl font-bold mb-4" style={{ color: '#0F172A' }}>Live Discord Community</h3>
                 <p className="text-lg" style={{ color: '#475569' }}>
                   See who's online and join the conversation right now
                 </p>
@@ -1207,7 +1149,6 @@ export default function ContributorsPage() {
             {/* Community Benefits */}
             <div className="space-y-8">
               <div>
-                <h3 className="text-2xl font-bold mb-6" style={{ color: '#0F172A' }}>Why Join Our Discord?</h3>
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#F0FDFA' }}>
@@ -1260,7 +1201,6 @@ export default function ContributorsPage() {
               </div>
 
               <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl">
-                <h4 className="text-lg font-semibold mb-4" style={{ color: '#0F172A' }}>Ready to Join?</h4>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <a 
                     href="https://discord.gg/PptvudG7jb" 
@@ -1280,24 +1220,6 @@ export default function ContributorsPage() {
           </div>
         </div>
       </section>
-
-          {/* Main CTA */}
-          <div className="text-center">
-            <div className="w-24 h-24 mx-auto mb-6 bg-white/20 backdrop-blur rounded-full flex items-center justify-center">
-              <MessageCircle className="h-12 w-12 text-white" />
-            </div>
-            <h3 className="text-3xl font-bold mb-4 text-white">Join Our Discord Community</h3>
-            <p className="text-xl text-white/95 mb-8 max-w-2xl mx-auto">
-              This is where the work happens. Join the conversation, pick up tasks, and start contributing today.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary" className="text-lg px-8" asChild>
-                <Link href="https://discord.gg/momm" target="_blank">
-                  Join Discord Now <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-            </div>
-          </div>
         </div>
       </section>
     </div>
