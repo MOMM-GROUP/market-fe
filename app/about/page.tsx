@@ -26,18 +26,9 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="relative py-20 px-4 text-center bg-gradient-to-br from-teal-600 via-orange-600 to-pink-600 text-white">
         <div className="container mx-auto max-w-5xl">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-balance">We Are Not Another Startup</h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-balance">The money exists. It's just going to the wrong people.</h1>
           <div className="text-xl md:text-2xl leading-relaxed text-white/95 space-y-4 max-w-4xl mx-auto">
-            <p>
-              Most startups are built to enrich founders at the expense of everyone else. More billionaires. More
-              hoarding. Same system.
-            </p>
-            <p className="font-semibold">MOMM is different.</p>
-            <p>
-              We're building proof that commerce can work for everyone. That workers can own what they build. That
-              shoppers can reclaim wealth from extraction.
-            </p>
-            <p className="font-semibold">Not because we're charitable. Because it's right. And because it works.</p>
+            <p className="font-semibold">MOMM is cutting them out.</p>
           </div>
         </div>
       </section>
