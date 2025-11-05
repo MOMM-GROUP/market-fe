@@ -225,7 +225,7 @@ export function Navbar() {
               <Link href="/auth/login">
                 <Button variant="outline">Sign In</Button>
               </Link>
-              <Link href="/auth/register">
+              <Link href="/early-access">
                 <Button className="bg-primary hover:bg-primary/90">Join Now</Button>
               </Link>
             </>

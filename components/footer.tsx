@@ -28,7 +28,7 @@ export function Footer() {
           <div className="space-y-4">
             <h4 className="font-semibold text-white">For Everyone</h4>
             <div className="space-y-2 text-sm">
-              <Link href="/marketplace" className="block text-gray-400 hover:text-white transition-colors">
+              <Link href="/early-access" className="block text-gray-400 hover:text-white transition-colors">
                 Shop Products
               </Link>
               <Link href="/investors" className="block text-gray-400 hover:text-white transition-colors">
