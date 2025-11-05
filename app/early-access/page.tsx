@@ -138,15 +138,6 @@ export default async function EarlyAccessPage() {
                     Selling my products as a vendor
                   </label>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Checkbox id="building" name="building" />
-                  <label
-                    htmlFor="building"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    Contributing to build the platform
-                  </label>
-                </div>
               </div>
             </div>
 
