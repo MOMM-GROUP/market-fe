@@ -666,60 +666,6 @@ export default function ContributorsPage() {
         </div>
       </section>
 
-      {/* Why Contribute */}
-      <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Why Contribute to MOMM?</h2>
-            <p className="text-xl text-muted-foreground">
-              We're building something different. A platform owned by the people who build and use it.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <div className="w-16 h-16 mx-auto mb-4 bg-teal-100 rounded-full flex items-center justify-center">
-                  <DollarSign className="h-8 w-8 text-teal-600" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Earn Equity</h3>
-                <p className="text-muted-foreground">
-                  Every contribution earns you equity in MOMM. Your time = ownership. When MOMM succeeds, you succeed.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <div className="w-16 h-16 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
-                  <Target className="h-8 w-8 text-orange-600" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Flexible Commitment</h3>
-                <p className="text-muted-foreground">
-                  Contribute as much or as little as you want. Even "one thing here or there" earns you equity. No
-                  pressure, just progress.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <div className="w-16 h-16 mx-auto mb-4 bg-pink-100 rounded-full flex items-center justify-center">
-                  <Users className="h-8 w-8 text-pink-600" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Build Community</h3>
-                <p className="text-muted-foreground">
-                  Join a movement of builders creating a more equitable economy. Connect with like-minded people making
-                  real change.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* The Guild System */}
-
       {/* How Equity Works */}
       <section className="py-16 px-4 bg-background">
         <div className="container mx-auto max-w-6xl">
