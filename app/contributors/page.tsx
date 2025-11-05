@@ -125,6 +125,36 @@ export default function ContributorsPage() {
       </section>
 
 
+      {/* Why Join Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-8 mb-16">
+            <h2 className="text-4xl font-bold" style={{ color: '#0F172A' }}>
+              Why Join the MOMM Community?
+            </h2>
+            <p className="text-xl max-w-3xl mx-auto" style={{ color: '#475569' }}>
+              Be part of a revolutionary project that's transforming how the world shops ethically
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {benefits.map((benefit, index) => {
+              const Icon = benefit.icon;
+              return (
+                <div key={index} className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200 border-2" style={{ borderColor: '#F1F5F9' }}>
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ backgroundColor: '#F0FDFA' }}>
+                    <Icon className="h-6 w-6" style={{ color: '#0D9488' }} />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2" style={{ color: '#0F172A' }}>{benefit.title}</h3>
+                  <p style={{ color: '#475569' }}>{benefit.description}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+
       {/* Requirements Section */}
       <section className="py-20" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
