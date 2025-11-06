@@ -17,20 +17,7 @@ export default function ThankYouPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p className="text-muted-foreground">
-            In the meantime, learn more about how MOMM is changing commerce for good.
-          </p>
           <div className="flex flex-col gap-2">
-            <Link href="/about">
-              <Button variant="outline" className="w-full bg-transparent">
-                Learn About MOMM
-              </Button>
-            </Link>
-            <Link href="/contributors">
-              <Button variant="outline" className="w-full bg-transparent">
-                Become a Contributor
-              </Button>
-            </Link>
             <Link href="/">
               <Button variant="ghost" className="w-full">
                 Back to Home
