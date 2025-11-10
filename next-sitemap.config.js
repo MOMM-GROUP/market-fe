@@ -33,7 +33,7 @@ module.exports = {
     // Homepage gets highest priority
     if (path === "/") {
       return {
-        loc: path,
+        loc: `${config.siteUrl}${path}`, 
         changefreq: "daily",
         priority: 1.0,
         lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
@@ -43,7 +43,7 @@ module.exports = {
     // Main landing pages
     if (path === "/products" || path === "/vendors" || path === "/contributors" || path === "/investors") {
       return {
-        loc: path,
+        loc: `${config.siteUrl}${path}`, 
         changefreq: "daily",
         priority: 0.9,
         lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
@@ -53,7 +53,7 @@ module.exports = {
     // Individual product and vendor pages
     if (path.startsWith("/products/") || path.startsWith("/vendors/")) {
       return {
-        loc: path,
+        loc: `${config.siteUrl}${path}`, 
         changefreq: "weekly",
         priority: 0.8,
         lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
@@ -62,7 +62,7 @@ module.exports = {
 
     // Default for all other pages
     return {
-      loc: path,
+      loc: `${config.siteUrl}${path}`,  
       changefreq: "weekly",
       priority: 0.7,
       lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
