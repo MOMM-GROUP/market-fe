@@ -20,6 +20,16 @@ import {
   DollarSign,
 } from "lucide-react"
 import Link from "next/link"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Sell on MOMM - For Ethical Vendors",
+  description:
+    "Reach conscious consumers who value ethics. Get verified, access powerful insights, and grow your ethical business on MOMM.",
+  alternates: {
+    canonical: "https://www.momm.group/vendors",
+  },
+}
 
 export default function VendorsPage() {
   return (
