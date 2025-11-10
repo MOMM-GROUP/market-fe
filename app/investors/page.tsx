@@ -11,10 +11,12 @@ import {
   ExternalLink,
   Target,
   Globe,
+  Shield,
   Rocket,
   BarChart3,
   Award,
   Network,
+  ShoppingCart,
   Coins,
   Zap,
   Crown,
@@ -86,11 +88,85 @@ const marketMetrics = {
     details: [
       "Existing marketplaces lack verification",
       "Certification bodies are fragmented",
-      "No ethical matching exists",
+      "No AI-powered ethical matching exists",
       "First to combine all three elements",
     ],
   },
 }
+
+const revenueStreams = [
+  {
+    title: "Marketplace Commission",
+    percentage: "40%",
+    description: "3-5% commission on verified product sales",
+    timeline: "Q2 2025",
+    icon: ShoppingCart,
+    color: "#0D9488",
+  },
+  {
+    title: "Verification Services",
+    percentage: "25%",
+    description: "B2B verification API and enterprise tools",
+    timeline: "Q3 2025",
+    icon: Shield,
+    color: "#F97316",
+  },
+  {
+    title: "Premium Features",
+    percentage: "20%",
+    description: "Advanced analytics and priority placement",
+    timeline: "Q2 2025",
+    icon: Crown,
+    color: "#EC4899",
+  },
+  {
+    title: "Data Licensing",
+    percentage: "10%",
+    description: "Anonymized ethical consumer insights",
+    timeline: "Q4 2025",
+    icon: BarChart3,
+    color: "#7C3AED",
+  },
+  {
+    title: "Token Economy",
+    percentage: "5%",
+    description: "MOMM token transaction fees and staking",
+    timeline: "Q4 2025",
+    icon: Coins,
+    color: "#059669",
+  },
+]
+
+const financialProjections = [
+  { year: "2025", revenue: "$250K", users: "10K", gmv: "$2M" },
+  { year: "2026", revenue: "$2.5M", users: "100K", gmv: "$50M" },
+  { year: "2027", revenue: "$12M", users: "500K", gmv: "$300M" },
+  { year: "2028", revenue: "$45M", users: "2M", gmv: "$1.2B" },
+  { year: "2029", revenue: "$120M", users: "5M", gmv: "$3B" },
+]
+
+const teamCredentials = [
+  {
+    name: "Founding Team",
+    description: "Combined 20+ years in tech, sustainability, and blockchain",
+    achievements: [
+      "Previous exits in B2B SaaS",
+      "Deep expertise in Web3 and AI",
+      "Strong network in sustainability space",
+      "Track record of building scalable platforms",
+    ],
+  },
+  {
+    name: "Advisory Board",
+    description: "Industry leaders from major certification bodies and VCs",
+    achievements: [
+      "Former executives from B Corp, Fair Trade",
+      "VCs from top sustainability funds",
+      "Technical advisors from Ethereum Foundation",
+      "Retail executives from major brands",
+    ],
+  },
+]
 
 const investmentTerms = {
   round: "Pre-Seed Round",
@@ -131,6 +207,14 @@ const useOfFunds = [
     description:
       "Legal work for our company and DAO structure, Intellectual Property (IP), compliance, and general operational expenses.",
   },
+]
+
+const riskFactors = [
+  "Early-stage company with limited operating history",
+  "Regulatory uncertainty in blockchain and data privacy",
+  "Dependence on third-party certification bodies",
+  "Competition from established e-commerce platforms",
+  "Market adoption risk for new verification technology",
 ]
 
 export default function InvestorsPage() {

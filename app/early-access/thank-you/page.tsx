@@ -17,11 +17,13 @@ export default function ThankYouPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Link href="/">
-            <Button variant="ghost" className="w-full">
-              Back to Home
-            </Button>
-          </Link>
+          <div className="flex flex-col gap-2">
+            <Link href="/">
+              <Button variant="ghost" className="w-full">
+                Back to Home
+              </Button>
+            </Link>
+          </div>
         </CardContent>
       </Card>
     </div>

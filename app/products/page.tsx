@@ -28,6 +28,7 @@ export function ProductsPageClient({
 }) {
   const [products] = useState(initialProducts)
   const [categories] = useState(initialCategories)
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
 }
 
 interface Product {
@@ -264,16 +265,9 @@ export default function ProductsPage() {
   }
   useEffect(() => {
     const fetchCategories = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/get-categories-cache`)
+      const { data, error } = await supabase.from("categories").select("*").order("name")
 
-        if (!response.ok) {
-          throw new Error(`Failed to fetch categories: ${response.status} ${response.statusText}`)
-        }
-
-        const data = await response.json()
-        setCategories(data || [])
-      } catch (error) {
+      if (error) {
         console.error("Error fetching categories:", error)
         setCategories([])
       }
