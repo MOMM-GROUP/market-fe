@@ -28,7 +28,6 @@ export function ProductsPageClient({
 }) {
   const [products] = useState(initialProducts)
   const [categories] = useState(initialCategories)
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
 }
 
 interface Product {
