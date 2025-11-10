@@ -1,7 +1,7 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: process.env.SITE_URL || "https://www.momm.group",
-  generateRobotsTxt: false, // We already have a custom robots.txt
+  generateRobotsTxt: true, // 
   generateIndexSitemap: false,
   exclude: [
     "/admin/*",
@@ -25,7 +25,7 @@ module.exports = {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/vendor", "/api"],
+        disallow: ["/admin", "/vendor", "/api", "/auth", "/checkout"],
       },
     ],
   },
