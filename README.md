@@ -7,5 +7,3 @@
 Project is live at:
 
 **[momm.group](https://momm.group)**
-
-

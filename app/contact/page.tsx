@@ -5,6 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Linkedin, Instagram, Users } from "lucide-react"
 
+// The canonical tag should be added in a parent layout or converted to server component
+// For now, this serves as documentation of the intended canonical URL: https://www.momm.group/contact
+
 // A simple component for social links to avoid repetition
 const SocialLink = ({
   href,

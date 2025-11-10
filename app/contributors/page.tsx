@@ -2,94 +2,73 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import {
-  Github, 
-  ExternalLink,
-  Zap,
-  Handshake,
-  Shield,
-  Brain,
   Globe,
   Coins,
   Trophy,
-  Star,
-  Clock,
   Eye,
   Crown,
-  Mail,
   Code,
-  Calendar,
-  MapPin,
-  Sparkles,
-  Building2,
-  Bot,
-  Wrench,
   BarChart3,
-  BookOpen,
-  Lightbulb,
-  Megaphone,
   Scale,
-  Palette,
   Database,
   Users,
   CheckCircle,
   ArrowRight,
-  DollarSign,
-  Target,
-  MessageCircle,
   Rocket,
   Network,
   Award,
   Heart,
-  Briefcase,
-  FileText,
-  Video,
   TrendingUp,
-  Headphones,
-  Search,
-  ClipboardCheck,
-  Calculator,
-  UserPlus,
 } from "lucide-react"
 import Link from "next/link"
-import { useState } from "react"
+import type { Metadata } from "next"
 
-  const benefits = [
-    {
-      icon: Coins,
-      title: 'Equity Opportunity',
-      description: 'Earn equity for contributing to both open-source core and revenue features'
-    },
-    {
-      icon: Trophy,
-      title: 'Ground Floor Opportunity',
-      description: 'Join as a founding contributor and help shape the entire system'
-    },
-    {
-      icon: Network,
-      title: 'Grow Your Network',
-      description: 'Connect with people trying to change commerce'
-    },
-    {
-      icon: Rocket,
-      title: 'Career Growth',
-      description: 'Build your portfolio with cutting-edge technology'
-    },
-    {
-      icon: Globe,
-      title: 'Global Impact',
-      description: 'Help transform commerce for a more ethical world'
-    },
-    {
-      icon: Award,
-      title: 'Build Your Portfolio',
-      description: 'Work on cutting-edge Web3 and AI technology'
-    }
-  ];
-  const requirements = [
-    'Passion for ethical commerce and building something from the ground up',
-    'Strong communication skills and excitement about remote collaboration', 
-    'Willingness to learn, contribute, and help shape our community (experience is a plus, not required!)'
-  ];
+const benefits = [
+  {
+    icon: Coins,
+    title: "Equity Opportunity",
+    description: "Earn equity for contributing to both open-source core and revenue features",
+  },
+  {
+    icon: Trophy,
+    title: "Ground Floor Opportunity",
+    description: "Join as a founding contributor and help shape the entire system",
+  },
+  {
+    icon: Network,
+    title: "Grow Your Network",
+    description: "Connect with people trying to change commerce",
+  },
+  {
+    icon: Rocket,
+    title: "Career Growth",
+    description: "Build your portfolio with cutting-edge technology",
+  },
+  {
+    icon: Globe,
+    title: "Global Impact",
+    description: "Help transform commerce for a more ethical world",
+  },
+  {
+    icon: Award,
+    title: "Build Your Portfolio",
+    description: "Work on cutting-edge Web3 and AI technology",
+  },
+]
+const requirements = [
+  "Passion for ethical commerce and building something from the ground up",
+  "Strong communication skills and excitement about remote collaboration",
+  "Willingness to learn, contribute, and help shape our community (experience is a plus, not required!)",
+]
+
+export const metadata: Metadata = {
+  title: "Join Our Contributors - MOMM",
+  description:
+    "Help build the future of ethical commerce. Earn equity, grow your skills, and make a real impact. Join our community of passionate builders.",
+  alternates: {
+    canonical: "https://www.momm.group/contributors",
+  },
+}
 
 export default function ContributorsPage() {
   return (
@@ -121,56 +100,59 @@ export default function ContributorsPage() {
         </div>
       </section>
 
-
       {/* Why Join Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-8 mb-16">
-            <h2 className="text-4xl font-bold" style={{ color: '#0F172A' }}>
+            <h2 className="text-4xl font-bold" style={{ color: "#0F172A" }}>
               Join the MOMM Community
             </h2>
-            <p className="text-xl max-w-3xl mx-auto" style={{ color: '#475569' }}>
+            <p className="text-xl max-w-3xl mx-auto" style={{ color: "#475569" }}>
               Be part of a revolutionary project that's transforming how the world shops, lives and thrives.
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {benefits.map((benefit, index) => {
-              const Icon = benefit.icon;
+              const Icon = benefit.icon
               return (
-                <div key={index} className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200 border-2" style={{ borderColor: '#F1F5F9' }}>
-                  <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ backgroundColor: '#F0FDFA' }}>
-                    <Icon className="h-6 w-6" style={{ color: '#0D9488' }} />
+                <div
+                  key={index}
+                  className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200 border-2"
+                  style={{ borderColor: "#F1F5F9" }}
+                >
+                  <div
+                    className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+                    style={{ backgroundColor: "#F0FDFA" }}
+                  >
+                    <Icon className="h-6 w-6" style={{ color: "#0D9488" }} />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2" style={{ color: '#0F172A' }}>{benefit.title}</h3>
-                  <p style={{ color: '#475569' }}>{benefit.description}</p>
+                  <h3 className="text-lg font-semibold mb-2" style={{ color: "#0F172A" }}>
+                    {benefit.title}
+                  </h3>
+                  <p style={{ color: "#475569" }}>{benefit.description}</p>
                 </div>
-              );
+              )
             })}
           </div>
         </div>
       </section>
 
-
       {/* Requirements Section */}
-      <section className="py-20" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)' }}>
+      <section className="py-20" style={{ background: "linear-gradient(135deg, #0F172A 0%, #1E293B 100%)" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left side - Requirements */}
             <div className="space-y-8">
               <div className="space-y-4">
-                <h2 className="text-4xl font-bold text-white">
-                  What We're Looking For
-                </h2>
-                <p className="text-xl text-gray-300">
-                  Passion and drive matter more than perfect experience
-                </p>
+                <h2 className="text-4xl font-bold text-white">What We're Looking For</h2>
+                <p className="text-xl text-gray-300">Passion and drive matter more than perfect experience</p>
               </div>
-              
+
               <div className="space-y-4">
                 {requirements.map((requirement, index) => (
                   <div key={index} className="flex items-start space-x-3 p-4 rounded-lg bg-white/10 backdrop-blur-sm">
-                    <CheckCircle className="h-5 w-5 mt-0.5 flex-shrink-0" style={{ color: '#0D9488' }} />
+                    <CheckCircle className="h-5 w-5 mt-0.5 flex-shrink-0" style={{ color: "#0D9488" }} />
                     <span className="text-white text-sm">{requirement}</span>
                   </div>
                 ))}
@@ -184,20 +166,21 @@ export default function ContributorsPage() {
                   <Rocket className="h-8 w-8" />
                   <h3 className="text-2xl font-bold">From Zero to Hero</h3>
                 </div>
-                
+
                 <div className="space-y-4">
                   <p className="text-lg leading-relaxed">
-                    "I launched my first Web3 contract with Boys Club with <strong>zero Web3 experience</strong> and generated over <strong>120 ETH</strong>."
+                    "I launched my first Web3 contract with Boys Club with <strong>zero Web3 experience</strong> and
+                    generated over <strong>120 ETH</strong>."
                   </p>
-                  <p className="text-sm opacity-90">
-                    — MOMM Founder
-                  </p>
+                  <p className="text-sm opacity-90">— MOMM Founder</p>
                 </div>
-                
+
                 <div className="bg-white/10 p-4 rounded-lg">
                   <p className="text-sm">
-                    <strong>💡 No Experience? Perfect!</strong><br/>
-                    We believe passion and willingness to learn beats experience every time. This is your chance to break into an exciting new space!
+                    <strong>💡 No Experience? Perfect!</strong>
+                    <br />
+                    We believe passion and willingness to learn beats experience every time. This is your chance to
+                    break into an exciting new space!
                   </p>
                 </div>
               </div>
@@ -484,131 +467,187 @@ export default function ContributorsPage() {
         </div>
       </section>
 
-
       <section
         id="discord"
         className="py-20 px-4 bg-gradient-to-br from-teal-600 via-orange-600 to-pink-600 text-white"
       >
         <div className="container mx-auto max-w-6xl">
-
-
           {/* Dynamic Equity Model Section */}
-            <div className="bg-white/90 p-8 rounded-2xl shadow-lg mb-16">
-
-              <div className="mb-16 text-center">
-                <h2 className="text-4xl lg:text-5xl font-bold mb-6" style={{ color: '#0F172A' }}>
-                  A Fairer Model of Ownership
-                </h2>
-                <div className="flex justify-center">
-                  <p className="text-2xl leading-relaxed font-medium pl-8 border-l-4 text-left max-w-3xl" style={{ color: '#0F172A', borderColor: '#0D9488' }}>
-                    <strong>Value should be rewarded.</strong> Companies built on the backs of their community while wealth stays at the top have <strong>got to go</strong>. We are building a truly community-owned ecosystem where the people who create the value share in the success.
-                  </p>
-                </div>
+          <div className="bg-white/90 p-8 rounded-2xl shadow-lg mb-16">
+            <div className="mb-16 text-center">
+              <h2 className="text-4xl lg:text-5xl font-bold mb-6" style={{ color: "#0F172A" }}>
+                A Fairer Model of Ownership
+              </h2>
+              <div className="flex justify-center">
+                <p
+                  className="text-2xl leading-relaxed font-medium pl-8 border-l-4 text-left max-w-3xl"
+                  style={{ color: "#0F172A", borderColor: "#0D9488" }}
+                >
+                  <strong>Value should be rewarded.</strong> Companies built on the backs of their community while
+                  wealth stays at the top have <strong>got to go</strong>. We are building a truly community-owned
+                  ecosystem where the people who create the value share in the success.
+                </p>
               </div>
-            
-              {/* Visual Timeline */}
-              <div className="mb-8">
-                <div className="relative max-w-4xl mx-auto">
-                  {/* Timeline Points */}
-                  <div className="relative flex justify-between items-center">
-                    <div className="grid md:grid-cols-3 gap-8 text-center mb-16">
-                      <div className="space-y-6">
-                        <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto" style={{ backgroundColor: '#F0FDFA', color: '#0D9488' }}>
-                          <Users className="w-8 h-8" />
-                        </div>
-                        <h3 className="text-xl font-semibold" style={{ color: '#0F172A' }}>1. Contribute</h3>
-                        <p style={{ color: '#64748B' }}>Contribute code, design, or community growth to the MOMM ecosystem.</p>
-                      </div>
-                      <div className="space-y-6">
-                        <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto" style={{ backgroundColor: '#FFF7ED', color: '#F97316' }}>
-                          <BarChart3 className="w-8 h-8" />
-                        </div>
-                        <h3 className="text-xl font-semibold" style={{ color: '#0F172A' }}>2. Earn Points</h3>
-                        <p style={{ color: '#64748B' }}>Receive "Contribution Points" representing your stake in the ecosystem.</p>
-                      </div>
-                      <div className="space-y-6">
-                        <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto" style={{ backgroundColor: '#FDF2F8', color: '#EC4899' }}>
-                          <Coins className="w-8 h-8" />
-                        </div>
-                        <h3 className="text-xl font-semibold" style={{ color: '#0F172A' }}>3. Share Success</h3>
-                        <p style={{ color: '#64748B' }}>A percentage of all revenue is distributed to you based on your points.</p>
-                      </div>
-                    </div>
-                </div>
-              </div>
-
             </div>
-            
+
+            {/* Visual Timeline */}
+            <div className="mb-8">
+              <div className="relative max-w-4xl mx-auto">
+                {/* Timeline Points */}
+                <div className="relative flex justify-between items-center">
+                  <div className="grid md:grid-cols-3 gap-8 text-center mb-16">
+                    <div className="space-y-6">
+                      <div
+                        className="w-16 h-16 rounded-full flex items-center justify-center mx-auto"
+                        style={{ backgroundColor: "#F0FDFA", color: "#0D9488" }}
+                      >
+                        <Users className="w-8 h-8" />
+                      </div>
+                      <h3 className="text-xl font-semibold" style={{ color: "#0F172A" }}>
+                        1. Contribute
+                      </h3>
+                      <p style={{ color: "#64748B" }}>
+                        Contribute code, design, or community growth to the MOMM ecosystem.
+                      </p>
+                    </div>
+                    <div className="space-y-6">
+                      <div
+                        className="w-16 h-16 rounded-full flex items-center justify-center mx-auto"
+                        style={{ backgroundColor: "#FFF7ED", color: "#F97316" }}
+                      >
+                        <BarChart3 className="w-8 h-8" />
+                      </div>
+                      <h3 className="text-xl font-semibold" style={{ color: "#0F172A" }}>
+                        2. Earn Points
+                      </h3>
+                      <p style={{ color: "#64748B" }}>
+                        Receive "Contribution Points" representing your stake in the ecosystem.
+                      </p>
+                    </div>
+                    <div className="space-y-6">
+                      <div
+                        className="w-16 h-16 rounded-full flex items-center justify-center mx-auto"
+                        style={{ backgroundColor: "#FDF2F8", color: "#EC4899" }}
+                      >
+                        <Coins className="w-8 h-8" />
+                      </div>
+                      <h3 className="text-xl font-semibold" style={{ color: "#0F172A" }}>
+                        3. Share Success
+                      </h3>
+                      <p style={{ color: "#64748B" }}>
+                        A percentage of all revenue is distributed to you based on your points.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="grid md:grid-cols-2 gap-8 items-start">
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <CheckCircle className="w-8 h-8 flex-shrink-0 mt-1" style={{ color: '#059669' }} />
+                  <CheckCircle className="w-8 h-8 flex-shrink-0 mt-1" style={{ color: "#059669" }} />
                   <div>
-                    <h4 className="font-semibold mb-2" style={{ color: '#0F172A' }}>Your Points Never Expire</h4>
-                    <p style={{ color: '#64748B' }}>Once you earn a point, it is yours forever. You will always have a stake in the success you helped create.</p>
+                    <h4 className="font-semibold mb-2" style={{ color: "#0F172A" }}>
+                      Your Points Never Expire
+                    </h4>
+                    <p style={{ color: "#64748B" }}>
+                      Once you earn a point, it is yours forever. You will always have a stake in the ecosystem.
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <TrendingUp className="w-8 h-8 flex-shrink-0 mt-1" style={{ color: '#F97316' }} />
+                  <TrendingUp className="w-8 h-8 flex-shrink-0 mt-1" style={{ color: "#F97316" }} />
                   <div>
-                    <h4 className="font-semibold mb-2" style={{ color: '#0F172A' }}>Your Share Evolves</h4>
-                    <p style={{ color: '#64748B' }}>Each year, new points are issued to active contributors. Your percentage may dilute over time if you become inactive, but your points remain yours.</p>
+                    <h4 className="font-semibold mb-2" style={{ color: "#0F172A" }}>
+                      Your Share Evolves
+                    </h4>
+                    <p style={{ color: "#64748B" }}>
+                      Each year, new points are issued to active contributors. Your percentage may dilute over time if
+                      you become inactive, but your points remain yours.
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <Eye className="w-8 h-8 flex-shrink-0 mt-1" style={{ color: '#0D9488' }} />
+                  <Eye className="w-8 h-8 flex-shrink-0 mt-1" style={{ color: "#0D9488" }} />
                   <div>
-                    <h4 className="font-semibold mb-2" style={{ color: '#0F172A' }}>Fair & Transparent</h4>
-                    <p style={{ color: '#64748B' }}>All point allocations and distributions are transparent and governed by the community.</p>
+                    <h4 className="font-semibold mb-2" style={{ color: "#0F172A" }}>
+                      Fair & Transparent
+                    </h4>
+                    <p style={{ color: "#64748B" }}>
+                      All point allocations and distributions are transparent and governed by the community.
+                    </p>
                   </div>
                 </div>
               </div>
-              <div className="p-6 rounded-lg border-2 h-fit" style={{ backgroundColor: '#F8FAFC', borderColor: '#E2E8F0' }}>
-                <h4 className="font-semibold mb-4" style={{ color: '#0F172A' }}>A Simple Example:</h4>
+              <div
+                className="p-6 rounded-lg border-2 h-fit"
+                style={{ backgroundColor: "#F8FAFC", borderColor: "#E2E8F0" }}
+              >
+                <h4 className="font-semibold mb-4" style={{ color: "#0F172A" }}>
+                  A Simple Example:
+                </h4>
                 <div className="space-y-3">
-                  <div className="p-3 rounded-lg" style={{ backgroundColor: '#F0FDFA' }}>
-                    <p className="text-sm" style={{ color: '#0F172A' }}>
-                      <strong style={{ color: '#0D9488' }}>Year 1:</strong> 3 contributors each earn 1 point (3 total). Profits split 3 ways.
+                  <div className="p-3 rounded-lg" style={{ backgroundColor: "#F0FDFA" }}>
+                    <p className="text-sm" style={{ color: "#0F172A" }}>
+                      <strong style={{ color: "#0D9488" }}>Year 1:</strong> 3 contributors each earn 1 point (3 total).
+                      Profits split 3 ways.
                     </p>
                   </div>
-                  <div className="p-3 rounded-lg" style={{ backgroundColor: '#FFF7ED' }}>
-                    <p className="text-sm" style={{ color: '#0F172A' }}>
-                      <strong style={{ color: '#F97316' }}>Year 2:</strong> 1 original contributor earns another point, 4 new contributors join. Profit pool now split 8 ways, with the most active member receiving the largest share.
+                  <div className="p-3 rounded-lg" style={{ backgroundColor: "#FFF7ED" }}>
+                    <p className="text-sm" style={{ color: "#0F172A" }}>
+                      <strong style={{ color: "#F97316" }}>Year 2:</strong> 1 original contributor earns another point,
+                      4 new contributors join. Profit pool now split 8 ways, with the most active member receiving the
+                      largest share.
                     </p>
                   </div>
                 </div>
-                <div className="mt-4 p-3 rounded-lg" style={{ backgroundColor: '#EFF6FF' }}>
-                  <p className="text-sm font-medium" style={{ color: '#0F172A' }}>
-                    💡 <strong>Key Insight:</strong> Stay active to maintain and grow your share, but your earned points are always yours.
+                <div className="mt-4 p-3 rounded-lg" style={{ backgroundColor: "#EFF6FF" }}>
+                  <p className="text-sm font-medium" style={{ color: "#0F172A" }}>
+                    💡 <strong>Key Insight:</strong> Stay active to maintain and grow your share, but your earned points
+                    are always yours.
                   </p>
                 </div>
               </div>
             </div>
-            
+
             {/* Key Principles Highlight */}
             <div className="mt-8 p-6 rounded-xl bg-gradient-to-r from-teal-100 via-pink-100 to-orange-100">
-              <h4 className="text-lg font-semibold mb-4 text-center" style={{ color: '#0D9488' }}>Why This Model Works</h4>
+              <h4 className="text-lg font-semibold mb-4 text-center" style={{ color: "#0D9488" }}>
+                Why This Model Works
+              </h4>
               <div className="grid md:grid-cols-3 gap-4 text-center">
                 <div>
-                  <Eye className="h-6 w-6 mx-auto mb-2" style={{ color: '#0D9488' }} />
-                  <p className="font-medium text-sm" style={{ color: '#0F172A' }}>Transparent</p>
-                  <p className="text-xs" style={{ color: '#64748B' }}>All allocations are visible</p>
+                  <Eye className="h-6 w-6 mx-auto mb-2" style={{ color: "#0D9488" }} />
+                  <p className="font-medium text-sm" style={{ color: "#0F172A" }}>
+                    Transparent
+                  </p>
+                  <p className="text-xs" style={{ color: "#64748B" }}>
+                    All allocations are visible
+                  </p>
                 </div>
                 <div>
-                  <Award className="h-6 w-6 mx-auto mb-2" style={{ color: '#0D9488' }} />
-                  <p className="font-medium text-sm" style={{ color: '#0F172A' }}>Fair</p>
-                  <p className="text-xs" style={{ color: '#64748B' }}>Rewards actual contribution</p>
+                  <Award className="h-6 w-6 mx-auto mb-2" style={{ color: "#0D9488" }} />
+                  <p className="font-medium text-sm" style={{ color: "#0F172A" }}>
+                    Fair
+                  </p>
+                  <p className="text-xs" style={{ color: "#64748B" }}>
+                    Rewards actual contribution
+                  </p>
                 </div>
                 <div>
-                  <Crown className="h-6 w-6 mx-auto mb-2" style={{ color: '#0D9488' }} />
-                  <p className="font-medium text-sm" style={{ color: '#0F172A' }}>Permanent</p>
-                  <p className="text-xs" style={{ color: '#64748B' }}>Your points are yours forever</p>
+                  <Crown className="h-6 w-6 mx-auto mb-2" style={{ color: "#0D9488" }} />
+                  <p className="font-medium text-sm" style={{ color: "#0F172A" }}>
+                    Permanent
+                  </p>
+                  <p className="text-xs" style={{ color: "#64748B" }}>
+                    Your points are yours forever
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </section>
     </div>
   )
