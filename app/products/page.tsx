@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -29,7 +28,8 @@ export function ProductsPageClient({
 }) {
   const [products] = useState(initialProducts)
   const [categories] = useState(initialCategories)
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')}
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
+}
 
 interface Product {
   id: string
@@ -82,10 +82,10 @@ export default function ProductsPage() {
   })
   const [sortBy, setSortBy] = useState("newest")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
-  
+
   const ITEMS_PER_PAGE = 20
   const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE)
-  
+
   const supabase = createClient()
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -94,7 +94,7 @@ export default function ProductsPage() {
     const categoryParam = searchParams.get("category")
     const searchParam = searchParams.get("search")
     const pageParam = searchParams.get("page")
-    
+
     if (categoryParam) {
       setSelectedCategory(categoryParam)
     }
@@ -102,7 +102,7 @@ export default function ProductsPage() {
       setSearchQuery(searchParam)
     }
     if (pageParam) {
-      setCurrentPage(parseInt(pageParam))
+      setCurrentPage(Number.parseInt(pageParam))
     }
   }, [searchParams])
 
@@ -114,48 +114,45 @@ export default function ProductsPage() {
     fetchData()
   }, [searchQuery, selectedCategory, filters, sortBy, currentPage])
 
-const fetchData = async () => {
-  console.log("[v0] Starting fetchData - Page:", currentPage)
-  console.log("[v0] Selected category:", selectedCategory)
-  setLoading(true)
-  
-  try {
-    const supabase = createClient()
-    
-    // Step 1: Get category IDs (including children)
-    let categoryIds: string[] = []
-    if (selectedCategory !== "all") {
-      console.log("[v0] Looking up category:", selectedCategory)
-      
-      const { data: categoryData, error: categoryError } = await supabase
-        .from("categories")
-        .select("id")
-        .eq("slug", selectedCategory)
-        .single()
-      
-      if (categoryError) {
-        console.error("[v0] Category lookup error:", categoryError)
-      } else if (categoryData) {
-        const { data: childCategories } = await supabase
+  const fetchData = async () => {
+    console.log("[v0] Starting fetchData - Page:", currentPage)
+    console.log("[v0] Selected category:", selectedCategory)
+    setLoading(true)
+
+    try {
+      const supabase = createClient()
+
+      // Step 1: Get category IDs (including children)
+      let categoryIds: string[] = []
+      if (selectedCategory !== "all") {
+        console.log("[v0] Looking up category:", selectedCategory)
+
+        const { data: categoryData, error: categoryError } = await supabase
           .from("categories")
           .select("id")
-          .eq("parent_id", categoryData.id)
-        
-        categoryIds = [
-          categoryData.id,
-          ...(childCategories?.map(c => c.id) || [])
-        ]
-        
-        console.log("[v0] Category IDs to filter:", categoryIds)
+          .eq("slug", selectedCategory)
+          .single()
+
+        if (categoryError) {
+          console.error("[v0] Category lookup error:", categoryError)
+        } else if (categoryData) {
+          const { data: childCategories } = await supabase
+            .from("categories")
+            .select("id")
+            .eq("parent_id", categoryData.id)
+
+          categoryIds = [categoryData.id, ...(childCategories?.map((c) => c.id) || [])]
+
+          console.log("[v0] Category IDs to filter:", categoryIds)
+        }
+      } else {
+        console.log("[v0] Fetching all products (no category filter)")
       }
-    } else {
-      console.log("[v0] Fetching all products (no category filter)")
-    }
-    
-    // Step 2: Build query with LEFT joins (not INNER)
-    let query = supabase
-      .from("products")
-      .select(`
+
+      // Step 2: Build query with LEFT joins (not INNER)
+      let query = supabase
+        .from("products")
+        .select(`
         id,
         name,
         description,
@@ -176,103 +173,100 @@ const fetchData = async () => {
           slug
         )
       `)
-      .eq("is_active", true)
-      .not("category_id", "is", null)  // Only show categorized products
-      .not("vendor_id", "is", null)    // Only show products with vendors
-    
-    // Step 3: Apply category filter ONLY if we have category IDs
-    if (categoryIds.length > 0) {
-      console.log("[v0] Applying category filter for", categoryIds.length, "categories")
-      query = query.in("category_id", categoryIds)
-    }
-    
-    // Step 4: Apply other filters
-    if (filters.priceRange.min) {
-      query = query.gte("price", parseFloat(filters.priceRange.min))
-    }
-    if (filters.priceRange.max) {
-      query = query.lte("price", parseFloat(filters.priceRange.max))
-    }
-    if (filters.selectedBrands.length > 0) {
-      query = query.in("brand", filters.selectedBrands)
-    }
-    
-    // Step 5: Apply sorting
-    switch (sortBy) {
-      case "price-low":
-        query = query.order("price", { ascending: true })
-        break
-      case "price-high":
-        query = query.order("price", { ascending: false })
-        break
-      case "popular":
-      default:
-        query = query.order("created_at", { ascending: false })
-    }
-    
-    // Step 6: Get total count
-    const countQuery = supabase
-      .from("products")
-      .select("id", { count: 'exact', head: true })
-      .eq("is_active", true)
-      .not("category_id", "is", null)
-      .not("vendor_id", "is", null)
-    
-    if (categoryIds.length > 0) {
-      countQuery.in("category_id", categoryIds)
-    }
-    
-    const { count, error: countError } = await countQuery
-    
-    if (countError) {
-      console.error("[v0] Count error:", countError)
-    } else {
-      console.log("[v0] Total matching products:", count)
-      setTotalProducts(count || 0)
-    }
-    
-    // Step 7: Apply pagination
-    const from = (currentPage - 1) * ITEMS_PER_PAGE
-    const to = from + ITEMS_PER_PAGE - 1
-    query = query.range(from, to)
-    
-    console.log("[v0] Fetching page:", currentPage, "Range:", from, "-", to)
-    const { data: productsData, error } = await query
-    
-    if (error) {
-      console.error("[v0] Products error:", error)
-      console.error("[v0] Error code:", error.code)
-      console.error("[v0] Error message:", error.message)
-      console.error("[v0] Error details:", error.details)
-      console.error("[v0] Error hint:", error.hint)
-      setProducts([])
-    } else {
-      console.log("[v0] Products fetched:", productsData?.length || 0)
-      if (productsData && productsData.length > 0) {
-        console.log("[v0] First product:", {
-          id: productsData[0].id,
-          name: productsData[0].name,
-          category: productsData[0].categories?.name,
-          vendor: productsData[0].vendors?.business_name
-        })
+        .eq("is_active", true)
+        .not("category_id", "is", null) // Only show categorized products
+        .not("vendor_id", "is", null) // Only show products with vendors
+
+      // Step 3: Apply category filter ONLY if we have category IDs
+      if (categoryIds.length > 0) {
+        console.log("[v0] Applying category filter for", categoryIds.length, "categories")
+        query = query.in("category_id", categoryIds)
       }
-      setProducts(productsData || [])
+
+      // Step 4: Apply other filters
+      if (filters.priceRange.min) {
+        query = query.gte("price", Number.parseFloat(filters.priceRange.min))
+      }
+      if (filters.priceRange.max) {
+        query = query.lte("price", Number.parseFloat(filters.priceRange.max))
+      }
+      if (filters.selectedBrands.length > 0) {
+        query = query.in("brand", filters.selectedBrands)
+      }
+
+      // Step 5: Apply sorting
+      switch (sortBy) {
+        case "price-low":
+          query = query.order("price", { ascending: true })
+          break
+        case "price-high":
+          query = query.order("price", { ascending: false })
+          break
+        case "popular":
+        default:
+          query = query.order("created_at", { ascending: false })
+      }
+
+      // Step 6: Get total count
+      const countQuery = supabase
+        .from("products")
+        .select("id", { count: "exact", head: true })
+        .eq("is_active", true)
+        .not("category_id", "is", null)
+        .not("vendor_id", "is", null)
+
+      if (categoryIds.length > 0) {
+        countQuery.in("category_id", categoryIds)
+      }
+
+      const { count, error: countError } = await countQuery
+
+      if (countError) {
+        console.error("[v0] Count error:", countError)
+      } else {
+        console.log("[v0] Total matching products:", count)
+        setTotalProducts(count || 0)
+      }
+
+      // Step 7: Apply pagination
+      const from = (currentPage - 1) * ITEMS_PER_PAGE
+      const to = from + ITEMS_PER_PAGE - 1
+      query = query.range(from, to)
+
+      console.log("[v0] Fetching page:", currentPage, "Range:", from, "-", to)
+      const { data: productsData, error } = await query
+
+      if (error) {
+        console.error("[v0] Products error:", error)
+        console.error("[v0] Error code:", error.code)
+        console.error("[v0] Error message:", error.message)
+        console.error("[v0] Error details:", error.details)
+        console.error("[v0] Error hint:", error.hint)
+        setProducts([])
+      } else {
+        console.log("[v0] Products fetched:", productsData?.length || 0)
+        if (productsData && productsData.length > 0) {
+          console.log("[v0] First product:", {
+            id: productsData[0].id,
+            name: productsData[0].name,
+            category: productsData[0].categories?.name,
+            vendor: productsData[0].vendors?.business_name,
+          })
+        }
+        setProducts(productsData || [])
+      }
+    } catch (error) {
+      console.error("[v0] Exception:", error)
+      setProducts([])
+      setTotalProducts(0)
+    } finally {
+      setLoading(false)
     }
-  } catch (error) {
-    console.error("[v0] Exception:", error)
-    setProducts([])
-    setTotalProducts(0)
-  } finally {
-    setLoading(false)
   }
-}
   useEffect(() => {
     const fetchCategories = async () => {
-      const { data, error } = await supabase
-        .from("categories")
-        .select("*")
-        .order("name")
-      
+      const { data, error } = await supabase.from("categories").select("*").order("name")
+
       if (error) {
         console.error("Error fetching categories:", error)
         setCategories([])
@@ -305,7 +299,7 @@ const fetchData = async () => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
   return (
@@ -346,12 +340,8 @@ const fetchData = async () => {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
                 <h1 className="text-2xl font-bold">All Products</h1>
-                <span className="text-muted-foreground">
-                  ({totalProducts} products)
-                </span>
-                {searchQuery && (
-                  <Badge variant="secondary">Search: "{searchQuery}"</Badge>
-                )}
+                <span className="text-muted-foreground">({totalProducts} products)</span>
+                {searchQuery && <Badge variant="secondary">Search: "{searchQuery}"</Badge>}
               </div>
 
               <div className="flex items-center gap-2">
@@ -446,14 +436,16 @@ const fetchData = async () => {
 
                       {/* Show pages around current page */}
                       {Array.from({ length: totalPages }, (_, i) => i + 1)
-                        .filter(page => {
-                          return page === currentPage || 
-                                 page === currentPage - 1 || 
-                                 page === currentPage + 1 ||
-                                 (page <= 2 && currentPage <= 3) ||
-                                 (page >= totalPages - 1 && currentPage >= totalPages - 2)
+                        .filter((page) => {
+                          return (
+                            page === currentPage ||
+                            page === currentPage - 1 ||
+                            page === currentPage + 1 ||
+                            (page <= 2 && currentPage <= 3) ||
+                            (page >= totalPages - 1 && currentPage >= totalPages - 2)
+                          )
                         })
-                        .map(page => (
+                        .map((page) => (
                           <Button
                             key={page}
                             variant={currentPage === page ? "default" : "outline"}
@@ -498,9 +490,7 @@ const fetchData = async () => {
                   <Search className="h-8 w-8 text-muted-foreground" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">No products found</h3>
-                <p className="text-muted-foreground mb-4">
-                  Try adjusting your search or filter criteria
-                </p>
+                <p className="text-muted-foreground mb-4">Try adjusting your search or filter criteria</p>
                 <Button onClick={clearFilters}>Clear Filters</Button>
               </div>
             )}

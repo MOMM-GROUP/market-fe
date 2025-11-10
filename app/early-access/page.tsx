@@ -6,6 +6,16 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Lock, Sparkles, Users, ShoppingBag } from "lucide-react"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Join the Waitlist - MOMM Early Access",
+  description:
+    "Be among the first to experience economic justice through commerce. Join the MOMM waitlist for early access to ethical shopping.",
+  alternates: {
+    canonical: "https://www.momm.group/early-access",
+  },
+}
 
 export default async function EarlyAccessPage() {
   const supabase = await createClient()
