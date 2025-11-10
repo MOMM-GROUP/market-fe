@@ -22,6 +22,9 @@ export function Footer() {
               <Link href="/contact" className="block text-gray-400 hover:text-white transition-colors">
                 Contact
               </Link>
+              <Link href="/blog" className="block text-gray-400 hover:text-white transition-colors">
+                Blog
+              </Link>
             </div>
           </div>
 
