@@ -1,7 +1,7 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: process.env.SITE_URL || "https://www.momm.group",
-  generateRobotsTxt: true, // 
+  generateRobotsTxt: true, 
   generateIndexSitemap: false,
   exclude: [
     "/admin/*",
