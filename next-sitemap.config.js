@@ -36,7 +36,7 @@ module.exports = {
         loc: `${config.siteUrl}${path}`, 
         changefreq: "daily",
         priority: 1.0,
-        lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+        lastmod: currentDate.toISOString(),
       }
     }
 
@@ -46,7 +46,7 @@ module.exports = {
         loc: `${config.siteUrl}${path}`, 
         changefreq: "daily",
         priority: 0.9,
-        lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+        lastmod: currentDate.toISOString(),
       }
     }
 
@@ -56,7 +56,7 @@ module.exports = {
         loc: `${config.siteUrl}${path}`, 
         changefreq: "weekly",
         priority: 0.8,
-        lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+        lastmod: currentDate.toISOString(),
       }
     }
 
@@ -65,7 +65,7 @@ module.exports = {
       loc: `${config.siteUrl}${path}`,  
       changefreq: "weekly",
       priority: 0.7,
-      lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+      lastmod: currentDate.toISOString(),
     }
   },
 }
