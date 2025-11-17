@@ -25,8 +25,9 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "MarketPlace - Multi-Vendor Platform",
-  description: "Your trusted marketplace connecting customers with verified vendors worldwide",
+  title: "MOMM - Ethical Marketplace Where Your Purchases Work For You",
+  description:
+    "Revolutionary multi-vendor marketplace connecting conscious consumers with verified ethical brands. Track boycotts, verify claims, earn profit sharing, and vote with your dollar. Stop funding billionaires, start funding yourself.",
   generator: "v0.app",
 }
 
