@@ -86,7 +86,7 @@ const marketMetrics = {
     details: [
       "Existing marketplaces lack verification",
       "Certification bodies are fragmented",
-      "No AI-powered ethical matching exists",
+      "No ethical matching exists",
       "First to combine all three elements",
     ],
   },
