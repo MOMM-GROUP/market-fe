@@ -68,8 +68,8 @@ export default function HomePageClient({ products, categories, certifications }:
 
   const revolutionaryFeatures = {
     styling: {
-      title: "AI-Powered Personal Styling",
-      description: "Beyond values - find products that match your unique style, body shape, and color season",
+      title: 'Personal Styling',
+      description: 'Beyond values - find products that match your unique style, body shape, and color season',
       icon: Wand2,
       color: "#EC4899",
       bgColor: "#FDF2F8",
