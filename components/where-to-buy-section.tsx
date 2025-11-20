@@ -6,21 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink, ShoppingCart, Store } from "lucide-react"
 import { createBrowserClient } from "@supabase/ssr"
-
-interface ProductLink {
-  id: string
-  platform: string
-  url: string
-  price: number
-  currency: string
-  is_available: boolean
-  last_updated: string
-}
-
-interface WhereToBuySectionProps {
-  productId: string
-  className?: string
-}
+import { ProductLink, WhereToBuySectionProps } from "@/lib/types"
 
 const platformConfig: Record<
   string,

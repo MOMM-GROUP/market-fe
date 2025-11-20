@@ -10,7 +10,7 @@ import { Search, Grid, List, Heart, Star } from "lucide-react"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
-
+import { Product, Category } from "@/lib/types"
 import { AmazonStyleFilters } from "@/components/amazon-style-filters"
 
 export function ProductsPageClient({
@@ -28,34 +28,6 @@ export function ProductsPageClient({
 }) {
   const [products] = useState(initialProducts)
   const [categories] = useState(initialCategories)
-}
-
-interface Product {
-  id: string
-  name: string
-  description: string
-  price: number
-  compare_at_price: number | null
-  featured_image_url: string | null
-  vendor_id: string
-  category_id: string
-  is_active: boolean
-  inventory_quantity: number
-  vendors: {
-    business_name: string
-    is_verified: boolean
-  }
-  categories: {
-    name: string
-    slug: string
-  }
-}
-
-interface Category {
-  id: string
-  name: string
-  slug: string
-  parent_id: string | null
 }
 
 export default function ProductsPage() {
@@ -264,13 +236,18 @@ export default function ProductsPage() {
   }
   useEffect(() => {
     const fetchCategories = async () => {
-      const { data, error } = await supabase.from("categories").select("*").order("name")
+      try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/get-categories-cache`)
 
-      if (error) {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch categories: ${response.status} ${response.statusText}`)
+        }
+
+        const data = await response.json()
+        setCategories(data || [])
+      } catch (error) {
         console.error("Error fetching categories:", error)
         setCategories([])
-      } else {
-        setCategories(data || [])
       }
     }
     fetchCategories()

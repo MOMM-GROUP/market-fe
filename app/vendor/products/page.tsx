@@ -10,21 +10,6 @@ import { Package, Plus, Search, MoreHorizontal, Edit, Eye, Trash2 } from "lucide
 import Link from "next/link"
 import Image from "next/image"
 
-interface Product {
-  id: string
-  name: string
-  description: string
-  price: number
-  compare_at_price: number | null
-  featured_image_url: string | null
-  is_active: boolean
-  inventory_quantity: number
-  created_at: string
-  categories: {
-    name: string
-  }
-}
-
 export default async function VendorProductsPage() {
   const supabase = await createClient()
 
