@@ -264,13 +264,18 @@ export default function ProductsPage() {
   }
   useEffect(() => {
     const fetchCategories = async () => {
-      const { data, error } = await supabase.from("categories").select("*").order("name")
+      try {
+        const response = await fetch("https://ikehkqertouweauixkwo.supabase.co/functions/v1/get-categories-cache")
 
-      if (error) {
+        if (!response.ok) {
+          throw new Error("Failed to fetch categories")
+        }
+
+        const data = await response.json()
+        setCategories(data || [])
+      } catch (error) {
         console.error("Error fetching categories:", error)
         setCategories([])
-      } else {
-        setCategories(data || [])
       }
     }
     fetchCategories()
