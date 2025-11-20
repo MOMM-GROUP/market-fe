@@ -408,7 +408,7 @@ export function AmazonStyleFilters({
       const allCategories = await response.json()
 
       // Find the parent category by slug
-      const parentCategory = allCategories.find((cat: any) => cat.slug === selectedCategory)
+      const parentCategory = allCategories.find((cat: Category) => cat.slug === selectedCategory)
 
       if (!parentCategory) {
         console.error("Parent category not found")
@@ -417,7 +417,7 @@ export function AmazonStyleFilters({
       }
 
       // Filter subcategories by parent ID
-      const subcats = allCategories.filter((cat: any) => cat.parent_id === parentCategory.id)
+      const subcats = allCategories.filter((cat: Category) => cat.parent_id === parentCategory.id)
 
       setSubcategories(subcats || [])
     } catch (error) {

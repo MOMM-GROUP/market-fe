@@ -37,3 +37,9 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# ESLint config (auto-generated)
+eslint.config.mjs
+
+# Package lock files
+package-lock.json
