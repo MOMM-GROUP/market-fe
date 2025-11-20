@@ -399,7 +399,7 @@ export function AmazonStyleFilters({
         return
       }
 
-      const response = await fetch("https://ikehkqertouweauixkwo.supabase.co/functions/v1/get-categories-cache")
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/get-categories-cache`)
 
       if (!response.ok) {
         throw new Error("Failed to fetch categories")
