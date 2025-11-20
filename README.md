@@ -263,3 +263,8 @@ See our [public roadmap](https://github.com/your-org/momm-marketplace/projects/1
 ---
 
 **Built with ❤️ by the MOMM community**
+
+• [Website](https://momm.group) 
+• [Documentation](./docs) 
+• [Contributing](./CONTRIBUTING.md) 
+• [Issues](https://github.com/your-org/momm-marketplace/issues)
