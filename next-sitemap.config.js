@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || "https://www.momm.group",
+  siteUrl: "https://www.momm.group", // Hardcoded with https://
   generateRobotsTxt: true, 
   generateIndexSitemap: false,
   exclude: [
@@ -30,42 +30,40 @@ module.exports = {
     ],
   },
   transform: async (config, path) => {
-    // Homepage gets highest priority
+    const currentDate = new Date();
+    
     if (path === "/") {
       return {
-        loc: `${config.siteUrl}${path}`, 
+        loc: path,
         changefreq: "daily",
         priority: 1.0,
-        lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+        lastmod: currentDate.toISOString(),
       }
     }
-
-    // Main landing pages
+    
     if (path === "/products" || path === "/vendors" || path === "/contributors" || path === "/investors") {
       return {
-        loc: `${config.siteUrl}${path}`, 
+        loc: path,
         changefreq: "daily",
         priority: 0.9,
-        lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+        lastmod: currentDate.toISOString(),
       }
     }
-
-    // Individual product and vendor pages
+    
     if (path.startsWith("/products/") || path.startsWith("/vendors/")) {
       return {
-        loc: `${config.siteUrl}${path}`, 
+        loc: path,
         changefreq: "weekly",
         priority: 0.8,
-        lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+        lastmod: currentDate.toISOString(),
       }
     }
-
-    // Default for all other pages
+    
     return {
-      loc: `${config.siteUrl}${path}`,
+      loc: path,
       changefreq: "weekly",
       priority: 0.7,
-      lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
+      lastmod: currentDate.toISOString(),
     }
   },
 }
