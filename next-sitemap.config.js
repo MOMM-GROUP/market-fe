@@ -62,7 +62,7 @@ module.exports = {
 
     // Default for all other pages
     return {
-      loc: `${config.siteUrl}${path}`,  
+      loc: `${config.siteUrl}${path}`,
       changefreq: "weekly",
       priority: 0.7,
       lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
