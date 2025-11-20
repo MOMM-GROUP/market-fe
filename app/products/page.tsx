@@ -269,6 +269,8 @@ export default function ProductsPage() {
       if (error) {
         console.error("Error fetching categories:", error)
         setCategories([])
+      } else {
+        setCategories(data || [])
       }
     }
     fetchCategories()
