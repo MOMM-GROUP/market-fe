@@ -43,33 +43,33 @@ MOMM (Minority-Owned Marketplace & More) is an open-source platform that empower
 ### Installation
 
 1. **Clone the repository**
-```bash
+\`\`\`bash
    git clone https://github.com/your-org/momm-marketplace.git
    cd momm-marketplace
-```
+\`\`\`
 
 2. **Install dependencies**
-```bash
+\`\`\`bash
    npm install
-```
+\`\`\`
 
 3. **Set up environment variables**
-```bash
+\`\`\`bash
    cp .env.example .env.local
-```
+\`\`\`
    
    Fill in your Supabase credentials:
-```env
+\`\`\`env
    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
    SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
    SITE_URL=http://localhost:3000
-```
+\`\`\`
 
 4. **Run the development server**
-```bash
+\`\`\`bash
    npm run dev
-```
+\`\`\`
 
 5. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
@@ -77,7 +77,7 @@ MOMM (Minority-Owned Marketplace & More) is an open-source platform that empower
 ## 🌳 Git Workflow
 
 We use a three-branch strategy:
-```
+\`\`\`
 ┌─────────────┐
 │   feature   │ ─── Work on new features/fixes
 └──────┬──────┘
@@ -91,7 +91,7 @@ We use a three-branch strategy:
 ┌─────────────┐
 │    main     │ ─── Production (always stable)
 └─────────────┘
-```
+\`\`\`
 
 ### Branch Descriptions
 
@@ -100,7 +100,7 @@ We use a three-branch strategy:
 - **`feature/*`** - Feature branches for active development
 
 ### Working on a Feature
-```bash
+\`\`\`bash
 # 1. Create a feature branch from preview
 git checkout preview
 git pull origin preview
@@ -117,7 +117,7 @@ git push -u origin feature/your-feature-name
 
 # 5. After review and merge, test on staging
 # 6. When ready, create PR: preview → main
-```
+\`\`\`
 
 ## 🤝 Contributing
 
@@ -143,7 +143,7 @@ We love contributions! Here's how to get started:
 ### 3. Commit Conventions
 
 We follow [Conventional Commits](https://www.conventionalcommits.org/):
-```
+\`\`\`
 feat: add new product filter
 fix: resolve checkout bug
 docs: update README
@@ -151,7 +151,7 @@ style: format code with prettier
 refactor: simplify category logic
 test: add product tests
 chore: update dependencies
-```
+\`\`\`
 
 ### 4. Pull Request Guidelines
 
@@ -182,7 +182,7 @@ chore: update dependencies
 - **Styling:** Tailwind CSS utility classes
 
 ## 🧪 Testing
-```bash
+\`\`\`bash
 # Run tests
 npm test
 
@@ -191,17 +191,17 @@ npm run test:watch
 
 # Run E2E tests
 npm run test:e2e
-```
+\`\`\`
 
 ## 📦 Scripts
-```bash
+\`\`\`bash
 npm run dev          # Start development server
 npm run build        # Build for production
 npm run start        # Start production server
 npm run lint         # Run ESLint
 npm run format       # Format code with Prettier
 npm run type-check   # Check TypeScript types
-```
+\`\`\`
 
 ## 🗄️ Database
 

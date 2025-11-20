@@ -5,23 +5,6 @@ import { Button } from "@/components/ui/button"
 import { Star, Heart } from "lucide-react"
 import Image from "next/image"
 
-interface Product {
-  id: string
-  name: string
-  description: string
-  price: number
-  compare_at_price: number | null
-  featured_image_url: string | null
-  vendors: {
-    business_name: string
-    is_verified: boolean
-  }
-  categories: {
-    name: string
-    slug: string
-  }
-}
-
 export default async function DealsPage() {
   const supabase = await createClient()
 

@@ -26,22 +26,7 @@ import { Plus, ExternalLink, MoreHorizontal, Edit, Trash2, ArrowLeft } from "luc
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-
-interface ProductLink {
-  id: string
-  platform: string
-  url: string
-  price: number
-  currency: string
-  is_available: boolean
-  last_updated: string
-}
-
-interface Product {
-  id: string
-  name: string
-  price: number
-}
+import type { Product, ProductLink } from "@/lib/types"
 
 const PLATFORMS = ["Amazon", "eBay", "Walmart", "Target", "Best Buy", "Etsy", "Shopify", "Other"]
 

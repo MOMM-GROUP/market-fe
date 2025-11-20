@@ -8,21 +8,8 @@ import { Badge } from "@/components/ui/badge"
 import { Heart, ShoppingCart } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/context/AuthContext"
+import type { Product} from "@/lib/types"
 
-interface Product {
-  id: string
-  name: string
-  description: string
-  price: number
-  featured_image_url: string | null
-  vendors: {
-    business_name: string
-    is_verified: boolean
-  } | null
-  categories: {
-    name: string
-  } | null
-}
 
 export default function FavoritesPage() {
   const [favorites, setFavorites] = useState<Product[]>([])
