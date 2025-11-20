@@ -402,7 +402,7 @@ export function AmazonStyleFilters({
       const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/get-categories-cache`)
 
       if (!response.ok) {
-        throw new Error("Failed to fetch categories")
+        throw new Error(`Failed to fetch categories: ${response.status} ${response.statusText}`)
       }
 
       const allCategories = await response.json()
