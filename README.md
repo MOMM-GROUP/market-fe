@@ -235,8 +235,6 @@ Found a bug? Please [create an issue](https://github.com/your-org/momm-marketpla
 ## 💬 Community
 
 - **Discord:** [Join our community](https://discord.gg/your-invite)
-- **Twitter:** [@mommgroup](https://twitter.com/mommgroup)
-- **Email:** hello@momm.group
 
 ## 📄 License
 
