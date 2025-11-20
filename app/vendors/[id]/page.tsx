@@ -7,27 +7,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-interface Vendor {
-  id: string
-  business_name: string
-  business_description: string | null
-  business_email: string | null
-  business_phone: string | null
-  business_address: string | null
-  logo_url: string | null
-  is_verified: boolean
-  created_at: string
-}
-
-interface Product {
-  id: string
-  name: string
-  price: number
-  compare_at_price: number | null
-  featured_image_url: string | null
-  inventory_quantity: number
-}
-
 export default async function VendorProfilePage({ params }: { params: { id: string } }) {
   const supabase = await createClient()
 

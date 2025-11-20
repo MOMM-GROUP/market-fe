@@ -21,47 +21,8 @@ import {
 import Link from "next/link"
 import Image from "next/image"
 import { useState } from "react"
+import type { Product, Category, Certification, HomePageClientProps } from "@/lib/types"
 
-interface Product {
-  id: string
-  name: string
-  description: string
-  price: number
-  compare_at_price: number | null
-  featured_image_url: string | null
-  brand: string
-  category_id: string
-  vendor_id: string
-  is_active: boolean
-  vendors: {
-    business_name: string
-    is_verified: boolean
-  }
-  categories: {
-    name: string
-    slug: string
-  }
-}
-
-interface Category {
-  id: string
-  name: string
-  slug: string
-  image_url: string | null
-}
-
-interface Certification {
-  id: string
-  name: string
-  priority: number
-  product_count: number
-}
-
-interface HomePageClientProps {
-  products: Product[]
-  categories: Category[]
-  certifications: Certification[]
-}
 
 export default function HomePageClient({ products, categories, certifications }: HomePageClientProps) {
   const [selectedFeature, setSelectedFeature] = useState("styling")

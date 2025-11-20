@@ -3,9 +3,9 @@ import HomePageClient from "@/components/home-page-client"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "MOMM - Shop Your Values, Own Your Impact | Ethical Marketplace",
+  title: "MOMM - Shop Your Values, Own Your Impact",
   description:
-    "Join the revolutionary marketplace where your purchases work for you. Track boycotts, verify ethical claims, earn profit sharing through the MOMM Vault. Shop from verified vendors who share your values. Stop funding billionaires.",
+    `Track boycotts & political donations,verify ethical claims and earn rewards`,
   alternates: {
     canonical: "https://www.momm.group",
   },

@@ -11,28 +11,6 @@ import { FavoriteButton } from "@/components/favorite-button"
 import { WhereToBuySection } from "@/components/where-to-buy-section"
 import { ProductImageGallery } from "@/components/product-image-gallery"
 
-interface Product {
-  id: string
-  name: string
-  description: string
-  price: number
-  compare_at_price: number | null
-  featured_image_url: string | null
-  vendor_id: string
-  category_id: string
-  is_active: boolean
-  inventory_quantity: number
-  vendors: {
-    business_name: string
-    is_verified: boolean
-    description?: string
-  }
-  categories: {
-    name: string
-    slug: string
-  }
-}
-
 export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const supabase = await createClient()
