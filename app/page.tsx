@@ -5,7 +5,7 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "MOMM - Shop Your Values, Own Your Impact",
   description:
-    "A marketplace where your purchases work for you. Track boycotts, political donations, and profit sharing. Join the movement.",
+    `Track boycotts & political donations,verify ethical claims and earn rewards`,
   alternates: {
     canonical: "https://www.momm.group",
   },
